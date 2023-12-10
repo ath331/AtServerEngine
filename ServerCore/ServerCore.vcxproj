@@ -131,6 +131,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Custom</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -149,6 +150,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <Optimization>Custom</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>

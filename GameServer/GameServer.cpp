@@ -1,4 +1,9 @@
-﻿#include "pch.h"
+﻿////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief GameServer.cpp
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#include "pch.h"
 #include "ThreadManager.h"
 #include "Service.h"
 #include "Session.h"
@@ -17,11 +22,16 @@
 #include "DBSynchronizer.h"
 #include "GenProcedures.h"
 
+
+/// 프로세스 틱 이넘
 enum
 {
 	WORKER_TICK = 64
 };
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief 쓰레드가 동작하는 함수
+////////////////////////////////////////////////////////////////////////////////////////////////////
 void DoWorkerJob( ServerServiceRef& service )
 {
 	while ( true )
@@ -39,11 +49,14 @@ void DoWorkerJob( ServerServiceRef& service )
 	}
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief ServerMain 함수
+////////////////////////////////////////////////////////////////////////////////////////////////////
 int main()
 {
-	// TODO : DB 임시 비활성화 ( taehwan )
-	// ASSERT_CRASH( GDBConnectionPool->Connect( 1, L"Driver={SQL Server Native Client 11.0};Server=(localdb)\\MSSQLLocalDB;Database=ServerDb;Trusted_Connection=Yes;" ) );
-	// 
+	// MySql Server
+	ASSERT_CRASH( GDBConnectionPool->Connect( 1, L"Driver={MySQL ODBC 8.2 UNICODE Driver};Server=127.0.0.1;Port=3306;Database=atserver_game;User=root;Password=!Qhdksxl0212;" ) );
+
 	// DBConnection* dbConn = GDBConnectionPool->Pop();
 	// DBSynchronizer dbSync( *dbConn );
 	// dbSync.Synchronize( L"GameDB.xml" );
@@ -83,10 +96,10 @@ int main()
 
 	ClientPacketHandler::Init();
 
-	ServerServiceRef service = MakeShared<ServerService>(
+	ServerServiceRef service = MakeShared< ServerService >(
 		NetAddress( L"127.0.0.1", 7777 ),
-		MakeShared<IocpCore>(),
-		MakeShared<GameSession>, // TODO : SessionManager 등
+		MakeShared< IocpCore >(),
+		MakeShared< GameSession >, // TODO : SessionManager 등
 		100 );
 
 	ASSERT_CRASH( service->Start() );
