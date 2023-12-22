@@ -16,6 +16,27 @@
     <Filter Include="DB">
       <UniqueIdentifier>{a7ce2e71-39fb-4585-b0a0-5093cfe10b32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{4fd54e81-851d-4311-8f9f-2b3eae977618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\Room">
+      <UniqueIdentifier>{7e650ede-7f21-49e3-b462-f55a1f8db1c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\Actor">
+      <UniqueIdentifier>{71b47fb2-3276-45b0-a82a-dde7833503c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Logic\Actor\Player">
+      <UniqueIdentifier>{bf8c833a-0462-4377-bb39-406df2b039d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet">
+      <UniqueIdentifier>{b143dac0-c3d7-4940-bb85-2ac9022e745a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Packet\Handler">
+      <UniqueIdentifier>{00192b5a-2fc9-4f35-9243-69186fff025a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Session">
+      <UniqueIdentifier>{4461f51f-8ac6-459a-ae5b-ed731c246913}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameServer.cpp">
@@ -23,15 +44,6 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSession.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSessionManager.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
-    <ClCompile Include="ClientPacketHandler.cpp">
-      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Protocol.pb.cc">
       <Filter>Protocol</Filter>
@@ -42,25 +54,28 @@
     <ClCompile Include="Enum.pb.cc">
       <Filter>Protocol</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>GameContents</Filter>
+    <ClCompile Include="Logic\Room\Room.cpp">
+      <Filter>Logic\Room</Filter>
     </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>GameContents</Filter>
+    <ClCompile Include="Logic\Room\RoomManager.cpp">
+      <Filter>Logic\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Actor\Player\Player.cpp">
+      <Filter>Logic\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Session\GameSession.cpp">
+      <Filter>Session</Filter>
+    </ClCompile>
+    <ClCompile Include="Session\GameSessionManager.cpp">
+      <Filter>Session</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSessionManager.h">
-      <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSession.h">
-      <Filter>Main</Filter>
-    </ClInclude>
-    <ClInclude Include="ClientPacketHandler.h">
-      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="Protocol.pb.h">
       <Filter>Protocol</Filter>
@@ -71,14 +86,26 @@
     <ClInclude Include="Enum.pb.h">
       <Filter>Protocol</Filter>
     </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>GameContents</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>GameContents</Filter>
-    </ClInclude>
     <ClInclude Include="GenProcedures.h">
       <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Room\Room.h">
+      <Filter>Logic\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Room\RoomManager.h">
+      <Filter>Logic\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Actor\Player\Player.h">
+      <Filter>Logic\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\ClientPacketHandler.h">
+      <Filter>Packet\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Session\GameSession.h">
+      <Filter>Session</Filter>
+    </ClInclude>
+    <ClInclude Include="Session\GameSessionManager.h">
+      <Filter>Session</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,15 +7,15 @@
 #include "ThreadManager.h"
 #include "Service.h"
 #include "Session.h"
-#include "GameSession.h"
-#include "GameSessionManager.h"
+#include "Session/GameSession.h"
+#include "Session/GameSessionManager.h"
 #include "BufferWriter.h"
 #include "ClientPacketHandler.h"
 #include <tchar.h>
 #include "Protocol.pb.h"
 #include "Job.h"
-#include "Room.h"
-#include "Player.h"
+#include "Logic/Room/Room.h"
+#include "Logic/Actor/Player/Player.h"
 #include "DBConnectionPool.h"
 #include "DBBind.h"
 #include "XmlParser.h"
@@ -63,7 +63,7 @@ int main()
 	ClientPacketHandler::Init();
 
 	ServerServiceRef service = MakeShared< ServerService >(
-		NetAddress( L"127.0.0.1", 7777 ),
+		NetAddress( L"192.168.25.22", 7777 ),
 		MakeShared< IocpCore >(),
 		MakeShared< GameSession >, // TODO : SessionManager 등
 		100 );
