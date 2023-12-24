@@ -2,9 +2,6 @@
 #include "JobQueue.h"
 
 
-class PlayerPtr;
-
-
 class Room : public JobQueue
 {
 public:

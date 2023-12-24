@@ -215,13 +215,16 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Enum.pb.h" />
     <ClInclude Include="GenProcedures.h" />
     <ClInclude Include="Logic\Actor\Player\Player.h" />
+    <ClInclude Include="Logic\Actor\Player\PlayerTypes.h" />
     <ClInclude Include="Logic\Room\Room.h" />
     <ClInclude Include="Logic\Room\RoomManager.h" />
+    <ClInclude Include="Logic\Room\RoomTypes.h" />
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Protocol.pb.h" />
     <ClInclude Include="Session\GameSession.h" />
     <ClInclude Include="Session\GameSessionManager.h" />
+    <ClInclude Include="Session\GameSessionTypes.h" />
     <ClInclude Include="Struct.pb.h" />
   </ItemGroup>
   <ItemGroup>

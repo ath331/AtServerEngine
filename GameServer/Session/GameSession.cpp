@@ -3,6 +3,7 @@
 #include "GameSessionManager.h"
 #include "ClientPacketHandler.h"
 #include "Logic/Room/Room.h"
+#include "Logic/Actor/Player/Player.h"
 
 
 void GameSession::OnConnected()

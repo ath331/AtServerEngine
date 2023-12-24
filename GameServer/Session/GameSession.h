@@ -1,6 +1,5 @@
 #pragma once
 #include "Session.h"
-#include "Logic/Actor/Player/Player.h"
 
 
 class Room;
@@ -23,7 +22,7 @@ public:
 	Vector< PlayerPtr > _players;
 
 	PlayerPtr _currentPlayer;
-	weak_ptr< Room > _room;
+	weak_ptr< Room > _room; 
 };
 
 

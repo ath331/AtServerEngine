@@ -107,6 +107,15 @@
     <ClInclude Include="Session\GameSessionManager.h">
       <Filter>Session</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Actor\Player\PlayerTypes.h">
+      <Filter>Logic\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Room\RoomTypes.h">
+      <Filter>Logic\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Session\GameSessionTypes.h">
+      <Filter>Session</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Common\Protobuf\bin\Enum.proto">
