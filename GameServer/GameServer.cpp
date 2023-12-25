@@ -14,8 +14,6 @@
 #include <tchar.h>
 #include "Protocol.pb.h"
 #include "Job.h"
-#include "Logic/Room/Room.h"
-#include "Logic/Actor/Player/Player.h"
 #include "DBConnectionPool.h"
 #include "DBBind.h"
 #include "XmlParser.h"
