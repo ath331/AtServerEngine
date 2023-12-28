@@ -1,5 +1,6 @@
 #pragma once
 #include "JobQueue.h"
+#include "Logic/Actor/Player/PlayerTypes.h"
 
 
 class Room : public JobQueue

@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Room.h"
+#include "Logic/Actor/Player/Player.h"
+#include "Session/GameSession.h"
 
 
 shared_ptr< Room > GRoom = make_shared< Room >();

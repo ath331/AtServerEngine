@@ -17,8 +17,6 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief Ptr
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//#include "Logic/Actor/Player/PlayerTypes.h"
-//#include "Logic/Room/RoomTypes.h"
-
-using GameSessionPtr = shared_ptr< class GameSession >;
-using PlayerPtr = shared_ptr< class Player >;
+#include "Logic/Actor/Player/PlayerTypes.h"
+#include "Logic/Room/RoomTypes.h"
+#include "Session/GameSessionTypes.h"

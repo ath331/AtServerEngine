@@ -24,6 +24,3 @@ public:
 	PlayerPtr _currentPlayer;
 	weak_ptr< Room > _room; 
 };
-
-
-// using GameSessionPtr = shared_ptr< GameSession >;
