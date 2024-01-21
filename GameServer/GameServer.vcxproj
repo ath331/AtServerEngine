@@ -150,8 +150,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>CALL $(SolutionDir)Common\Protobuf\bin\GenPackets.bat
-CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
+      <Command>CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -174,8 +173,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>CALL $(SolutionDir)Common\Protobuf\bin\GenPackets.bat
-CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
+      <Command>CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
