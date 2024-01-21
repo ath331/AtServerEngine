@@ -10,7 +10,7 @@
 #include "Session/GameSession.h"
 #include "Session/GameSessionManager.h"
 #include "BufferWriter.h"
-#include "ClientPacketHandler.h"
+#include "Packet/Handler/ClientPacketHandler.h"
 #include <tchar.h>
 #include "Protocol.pb.h"
 #include "Job.h"
