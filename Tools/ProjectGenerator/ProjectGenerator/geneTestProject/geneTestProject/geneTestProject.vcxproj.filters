@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="A\A1.h">
+      <Filter>A</Filter>
+    </ClInclude>
+    <ClInclude Include="A\A1.hpp">
+      <Filter>A</Filter>
+    </ClInclude>
+    <ClInclude Include="A\AA\AA1.h">
+      <Filter>A\AA</Filter>
+    </ClInclude>
+    <ClInclude Include="A\AB\AB1.h">
+      <Filter>A\AB</Filter>
+    </ClInclude>
+    <ClInclude Include="A\AC\AC1.h">
+      <Filter>A\AC</Filter>
+    </ClInclude>
+    <ClInclude Include="A\AD\AD.h">
+      <Filter>A\AD</Filter>
+    </ClInclude>
+    <ClInclude Include="B\B1.h">
+      <Filter>B</Filter>
+    </ClInclude>
+    <ClInclude Include="B\BA\BA1.h">
+      <Filter>B\BA</Filter>
+    </ClInclude>
+    <ClInclude Include="B\BB\BB1.h">
+      <Filter>B\BB</Filter>
+    </ClInclude>
+    <ClInclude Include="C\C.h">
+      <Filter>C</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>geneTestProject\geneTestProject</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="A\A1.cpp">
+      <Filter>A</Filter>
+    </ClCompile>
+    <ClCompile Include="A\AA\AA1.cpp">
+      <Filter>A\AA</Filter>
+    </ClCompile>
+    <ClCompile Include="A\AB\AB1.cpp">
+      <Filter>A\AB</Filter>
+    </ClCompile>
+    <ClCompile Include="A\AC\AC1.cpp">
+      <Filter>A\AC</Filter>
+    </ClCompile>
+    <ClCompile Include="A\AD\AD.cpp">
+      <Filter>A\AD</Filter>
+    </ClCompile>
+    <ClCompile Include="B\B1.cpp">
+      <Filter>B</Filter>
+    </ClCompile>
+    <ClCompile Include="B\BA\BA1.cpp">
+      <Filter>B\BA</Filter>
+    </ClCompile>
+    <ClCompile Include="B\BB\BB1.cpp">
+      <Filter>B\BB</Filter>
+    </ClCompile>
+    <ClCompile Include="C\C.cpp">
+      <Filter>C</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>geneTestProject\geneTestProject</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="A">
+    </Filter>
+    <Filter Include="A\AA">
+    </Filter>
+    <Filter Include="A\AB">
+    </Filter>
+    <Filter Include="A\AC">
+    </Filter>
+    <Filter Include="A\AD">
+    </Filter>
+    <Filter Include="B">
+    </Filter>
+    <Filter Include="B\BA">
+    </Filter>
+    <Filter Include="B\BB">
+    </Filter>
+    <Filter Include="C">
+    </Filter>
+  </ItemGroup>
+</Project>
