@@ -86,9 +86,6 @@
     <ClInclude Include="Enum.pb.h">
       <Filter>Protocol</Filter>
     </ClInclude>
-    <ClInclude Include="GenProcedures.h">
-      <Filter>DB</Filter>
-    </ClInclude>
     <ClInclude Include="Logic\Room\Room.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
@@ -116,6 +113,9 @@
     <ClInclude Include="Session\GameSessionTypes.h">
       <Filter>Session</Filter>
     </ClInclude>
+    <ClInclude Include="DB\GenProcedures.h">
+      <Filter>DB</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Common\Protobuf\bin\Enum.proto">
@@ -130,12 +130,12 @@
     <None Include="..\Common\Protobuf\bin\GenPackets.bat">
       <Filter>Protocol</Filter>
     </None>
-    <None Include="..\Common\Procedures\GenPackets.bat">
+    <None Include="..\Common\Procedures\GenProcs.bat">
       <Filter>DB</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="GameDB.xml">
+    <Xml Include="DB\GameDB.xml">
       <Filter>DB</Filter>
     </Xml>
   </ItemGroup>

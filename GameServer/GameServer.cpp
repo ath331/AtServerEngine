@@ -18,7 +18,9 @@
 #include "DBBind.h"
 #include "XmlParser.h"
 #include "DBSynchronizer.h"
-#include "GenProcedures.h"
+
+
+#include "DB/GenProcedures.h"
 
 
 /// 프로세스 틱 이넘
@@ -56,7 +58,7 @@ int main()
 
 	DBConnection* dbConn = GDBConnectionPool->Pop();
 	DBSynchronizer dbSync( *dbConn );
-	dbSync.Synchronize( L"GameDB.xml" );
+	dbSync.Synchronize( L"DB/GameDB.xml" );
 
 	ClientPacketHandler::Init();
 

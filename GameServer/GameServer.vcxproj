@@ -210,8 +210,8 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DB\GenProcedures.h" />
     <ClInclude Include="Enum.pb.h" />
-    <ClInclude Include="GenProcedures.h" />
     <ClInclude Include="Logic\Actor\Player\Player.h" />
     <ClInclude Include="Logic\Actor\Player\PlayerTypes.h" />
     <ClInclude Include="Logic\Room\Room.h" />
@@ -226,7 +226,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Struct.pb.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Common\Procedures\GenPackets.bat" />
+    <None Include="..\Common\Procedures\GenProcs.bat" />
     <None Include="..\Common\Protobuf\bin\Enum.proto" />
     <None Include="..\Common\Protobuf\bin\GenPackets.bat" />
     <None Include="..\Common\Protobuf\bin\Protocol.proto" />
@@ -239,7 +239,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <UpToDateCheckInput Include="GameDB.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="GameDB.xml" />
+    <Xml Include="DB\GameDB.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
