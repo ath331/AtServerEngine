@@ -252,6 +252,22 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 							<< "    <ClInclude Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\" />" << std::endl;
 						}
 					}
+					else if ( filePathIter.first == FILE_TYPE::Proto || filePathIter.first == FILE_TYPE::Bat )
+					{
+						for ( const auto& filePath : filePathIter.second )
+						{
+							fos
+								<< "    <None Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\" />" << std::endl;
+						}
+					}
+					else if ( filePathIter.first == FILE_TYPE::Xml )
+					{
+						for ( const auto& filePath : filePathIter.second )
+						{
+							fos
+								<< "    <Xml Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\" />" << std::endl;
+						}
+					}
 					else
 					{
 						for ( const auto& filePath : filePathIter.second )
