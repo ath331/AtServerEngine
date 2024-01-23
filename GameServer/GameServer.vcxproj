@@ -183,7 +183,6 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Room\Room.h" />
     <ClInclude Include="Logic\Room\RoomManager.h" />
     <ClInclude Include="Logic\Room\RoomTypes.h" />
-    <ClInclude Include="Logic\Test\Test.h" />
     <ClInclude Include="Packet\Enum.pb.h" />
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h" />
     <ClInclude Include="Packet\Protocol.pb.h" />
@@ -198,7 +197,6 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Logic\Actor\Player\Player.cpp" />
     <ClCompile Include="Logic\Room\Room.cpp" />
     <ClCompile Include="Logic\Room\RoomManager.cpp" />
-    <ClCompile Include="Logic\Test\Test.cpp" />
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

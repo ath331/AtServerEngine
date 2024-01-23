@@ -19,9 +19,6 @@
     <ClInclude Include="Logic\Room\RoomTypes.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
-    <ClInclude Include="Logic\Test\Test.h">
-      <Filter>Logic\Test</Filter>
-    </ClInclude>
     <ClInclude Include="Packet\Enum.pb.h">
       <Filter>Packet</Filter>
     </ClInclude>
@@ -59,9 +56,6 @@
     </ClCompile>
     <ClCompile Include="Logic\Room\RoomManager.cpp">
       <Filter>Logic\Room</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic\Test\Test.cpp">
-      <Filter>Logic\Test</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp">
       <Filter>Packet\Handler</Filter>
@@ -104,8 +98,6 @@
     <Filter Include="Logic\Actor\Player">
     </Filter>
     <Filter Include="Logic\Room">
-    </Filter>
-    <Filter Include="Logic\Test">
     </Filter>
     <Filter Include="Packet">
     </Filter>
