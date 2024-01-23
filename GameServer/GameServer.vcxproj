@@ -177,53 +177,38 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Enum.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="Logic\Actor\Player\Player.cpp" />
     <ClCompile Include="Logic\Room\Room.cpp" />
     <ClCompile Include="Logic\Room\RoomManager.cpp" />
+    <ClCompile Include="Packet\Enum.pb.cc" />
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp" />
+    <ClCompile Include="Packet\Protocol.pb.cc" />
+    <ClCompile Include="Packet\Struct.pb.cc" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Protocol.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="Session\GameSession.cpp" />
     <ClCompile Include="Session\GameSessionManager.cpp" />
-    <ClCompile Include="Struct.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DB\GenProcedures.h" />
-    <ClInclude Include="Enum.pb.h" />
     <ClInclude Include="Logic\Actor\Player\Player.h" />
     <ClInclude Include="Logic\Actor\Player\PlayerTypes.h" />
     <ClInclude Include="Logic\Room\Room.h" />
     <ClInclude Include="Logic\Room\RoomManager.h" />
     <ClInclude Include="Logic\Room\RoomTypes.h" />
+    <ClInclude Include="Packet\Enum.pb.h" />
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h" />
+    <ClInclude Include="Packet\Protocol.pb.h" />
+    <ClInclude Include="Packet\Struct.pb.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Protocol.pb.h" />
     <ClInclude Include="Session\GameSession.h" />
     <ClInclude Include="Session\GameSessionManager.h" />
     <ClInclude Include="Session\GameSessionTypes.h" />
-    <ClInclude Include="Struct.pb.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Common\Procedures\GenProcs.bat" />

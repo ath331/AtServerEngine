@@ -10,9 +10,7 @@
 #include "Session/GameSession.h"
 #include "Session/GameSessionManager.h"
 #include "BufferWriter.h"
-#include "Packet/Handler/ClientPacketHandler.h"
 #include <tchar.h>
-#include "Protocol.pb.h"
 #include "Job.h"
 #include "DBConnectionPool.h"
 #include "DBBind.h"
@@ -21,6 +19,10 @@
 
 
 #include "DB/GenProcedures.h"
+
+
+#include "Packet/Handler/ClientPacketHandler.h"
+#include "Packet/Protocol.pb.h"
 
 
 /// 프로세스 틱 이넘

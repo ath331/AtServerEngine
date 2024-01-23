@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../Enum.pb.h"
+#include "../../../Packet/Enum.pb.h"
 
 
 class Player

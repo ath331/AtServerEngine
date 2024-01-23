@@ -45,15 +45,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Protocol.pb.cc">
-      <Filter>Protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="Struct.pb.cc">
-      <Filter>Protocol</Filter>
-    </ClCompile>
-    <ClCompile Include="Enum.pb.cc">
-      <Filter>Protocol</Filter>
-    </ClCompile>
     <ClCompile Include="Logic\Room\Room.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
@@ -72,19 +63,19 @@
     <ClCompile Include="Session\GameSessionManager.cpp">
       <Filter>Session</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Enum.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Protocol.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Struct.pb.cc">
+      <Filter>Protocol</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Protocol.pb.h">
-      <Filter>Protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="Struct.pb.h">
-      <Filter>Protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="Enum.pb.h">
-      <Filter>Protocol</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Room\Room.h">
       <Filter>Logic\Room</Filter>
@@ -116,6 +107,15 @@
     <ClInclude Include="DB\GenProcedures.h">
       <Filter>DB</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Enum.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Protocol.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Struct.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Common\Protobuf\bin\Enum.proto">
@@ -127,11 +127,11 @@
     <None Include="..\Common\Protobuf\bin\Struct.proto">
       <Filter>Protocol</Filter>
     </None>
-    <None Include="..\Common\Protobuf\bin\GenPackets.bat">
-      <Filter>Protocol</Filter>
-    </None>
     <None Include="..\Common\Procedures\GenProcs.bat">
       <Filter>DB</Filter>
+    </None>
+    <None Include="..\Common\Protobuf\bin\GenPackets.bat">
+      <Filter>Protocol</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
