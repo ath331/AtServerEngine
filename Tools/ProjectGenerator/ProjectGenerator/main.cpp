@@ -30,7 +30,16 @@
 
 #endif
 
-enum class FILE_TYPE { Header, Source };
+enum class FILE_TYPE 
+{ 
+	Header,  // .h, .hpp
+	Source,  // .cpp
+	Xml,     // .xml
+	Cc,      // .cc
+	Proto,   // .proto
+	Bat,     // .bat
+};
+
 using PathCont = std::vector< std::filesystem::path >;
 
 void Log( const std::string& logStr, const bool isTerminate = true )
@@ -115,7 +124,7 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 	PathCont                        directoryPathCont; // 해당 경로에 존재하는 모든 디렉토리 경로 모음
 	std::map< FILE_TYPE, PathCont > filePathCont;      // 해당 경로에 존재하는 모든 파일 경로 -모음
 
-	// 해당 경로에 존재하는, 모든 폴더들을 필터로 제작하고, 파일들중 .h, .cpp, .hpp 파일들의 모든 경로를 임포트한다.
+	// 해당 경로에 존재하는, 모든 폴더들을 필터로 제작하고, 파일들의 모든 경로를 임포트한다.
 	{
 		for ( const auto& pathIter : std::filesystem::recursive_directory_iterator( rootPath ) ) 
 		{
@@ -134,6 +143,22 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 				else if ( pathIter.path().extension().generic_string() == ".cpp" )
 				{
 					filePathCont[ FILE_TYPE::Source ].emplace_back( pathIter.path() );
+				}
+				else if ( pathIter.path().extension().generic_string() == ".xml" )
+				{
+					filePathCont[ FILE_TYPE::Xml ].emplace_back( pathIter.path() );
+				}
+				else if ( pathIter.path().extension().generic_string() == ".cc" )
+				{
+					filePathCont[ FILE_TYPE::Cc ].emplace_back( pathIter.path() );
+				}
+				else if ( pathIter.path().extension().generic_string() == ".proto" )
+				{
+					filePathCont[ FILE_TYPE::Proto ].emplace_back( pathIter.path() );
+				}
+				else if ( pathIter.path().extension().generic_string() == ".bat" )
+				{
+					filePathCont[ FILE_TYPE::Bat ].emplace_back( pathIter.path() );
 				}
 			}
 		}
@@ -312,7 +337,6 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 			{
 				for ( const auto& filePathIter : filePathCont )
 				{
-
 					fos
 						<< itemgroupHeadString << std::endl;
 					
@@ -326,13 +350,29 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 								<< "      <Filter>" << FAR( filePath.parent_path().generic_string() ) << "</Filter>" << std::endl
 								<< "    </ClInclude>" << std::endl;
 						}
-						if ( filePathIter.first == FILE_TYPE::Source )
+						else if ( filePathIter.first == FILE_TYPE::Source || filePathIter.first == FILE_TYPE::Cc )
 						{
 							// .cpp
 							fos
 								<< "    <ClCompile Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\">" << std::endl
 								<< "      <Filter>" << FAR( filePath.parent_path().generic_string() ) << "</Filter>" << std::endl
 								<< "    </ClCompile>" << std::endl;
+						}
+						else if ( filePathIter.first == FILE_TYPE::Xml )
+						{
+							// .xml
+							fos
+								<< "    <Xml Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\">" << std::endl
+								<< "      <Filter>" << FAR( filePath.parent_path().generic_string() ) << "</Filter>" << std::endl
+								<< "    </Xml>" << std::endl;
+						}
+						else if ( filePathIter.first == FILE_TYPE::Proto || filePathIter.first == FILE_TYPE::Bat )
+						{
+							// .proto
+							fos
+								<< "    <None Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\">" << std::endl
+								<< "      <Filter>" << FAR( filePath.parent_path().generic_string() ) << "</Filter>" << std::endl
+								<< "    </None>" << std::endl;
 						}
 					}
 
