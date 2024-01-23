@@ -5,7 +5,7 @@
 */
 
 /*
-	#0. VS2019의 프로젝트 파일, 프로젝트 필터파일에 대하여 현재 디렉토리 구조에 맞게 재생산해주는 툴입니다.
+	#0. VS2022의 프로젝트 파일, 프로젝트 필터파일에 대하여 현재 디렉토리 구조에 맞게 재생산해주는 툴입니다.
 
 	!0. 프로젝트가 있는 경로를 첫번째 명령 인수로 전달해줘야합니다. ( 프로젝트와 필터가 있어야 만들 수 있습니다. )
 	!1. 프로젝트가 있는 경로에 프로젝트 파일(.vcxproj)이 하나라면 추가 명령 인수가 필요없습니다.
@@ -40,7 +40,13 @@ enum class FILE_TYPE
 	Bat,     // .bat
 };
 
+
 using PathCont = std::vector< std::filesystem::path >;
+
+
+/// 프로젝트에서 pch.cpp의 하위 문자열을 저장하기 위한 컨테이너
+std::list< std::string > g_pchCpp;
+
 
 void Log( const std::string& logStr, const bool isTerminate = true )
 {
@@ -81,7 +87,8 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 		{
 			if ( argc < 2 ) 
 			{
-				argv[ 1 ] = (char *)("geneTestProject/geneTestProject/");
+				//argv[ 1 ] = (char *)("geneTestProject/geneTestProject/");
+				argv[ 1 ] = (char *)("../../../GameServer/");
 				//argv[ 2 ] = (char *)("geneTestProject"); 
 				//argc = 3;
 				Log( "주어진 명령형 인수가 없어, 하드 코딩된 default 경로를 사용하였습니다.", false );
@@ -189,6 +196,21 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 				// 한줄씩 읽어 처리한다.
 				std::getline( projectFileStream, lineBuffer );
 
+				// Pch.cpp의 정보는 따로 저장하기
+				{
+					if ( lineBuffer.find( "pch.cpp" ) != std::string::npos )
+					{
+						while ( true )
+						{
+							std::getline( projectFileStream, lineBuffer );
+							if ( lineBuffer == "    </ClCompile>" )
+								break;
+
+							g_pchCpp.push_back( lineBuffer );
+						}
+					}
+				}
+
 				if ( readState == READ_STATE::Before )
 				{
 					if ( itemgroupHeadString == lineBuffer )
@@ -249,7 +271,7 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 						for ( const auto& filePath : filePathIter.second )
 						{
 							fos
-							<< "    <ClInclude Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\" />" << std::endl;
+								<< "    <ClInclude Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\" />" << std::endl;
 						}
 					}
 					else if ( filePathIter.first == FILE_TYPE::Proto || filePathIter.first == FILE_TYPE::Bat )
@@ -272,8 +294,28 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 					{
 						for ( const auto& filePath : filePathIter.second )
 						{
-							fos
-							<< "    <ClCompile Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\" />" << std::endl;
+							std::string name = FAR( filePath.relative_path().generic_string() );
+
+							// pch.pp는 기존의 하위 스트리까지 저장
+							if ( name == "pch.cpp" )
+							{
+								fos
+									<< "    <ClCompile Include=\"" << name << "\">" << std::endl;
+
+								for ( const auto& pchCppString : g_pchCpp )
+								{
+									fos
+										<< pchCppString << std::endl;
+								}
+
+								fos
+									<< "    </ClCompile>" << std::endl;
+							}
+							else
+							{
+								fos
+									<< "    <ClCompile Include=\"" << name << "\" />" << std::endl;
+							}
 						}
 					}
 
