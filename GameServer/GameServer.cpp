@@ -83,7 +83,17 @@ int main()
 	}
 
 	// Main Thread
-	DoWorkerJob( service );
+	// DoWorkerJob( service );
+
+	while ( true )
+	{
+		Protocol::S_CHAT pktChat;
+		pktChat.set_msg( "HelloWorld" );
+		auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pktChat );
+
+		GSessionManager.Broadcast( sendBuffer );
+		this_thread::sleep_for( 3s );
+	}
 
 	GThreadManager->Join();
 }
