@@ -1,6 +1,8 @@
 #pragma once
 #include "Packet/Protocol.pb.h"
 
+// 핸들러 파일 분리하기!
+
 using PacketHandlerFunc = std::function<bool(PacketSessionRef&, BYTE*, int32)>;
 extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
