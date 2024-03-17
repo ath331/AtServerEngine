@@ -31,6 +31,7 @@ enum
 	WORKER_TICK = 64
 };
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief 쓰레드가 동작하는 함수
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,15 +86,15 @@ int main()
 	// Main Thread
 	// DoWorkerJob( service );
 
-	while ( true )
-	{
-		Protocol::S_CHAT pktChat;
-		pktChat.set_msg( "HelloWorld" );
-		auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pktChat );
-
-		GSessionManager.Broadcast( sendBuffer );
-		this_thread::sleep_for( 3s );
-	}
+	 while ( true )
+	 {
+	 	Protocol::S_CHAT pktChat;
+	 	pktChat.set_msg( "HelloWorld" );
+	 	auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pktChat );
+	 
+	 	GSessionManager.Broadcast( sendBuffer );
+	 	this_thread::sleep_for( 3s );
+	 }
 
 	GThreadManager->Join();
 }

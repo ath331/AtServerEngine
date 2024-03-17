@@ -3,7 +3,7 @@
 #include "Service.h"
 #include "Session.h"
 #include "BufferReader.h"
-#include "ServerPacketHandler.h"
+#include "Packet/Handler/ServerPacketHandler.h"
 
 char sendData[] = "Hello World";
 
@@ -49,7 +49,7 @@ int main()
 	this_thread::sleep_for(1s);
 
 	ClientServiceRef service = MakeShared<ClientService>(
-		NetAddress(L"127.0.0.1", 7777),
+		NetAddress(L"192.168.25.22", 7777),
 		MakeShared<IocpCore>(),
 		MakeShared<ServerSession>, // TODO : SessionManager 등
 		500);

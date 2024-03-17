@@ -11,7 +11,11 @@
 #endif
 
 #include "CorePch.h"
-// #include "Enum.pb.h"
+
+
+//#include "Packet/Enum.pb.h"
+//#include "Packet/Protocol.pb.h"
+//#include "Packet/Struct.pb.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
