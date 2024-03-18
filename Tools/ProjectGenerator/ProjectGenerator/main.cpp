@@ -290,6 +290,18 @@ int main( int argc, char *argv[] /* 1. 프로젝트 파일이 존재하는 경로 */ )
 								<< "    <Xml Include=\"" << FAR( filePath.relative_path().generic_string() ) << "\" />" << std::endl;
 						}
 					}
+					else if ( filePathIter.first == FILE_TYPE::Cc )
+					{
+						for ( const auto& filePath : filePathIter.second )
+						{
+							std::string name = FAR( filePath.relative_path().generic_string() );
+
+							fos << "    <ClCompile Include=\"" << name << "\">" << std::endl;
+							fos << "        <PrecompiledHeader Condition=\"'$(Configuration)|$(Platform)' == 'Debug|x64'\">NotUsing</PrecompiledHeader>" << std::endl;
+							fos << "        <PrecompiledHeader Condition=\"'$(Configuration)|$(Platform)' == 'Release|x64'\">NotUsing</PrecompiledHeader>" << std::endl;
+							fos << "    </ClCompile>" << std::endl;
+						}
+					}
 					else
 					{
 						for ( const auto& filePath : filePathIter.second )

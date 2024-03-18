@@ -87,17 +87,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Packet\Enum.proto">
-      <Filter>Packet</Filter>
-    </None>
-    <None Include="Packet\Protocol.proto">
-      <Filter>Packet</Filter>
-    </None>
-    <None Include="Packet\Struct.proto">
-      <Filter>Packet</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="DB">
     </Filter>
     <Filter Include="Debug">
