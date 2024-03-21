@@ -7,7 +7,7 @@
 #include "ServerPacketHandler.h"
 
 
-bool Handle_{{pkt.name}}(PacketSessionRef& session, Protocol::{{pkt.name}}& pkt)
+bool Handle_{{pkt.name}}Template( PacketSessionRef& session, Protocol::{{pkt.name}}& pkt )
 {
 	return true;
 }

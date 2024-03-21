@@ -32,10 +32,10 @@ def main():
 	# Each RecvPacket Handler Make
 	if args.isRecvHandler:
 		for index, recvPacket in enumerate(parser.recv_pkt):
-			recvPacketHandlerTemplate = env.get_template('ClientPacketHandler.h')
+			recvPacketHandlerTemplate = env.get_template('ClientPacketHandlerTemplate.h')
 			eachHandler = recvPacketHandlerTemplate.render(pkt=recvPacket, output=args.recvHandlerPath)
 
-			f = open(args.recvHandlerPath + '/' + recvPacket.name  +'Handler.cpp', 'w+')
+			f = open(args.recvHandlerPath + '/' + recvPacket.name  +'HandlerTemplate.cpp', 'w+')
 			f.write(eachHandler)
 			f.close()
 
@@ -45,10 +45,10 @@ def main():
 	if args.isRecvHandler == False:
 		# sendPacket. but for-each recv_pkt list. ( client and server change )
 		for index, sendPacket in enumerate(parser.recv_pkt):
-			sendPacketHandlerTemplate = env.get_template('ServerPacketHandler.h')
+			sendPacketHandlerTemplate = env.get_template('ServerPacketHandlerTemplate.h')
 			eachHandler = sendPacketHandlerTemplate.render(pkt=sendPacket, output=args.sendHandlerPath)
 
-			f = open(args.sendHandlerPath + '/' + sendPacket.name  +'Handler.cpp', 'w+')
+			f = open(args.sendHandlerPath + '/' + sendPacket.name  +'HandlerTemplate.cpp', 'w+')
 			f.write(eachHandler)
 			f.close()
 

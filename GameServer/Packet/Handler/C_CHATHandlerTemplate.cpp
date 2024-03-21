@@ -7,7 +7,7 @@
 #include "ClientPacketHandler.h"
 
 
-bool Handle_{{pkt.name}}(PacketSessionRef& session, Protocol::{{pkt.name}}& pkt)
+bool Handle_C_CHATTemplate( PacketSessionRef& session, Protocol::C_CHAT& pkt )
 {
 	return true;
 }

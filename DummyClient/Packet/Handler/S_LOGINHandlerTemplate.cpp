@@ -7,7 +7,7 @@
 #include "ServerPacketHandler.h"
 
 
-bool Handle_S_CHAT(PacketSessionRef& session, Protocol::S_CHAT& pkt)
+bool Handle_S_LOGINTemplate( PacketSessionRef& session, Protocol::S_LOGIN& pkt )
 {
 	return true;
 }

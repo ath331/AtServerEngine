@@ -7,7 +7,7 @@
 #include "ClientPacketHandler.h"
 
 
-bool Handle_C_LOGIN(PacketSessionRef& session, Protocol::C_LOGIN& pkt)
+bool Handle_{{pkt.name}}Template( PacketSessionRef& session, Protocol::{{pkt.name}}& pkt )
 {
 	return true;
 }

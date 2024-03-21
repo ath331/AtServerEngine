@@ -60,10 +60,10 @@
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
-    <ClCompile Include="Packet\Handler\C_CHATHandler.cpp">
+    <ClCompile Include="Packet\Handler\C_CHATHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
-    <ClCompile Include="Packet\Handler\C_LOGINHandler.cpp">
+    <ClCompile Include="Packet\Handler\C_LOGINHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
