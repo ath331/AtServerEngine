@@ -19,18 +19,19 @@ class ProtoParser():
 
 			pkt_name = line.split()[1].upper()
 			if pkt_name.startswith(self.recv_prefix):
-				self.recv_pkt.append(Packet(pkt_name, self.id))
+				self.recv_pkt.append(Packet("", pkt_name, self.id))
 			elif pkt_name.startswith(self.send_prefix):
-				self.send_pkt.append(Packet(pkt_name, self.id))
+				self.send_pkt.append(Packet("", pkt_name, self.id))
 			else:
 				continue
 
-			self.total_pkt.append(Packet(pkt_name, self.id))
+			self.total_pkt.append(Packet("", pkt_name, self.id))
 			self.id += 1
 
 		f.close()
 
 class Packet:
-	def __init__(self, name, id):
+	def __init__(self, path, name, id):
+		self.path = path
 		self.name = name
 		self.id = id

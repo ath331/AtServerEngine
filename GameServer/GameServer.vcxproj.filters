@@ -60,6 +60,12 @@
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_CHATHandler.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\C_LOGINHandler.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>..\..\..\GameServer</Filter>
     </ClCompile>
