@@ -1,17 +1,28 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif Server use handler. !!Auto Make File!!
+// @breif C_CHATHandler class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #include "pch.h"
-#include "ClientPacketHandler.h"
 #include "C_CHATHandler.h"
+#include "ClientPacketHandler.h"
+#include "Logic/Room/Room.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-bool Handle_C_CHATTemplate( PacketSessionRef& session, Protocol::C_CHAT& pkt )
+AtBool C_CHATHandler::Handle( PacketSessionRef& session, Protocol::C_CHAT& pkt )
 {
-	return C_CHATHandler::Handle( session, pkt );
+	std::cout << pkt.msg() << endl;
+
+	Protocol::S_CHAT chatPkt;
+	chatPkt.set_msg( pkt.msg() );
+	auto sendBuffer = ClientPacketHandler::MakeSendBuffer( chatPkt );
+
+	GRoom->DoAsync( &Room::Broadcast, sendBuffer );
+
+	return true;
+
+	return true;
 }

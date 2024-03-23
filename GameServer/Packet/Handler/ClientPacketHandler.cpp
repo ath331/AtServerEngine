@@ -8,9 +8,6 @@
 PacketHandlerFunc GPacketHandler[ UINT16_MAX ];
 
 
-// Á÷Á¢ ÄÁÅÙÃ÷ ÀÛ¾÷ÀÚ
-
-
 bool Handle_INVALID( PacketSessionRef& session, BYTE* buffer, int32 len )
 {
 	PacketHeader* header = reinterpret_cast<PacketHeader*>( buffer );
@@ -37,16 +34,3 @@ bool Handle_INVALID( PacketSessionRef& session, BYTE* buffer, int32 len )
 //
 //	return true;
 //}
-
-// bool Handle_C_CHAT( PacketSessionRef& session, Protocol::C_CHAT& pkt )
-// {
-// 	std::cout << pkt.msg() << endl;
-// 
-// 	Protocol::S_CHAT chatPkt;
-// 	chatPkt.set_msg( pkt.msg() );
-// 	auto sendBuffer = ClientPacketHandler::MakeSendBuffer( chatPkt );
-// 
-// 	GRoom->DoAsync( &Room::Broadcast, sendBuffer );
-// 
-// 	return true;
-// }

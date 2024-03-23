@@ -25,6 +25,12 @@
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h">
       <Filter>Packet\Handler</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\C_CHATHandler.h">
+      <Filter>Packet\Handler</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\C_LOGINHandler.h">
+      <Filter>Packet\Handler</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Protocol.pb.h">
       <Filter>Packet</Filter>
     </ClInclude>
@@ -60,7 +66,13 @@
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_CHATHandler.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\C_CHATHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\C_LOGINHandler.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\C_LOGINHandlerTemplate.cpp">
