@@ -5,7 +5,7 @@
 
 #include "pch.h"
 #include "ClientPacketHandler.h"
-#include "{{pkt.name}}Handler.h"
+#include "{{pkt.path}}/{{pkt.name}}Handler.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

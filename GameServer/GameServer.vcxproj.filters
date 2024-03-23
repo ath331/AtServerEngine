@@ -22,14 +22,14 @@
     <ClInclude Include="Packet\Enum.pb.h">
       <Filter>Packet</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\Chat\C_CHATHandler.h">
+      <Filter>Packet\Handler\Chat</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h">
       <Filter>Packet\Handler</Filter>
     </ClInclude>
-    <ClInclude Include="Packet\Handler\C_CHATHandler.h">
-      <Filter>Packet\Handler</Filter>
-    </ClInclude>
-    <ClInclude Include="Packet\Handler\C_LOGINHandler.h">
-      <Filter>Packet\Handler</Filter>
+    <ClInclude Include="Packet\Handler\Login\C_LOGINHandler.h">
+      <Filter>Packet\Handler\Login</Filter>
     </ClInclude>
     <ClInclude Include="Packet\Protocol.pb.h">
       <Filter>Packet</Filter>
@@ -63,20 +63,20 @@
     <ClCompile Include="Logic\Room\RoomManager.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
-    <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp">
-      <Filter>Packet\Handler</Filter>
+    <ClCompile Include="Packet\Handler\Chat\C_CHATHandler.cpp">
+      <Filter>Packet\Handler\Chat</Filter>
     </ClCompile>
-    <ClCompile Include="Packet\Handler\C_CHATHandler.cpp">
+    <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\C_CHATHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
-    <ClCompile Include="Packet\Handler\C_LOGINHandler.cpp">
-      <Filter>Packet\Handler</Filter>
-    </ClCompile>
     <ClCompile Include="Packet\Handler\C_LOGINHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Login\C_LOGINHandler.cpp">
+      <Filter>Packet\Handler\Login</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>..\..\..\GameServer</Filter>
@@ -120,6 +120,10 @@
     <Filter Include="Packet">
     </Filter>
     <Filter Include="Packet\Handler">
+    </Filter>
+    <Filter Include="Packet\Handler\Chat">
+    </Filter>
+    <Filter Include="Packet\Handler\Login">
     </Filter>
     <Filter Include="Session">
     </Filter>

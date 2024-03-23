@@ -45,12 +45,18 @@ def main():
 			print(eachHandler)
 
 
+			# Make Dictory ( isNoHave )
+			path = args.recvHandlerPath + '/'+ recvPacket.path
+			if not os.path.exists(path):
+				os.makedirs(path)
+
+
 			# Make Handler.h ( isNoHave )
 			recvPacketHandlerHeader = env.get_template('ClientPacketHandler.h')
 			eachHandler = recvPacketHandlerHeader.render(pkt=recvPacket, output=args.recvHandlerPath)
 
 			if not os.path.exists(args.recvHandlerPath + '/' + recvPacket.name  +'Handler.h'):
-				f = open(args.recvHandlerPath + '/' + recvPacket.name  +'Handler.h', 'w+')
+				f = open(path + '/' + recvPacket.name  +'Handler.h', 'w+')
 				f.write(eachHandler)
 				f.close()
 
@@ -62,7 +68,7 @@ def main():
 			eachHandler = recvPacketHandlerCPP.render(pkt=recvPacket, output=args.recvHandlerPath)
 
 			if not os.path.exists(args.recvHandlerPath + '/' + recvPacket.name  +'Handler.cpp'):
-				f = open(args.recvHandlerPath + '/' + recvPacket.name  +'Handler.cpp', 'w+')
+				f = open(path + '/' + recvPacket.name  +'Handler.cpp', 'w+')
 				f.write(eachHandler)
 				f.close()
 
@@ -84,12 +90,18 @@ def main():
 			print(eachHandler)
 
 
+			# MakeDictory ( isNoHave )
+			path = args.sendHandlerPath + '/'+ sendPacket.path
+			if not os.path.exists(path):
+				os.makedirs(path)
+
+
 			# Make Handler.h ( isNoHave )
 			sendPacketHandlerHeader = env.get_template('ServerPacketHandler.h')
 			eachHandler = sendPacketHandlerHeader.render(pkt=sendPacket, output=args.sendHandlerPath)
 
 			if not os.path.exists(args.sendHandlerPath + '/' + sendPacket.name  +'Handler.h'):
-				f = open(args.sendHandlerPath + '/' + sendPacket.name  +'Handler.h', 'w+')
+				f = open(path + '/' + sendPacket.name  +'Handler.h', 'w+')
 				f.write(eachHandler)
 				f.close()
 
@@ -101,7 +113,7 @@ def main():
 			eachHandler = sendPacketHandlerHeader.render(pkt=sendPacket, output=args.sendHandlerPath)
 
 			if not os.path.exists(args.sendHandlerPath + '/' + sendPacket.name  +'Handler.cpp'):
-				f = open(args.sendHandlerPath + '/' + sendPacket.name  +'Handler.cpp', 'w+')
+				f = open(path + '/' + sendPacket.name  +'Handler.cpp', 'w+')
 				f.write(eachHandler)
 				f.close()
 

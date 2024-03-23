@@ -18,14 +18,15 @@ class ProtoParser():
 				continue
 
 			pkt_name = line.split()[1].upper()
+			pkt_path = line.split()[2]
 			if pkt_name.startswith(self.recv_prefix):
-				self.recv_pkt.append(Packet("", pkt_name, self.id))
+				self.recv_pkt.append(Packet(pkt_path, pkt_name, self.id))
 			elif pkt_name.startswith(self.send_prefix):
-				self.send_pkt.append(Packet("", pkt_name, self.id))
+				self.send_pkt.append(Packet(pkt_path, pkt_name, self.id))
 			else:
 				continue
 
-			self.total_pkt.append(Packet("", pkt_name, self.id))
+			self.total_pkt.append(Packet(pkt_path, pkt_name, self.id))
 			self.id += 1
 
 		f.close()
