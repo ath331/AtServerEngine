@@ -1,0 +1,36 @@
+syntax = "proto3";
+package Protocol;
+
+
+import "Enum.proto";
+import "Struct.proto";
+
+
+message C_Login Login
+{
+}
+
+message S_Login Login
+{
+	bool success = 1;
+	repeated Player players = 2;
+}
+
+message C_Chat Chat
+{
+	string msg = 1;
+}
+
+message S_Chat Chat
+{
+	uint64 playerId = 1;
+	string msg = 2;
+}
+
+message C_TEST Test
+{
+}
+
+message S_TEST Test
+{
+}

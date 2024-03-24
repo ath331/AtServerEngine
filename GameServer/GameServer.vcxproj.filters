@@ -31,6 +31,9 @@
     <ClInclude Include="Packet\Handler\Login\C_LOGINHandler.h">
       <Filter>Packet\Handler\Login</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\Test\C_TESTHandler.h">
+      <Filter>Packet\Handler\Test</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Protocol.pb.h">
       <Filter>Packet</Filter>
     </ClInclude>
@@ -75,8 +78,14 @@
     <ClCompile Include="Packet\Handler\C_LOGINHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_TESTHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\Login\C_LOGINHandler.cpp">
       <Filter>Packet\Handler\Login</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Test\C_TESTHandler.cpp">
+      <Filter>Packet\Handler\Test</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>..\..\..\GameServer</Filter>
@@ -105,6 +114,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Packet\Enum.proto">
+      <Filter>Packet</Filter>
+    </None>
+    <None Include="Packet\Protocol.proto">
+      <Filter>Packet</Filter>
+    </None>
+    <None Include="Packet\Struct.proto">
+      <Filter>Packet</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Filter Include="DB">
     </Filter>
     <Filter Include="Debug">
@@ -124,6 +144,8 @@
     <Filter Include="Packet\Handler\Chat">
     </Filter>
     <Filter Include="Packet\Handler\Login">
+    </Filter>
+    <Filter Include="Packet\Handler\Test">
     </Filter>
     <Filter Include="Session">
     </Filter>

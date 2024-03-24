@@ -7,10 +7,10 @@ import os
 def main():
 
 	arg_parser = argparse.ArgumentParser(description = 'PacketGenerator')
-	arg_parser.add_argument('--path', type=str, default='C:/Users/ath331/Desktop/a/VisualStudio/C++/AtServerEngine/Common/Protobuf/bin/Protocol.proto', help='proto path')
+	arg_parser.add_argument('--path', type=str, default='./Protocol.proto', help='proto path')
 	arg_parser.add_argument('--isRecvHandler', type=bool, default=False, help='isRecvHandler')
-	arg_parser.add_argument('--recvHandlerPath', type=str, default='C:/Users/ath331/Desktop/a/VisualStudio/C++/AtServerEngine/GameServer/Packet/Handler', help='recvHandler path')
-	arg_parser.add_argument('--sendHandlerPath', type=str, default='C:/Users/ath331/Desktop/a/VisualStudio/C++/AtServerEngine/DummyClient/Packet/Handler', help='sendHandler path')
+	arg_parser.add_argument('--recvHandlerPath', type=str, default='../../../GameServer/Packet/Handler', help='recvHandler path')
+	arg_parser.add_argument('--sendHandlerPath', type=str, default='../../../DummyClient/Packet/Handler', help='sendHandler path')
 	arg_parser.add_argument('--output', type=str, default='TestPacketHandler', help='output file')
 	arg_parser.add_argument('--recv', type=str, default='C_', help='recv convention')
 	arg_parser.add_argument('--send', type=str, default='S_', help='send convention')
@@ -34,6 +34,7 @@ def main():
 	# Each RecvPacket Handler Make
 	if args.isRecvHandler:
 		for index, recvPacket in enumerate(parser.recv_pkt):
+
 			# Make HandlerTemplate ( forceMake )
 			recvPacketHandlerTemplate = env.get_template('ClientPacketHandlerTemplate.h')
 			eachHandler = recvPacketHandlerTemplate.render(pkt=recvPacket, output=args.recvHandlerPath)
@@ -80,6 +81,8 @@ def main():
 	if args.isRecvHandler == False:
 		# sendPacket. but for-each recv_pkt list. ( client and server change )
 		for index, sendPacket in enumerate(parser.recv_pkt):
+
+			# Make HandlerTemplate ( forceMake )
 			sendPacketHandlerTemplate = env.get_template('ServerPacketHandlerTemplate.h')
 			eachHandler = sendPacketHandlerTemplate.render(pkt=sendPacket, output=args.sendHandlerPath)
 
