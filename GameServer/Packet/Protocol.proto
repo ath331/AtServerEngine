@@ -26,11 +26,3 @@ message S_Chat Chat
 	uint64 playerId = 1;
 	string msg = 2;
 }
-
-message C_TEST Test
-{
-}
-
-message S_TEST Test
-{
-}
