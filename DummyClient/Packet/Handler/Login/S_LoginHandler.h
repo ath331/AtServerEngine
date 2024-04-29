@@ -14,5 +14,5 @@ class S_LOGINHandler
 {
 public:
 	// HandlerRun
-	static AtBool Handle( PacketSessionRef& session, Protocol::S_LOGIN& pkt );
+	static AtBool Handle( PacketSessionPtr& session, Protocol::S_LOGIN& pkt );
 };

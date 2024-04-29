@@ -14,6 +14,6 @@ class {{pkt.name}}Handler
 {
 public:
 	// HandlerRun
-	static AtBool Handle( PacketSessionRef& session, Protocol::{{pkt.name}}& pkt );
+	static AtBool Handle( PacketSessionPtr& session, Protocol::{{pkt.name}}& pkt );
 };
 
