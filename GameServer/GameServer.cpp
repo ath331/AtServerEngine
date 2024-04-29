@@ -35,7 +35,7 @@ enum
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief 쓰레드가 동작하는 함수
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-void DoWorkerJob( ServerServiceRef& service )
+void DoWorkerJob( ServerServicePtr& service )
 {
 	while ( true )
 	{
@@ -65,7 +65,7 @@ int main()
 
 	ClientPacketHandler::Init();
 
-	ServerServiceRef service = MakeShared< ServerService >(
+	ServerServicePtr service = MakeShared< ServerService >(
 		NetAddress( L"192.168.25.22", 7777 ),
 		MakeShared< IocpCore >(),
 		MakeShared< GameSession >, // TODO : SessionManager 등

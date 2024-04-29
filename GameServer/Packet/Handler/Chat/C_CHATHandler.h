@@ -14,5 +14,5 @@ class C_CHATHandler
 {
 public:
 	// HandlerRun
-	static AtBool Handle( PacketSessionRef& session, Protocol::C_CHAT& pkt );
+	static AtBool Handle( PacketSessionPtr& session, Protocol::C_CHAT& pkt );
 };

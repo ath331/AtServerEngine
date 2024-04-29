@@ -17,7 +17,7 @@ void Room::Leave( PlayerPtr player )
 	_players.erase( player->playerId );
 }
 
-void Room::Broadcast(SendBufferRef sendBuffer)
+void Room::Broadcast(SendBufferPtr sendBuffer)
 {
 	for ( auto& p : _players )
 	{

@@ -9,7 +9,7 @@ class GameSessionManager
 public:
 	void Add(GameSessionRef session);
 	void Remove(GameSessionRef session);
-	void Broadcast(SendBufferRef sendBuffer);
+	void Broadcast(SendBufferPtr sendBuffer);
 
 private:
 	USE_LOCK;
