@@ -50,8 +50,8 @@ private:
 	bool		GatherDBStoredProcedures();
 
 	void		CompareDBModel();
-	void		CompareTables(DBModel::TableRef dbTable, DBModel::TableRef xmlTable);
-	void		CompareColumns(DBModel::TableRef dbTable, DBModel::ColumnRef dbColumn, DBModel::ColumnRef xmlColumn);
+	void		CompareTables(DBModel::TablePtr dbTable, DBModel::TablePtr xmlTable);
+	void		CompareColumns(DBModel::TablePtr dbTable, DBModel::ColumnPtr dbColumn, DBModel::ColumnPtr xmlColumn);
 	void		CompareStoredProcedures();
 
 	void		ExecuteUpdateQueries();
@@ -59,12 +59,12 @@ private:
 private:
 	DBConnection& _dbConn;
 
-	Vector<DBModel::TableRef>			_xmlTables;
-	Vector<DBModel::ProcedureRef>		_xmlProcedures;
+	Vector<DBModel::TablePtr>			_xmlTables;
+	Vector<DBModel::ProcedurePtr>		_xmlProcedures;
 	Set<String>							_xmlRemovedTables;
 
-	Vector<DBModel::TableRef>			_dbTables;
-	Vector<DBModel::ProcedureRef>		_dbProcedures;
+	Vector<DBModel::TablePtr>			_dbTables;
+	Vector<DBModel::ProcedurePtr>		_dbProcedures;
 
 private:
 	Set<String>							_dependentIndexes;

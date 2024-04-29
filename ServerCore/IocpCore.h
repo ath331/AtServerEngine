@@ -23,7 +23,7 @@ public:
 
 	HANDLE		GetHandle() { return _iocpHandle; }
 
-	bool		Register(IocpObjectRef iocpObject);
+	bool		Register(IocpObjectPtr iocpObject);
 	bool		Dispatch(uint32 timeoutMs = INFINITE);
 
 private:

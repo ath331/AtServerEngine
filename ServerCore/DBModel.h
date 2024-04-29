@@ -79,7 +79,7 @@ public:
 	IndexType			_type = IndexType::NonClustered;
 	bool				_primaryKey = false;
 	bool				_uniqueConstraint = false;
-	Vector<ColumnRef>	_columns;
+	Vector<ColumnPtr>	_columns;
 };
 
 /*-----------
@@ -89,13 +89,13 @@ public:
 class Table
 {
 public:
-	ColumnRef			FindColumn(const String& columnName);
+	ColumnPtr			FindColumn(const String& columnName);
 
 public:
 	int32				_objectId = 0; // DB
 	String				_name;
-	Vector<ColumnRef>	_columns;
-	Vector<IndexRef>	_indexes;
+	Vector<ColumnPtr>	_columns;
+	Vector<IndexPtr>	_indexes;
 };
 
 /*----------------

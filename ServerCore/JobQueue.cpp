@@ -6,7 +6,7 @@
 	JobQueue
 ---------------*/
 
-void JobQueue::Push(JobRef job, bool pushOnly)
+void JobQueue::Push(JobPtr job, bool pushOnly)
 {
 	const int32 prevCount = _jobCount.fetch_add(1);
 	_jobs.Push(job); // WRITE_LOCK
@@ -34,7 +34,7 @@ void JobQueue::Execute()
 
 	while (true)
 	{
-		Vector<JobRef> jobs;
+		Vector<JobPtr> jobs;
 		_jobs.PopAll(OUT jobs);
 
 		const int32 jobCount = static_cast<int32>(jobs.size());

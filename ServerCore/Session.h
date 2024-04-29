@@ -27,7 +27,7 @@ public:
 
 public:
 						/* 외부에서 사용 */
-	void				Send(SendBufferRef sendBuffer);
+	void				Send(SendBufferPtr sendBuffer);
 	bool				Connect();
 	void				Disconnect(const WCHAR* cause);
 
@@ -40,7 +40,7 @@ public:
 	NetAddress			GetAddress() { return _netAddress; }
 	SOCKET				GetSocket() { return _socket; }
 	bool				IsConnected() { return _connected; }
-	SessionRef			GetSessionRef() { return static_pointer_cast<Session>(shared_from_this()); }
+	SessionPtr			GetSessionRef() { return static_pointer_cast<Session>(shared_from_this()); }
 
 private:
 						/* 인터페이스 구현 */
@@ -81,7 +81,7 @@ private:
 	RecvBuffer				_recvBuffer;
 
 							/* 송신 관련 */
-	Queue<SendBufferRef>	_sendQueue;
+	Queue<SendBufferPtr>	_sendQueue;
 	Atomic<bool>			_sendRegistered = false;
 
 private:
@@ -108,7 +108,7 @@ public:
 	PacketSession();
 	virtual ~PacketSession();
 
-	PacketSessionRef	GetPacketSessionRef() { return static_pointer_cast<PacketSession>(shared_from_this()); }
+	PacketSessionPtr	GetPacketSessionRef() { return static_pointer_cast<PacketSession>(shared_from_this()); }
 
 protected:
 	virtual int32		OnRecv(BYTE* buffer, int32 len) sealed;

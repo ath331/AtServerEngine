@@ -24,7 +24,7 @@ public:
 
 	void DoTimer(uint64 tickAfter, CallbackType&& callback)
 	{
-		JobRef job = ObjectPool<Job>::MakeShared(std::move(callback));
+		JobPtr job = ObjectPool<Job>::MakeShared(std::move(callback));
 		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
 	}
 
@@ -32,18 +32,18 @@ public:
 	void DoTimer(uint64 tickAfter, Ret(T::* memFunc)(Args...), Args... args)
 	{
 		shared_ptr<T> owner = static_pointer_cast<T>(shared_from_this());
-		JobRef job = ObjectPool<Job>::MakeShared(owner, memFunc, std::forward<Args>(args)...);
+		JobPtr job = ObjectPool<Job>::MakeShared(owner, memFunc, std::forward<Args>(args)...);
 		GJobTimer->Reserve(tickAfter, shared_from_this(), job);
 	}
 
 	void					ClearJobs() { _jobs.Clear(); }
 
 public:
-	void					Push(JobRef job, bool pushOnly = false);
+	void					Push(JobPtr job, bool pushOnly = false);
 	void					Execute();
 
 protected:
-	LockQueue<JobRef>		_jobs;
+	LockQueue<JobPtr>		_jobs;
 	Atomic<int32>			_jobCount = 0;
 };
 

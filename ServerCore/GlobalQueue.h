@@ -10,10 +10,10 @@ public:
 	GlobalQueue();
 	~GlobalQueue();
 
-	void					Push(JobQueueRef jobQueue);
-	JobQueueRef				Pop();
+	void					Push(JobQueuePtr jobQueue);
+	JobQueuePtr				Pop();
 
 private:
-	LockQueue<JobQueueRef> _jobQueues;
+	LockQueue<JobQueuePtr> _jobQueues;
 };
 

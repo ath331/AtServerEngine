@@ -60,7 +60,7 @@ void ThreadManager::DoGlobalQueueWork()
 		if (now > LEndTickCount)
 			break;
 
-		JobQueueRef jobQueue = GGlobalQueue->Pop();
+		JobQueuePtr jobQueue = GGlobalQueue->Pop();
 		if (jobQueue == nullptr)
 			break;
 
