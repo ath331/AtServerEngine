@@ -144,5 +144,9 @@
     </Filter>
     <Filter Include="x64\Debug\GameServer.tlog">
     </Filter>
+    <Filter Include="x64\Release">
+    </Filter>
+    <Filter Include="x64\Release\GameServer.tlog">
+    </Filter>
   </ItemGroup>
 </Project>

@@ -6,22 +6,26 @@ import "Enum.proto";
 import "Struct.proto";
 
 
-message C_Login Login
+// path = Login
+message C_Login
 {
 }
 
-message S_Login Login
+// path = Login
+message S_Login
 {
 	bool success = 1;
 	repeated Player players = 2;
 }
 
-message C_Chat Chat
+// path = Chat
+message C_Chat
 {
 	string msg = 1;
 }
 
-message S_Chat Chat
+// path = Chat
+message S_Chat
 {
 	uint64 playerId = 1;
 	string msg = 2;

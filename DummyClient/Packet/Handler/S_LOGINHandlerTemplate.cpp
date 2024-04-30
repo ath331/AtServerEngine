@@ -5,13 +5,13 @@
 
 #include "pch.h"
 #include "ServerPacketHandler.h"
-#include "Login/S_LOGINHandler.h"
+#include "Login/S_LoginHandler.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-bool Handle_S_LOGINTemplate( PacketSessionPtr& session, Protocol::S_LOGIN& pkt )
+bool Handle_S_LoginTemplate( PacketSessionPtr& session, Protocol::S_Login& pkt )
 {
-	return S_LOGINHandler::Handle( session, pkt );
+	return S_LoginHandler::Handle( session, pkt );
 }

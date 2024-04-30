@@ -7,7 +7,7 @@ import os
 def main():
 
 	arg_parser = argparse.ArgumentParser(description = 'PacketGenerator')
-	arg_parser.add_argument('--path', type=str, default='./Protocol.proto', help='proto path')
+	arg_parser.add_argument('--path', type=str, default='../../GameServer/Packet/Protocol.proto', help='proto path')
 	arg_parser.add_argument('--isRecvHandler', type=bool, default=False, help='isRecvHandler')
 	arg_parser.add_argument('--recvHandlerPath', type=str, default='../../../GameServer/Packet/Handler', help='recvHandler path')
 	arg_parser.add_argument('--sendHandlerPath', type=str, default='../../../DummyClient/Packet/Handler', help='sendHandler path')

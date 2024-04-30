@@ -13,12 +13,16 @@ class ProtoParser():
 		f = open(path, 'r')
 		lines = f.readlines()
 
+		pkt_path = "";
 		for line in lines:
+			if line.startswith('//') == True:
+				pkt_path = line.split()[3]
+
 			if line.startswith('message') == False:
 				continue
 
-			pkt_name = line.split()[1].upper()
-			pkt_path = line.split()[2]
+			pkt_name = line.split()[1]
+
 			if pkt_name.startswith(self.recv_prefix):
 				self.recv_pkt.append(Packet(pkt_path, pkt_name, self.id))
 			elif pkt_name.startswith(self.send_prefix):

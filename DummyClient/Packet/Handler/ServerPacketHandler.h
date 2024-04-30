@@ -13,16 +13,16 @@ extern PacketHandlerFunc GPacketHandler[UINT16_MAX];
 
 enum : uint16
 {
-	PKT_C_LOGIN = 1000,
-	PKT_S_LOGIN = 1001,
-	PKT_C_CHAT = 1002,
-	PKT_S_CHAT = 1003,
+	PKT_C_Login = 1000,
+	PKT_S_Login = 1001,
+	PKT_C_Chat = 1002,
+	PKT_S_Chat = 1003,
 };
 
 // Custom Handlers
 bool Handle_INVALID(PacketSessionPtr& session, BYTE* buffer, int32 len);
-bool Handle_S_LOGINTemplate(PacketSessionPtr& session, Protocol::S_LOGIN& pkt);
-bool Handle_S_CHATTemplate(PacketSessionPtr& session, Protocol::S_CHAT& pkt);
+bool Handle_S_LoginTemplate(PacketSessionPtr& session, Protocol::S_Login& pkt);
+bool Handle_S_ChatTemplate(PacketSessionPtr& session, Protocol::S_Chat& pkt);
 
 class ServerPacketHandler
 {
@@ -31,8 +31,8 @@ public:
 	{
 		for (int32 i = 0; i < UINT16_MAX; i++)
 			GPacketHandler[i] = Handle_INVALID;
-		GPacketHandler[PKT_S_LOGIN] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_LOGIN>(Handle_S_LOGINTemplate, session, buffer, len); };
-		GPacketHandler[PKT_S_CHAT] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_CHAT>(Handle_S_CHATTemplate, session, buffer, len); };
+		GPacketHandler[PKT_S_Login] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_Login>(Handle_S_LoginTemplate, session, buffer, len); };
+		GPacketHandler[PKT_S_Chat] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_Chat>(Handle_S_ChatTemplate, session, buffer, len); };
 	}
 
 	static bool HandlePacket(PacketSessionPtr& session, BYTE* buffer, int32 len)
@@ -40,8 +40,8 @@ public:
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(buffer);
 		return GPacketHandler[header->id](session, buffer, len);
 	}
-	static SendBufferPtr MakeSendBuffer(Protocol::C_LOGIN& pkt) { return MakeSendBuffer(pkt, PKT_C_LOGIN); }
-	static SendBufferPtr MakeSendBuffer(Protocol::C_CHAT& pkt) { return MakeSendBuffer(pkt, PKT_C_CHAT); }
+	static SendBufferPtr MakeSendBuffer(Protocol::C_Login& pkt) { return MakeSendBuffer(pkt, PKT_C_Login); }
+	static SendBufferPtr MakeSendBuffer(Protocol::C_Chat& pkt) { return MakeSendBuffer(pkt, PKT_C_Chat); }
 
 private:
 	template<typename PacketType, typename ProcessFunc>

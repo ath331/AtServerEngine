@@ -5,13 +5,13 @@
 
 #include "pch.h"
 #include "ServerPacketHandler.h"
-#include "Chat/S_CHATHandler.h"
+#include "Chat/S_ChatHandler.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-bool Handle_S_CHATTemplate( PacketSessionPtr& session, Protocol::S_CHAT& pkt )
+bool Handle_S_ChatTemplate( PacketSessionPtr& session, Protocol::S_Chat& pkt )
 {
-	return S_CHATHandler::Handle( session, pkt );
+	return S_ChatHandler::Handle( session, pkt );
 }

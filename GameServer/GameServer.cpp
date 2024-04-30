@@ -88,7 +88,7 @@ int main()
 
 	 while ( true )
 	 {
-	 	Protocol::S_CHAT pktChat;
+	 	Protocol::S_Chat pktChat;
 	 	pktChat.set_msg( "HelloWorld" );
 	 	auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pktChat );
 	 
