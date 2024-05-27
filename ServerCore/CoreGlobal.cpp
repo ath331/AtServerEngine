@@ -12,7 +12,7 @@
 
 ThreadManager*		GThreadManager = nullptr;
 Memory*				GMemory = nullptr;
-SendBufferManager*	GSendBufferManager = nullptr;
+//SendBufferManager*	GSendBufferManager = nullptr;
 GlobalQueue*		GGlobalQueue = nullptr;
 JobTimer*			GJobTimer = nullptr;
 
@@ -27,7 +27,7 @@ public:
 	{
 		GThreadManager = new ThreadManager();
 		GMemory = new Memory();
-		GSendBufferManager = new SendBufferManager();
+		//GSendBufferManager = new SendBufferManager();
 		GGlobalQueue = new GlobalQueue();
 		GJobTimer = new JobTimer();
 		GDeadLockProfiler = new DeadLockProfiler();
@@ -40,7 +40,7 @@ public:
 	{
 		delete GThreadManager;
 		delete GMemory;
-		delete GSendBufferManager;
+		//delete GSendBufferManager;
 		delete GGlobalQueue;
 		delete GJobTimer;
 		delete GDeadLockProfiler;

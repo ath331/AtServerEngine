@@ -60,11 +60,12 @@ private:
 		const uint16 dataSize = static_cast<uint16>(pkt.ByteSizeLong());
 		const uint16 packetSize = dataSize + sizeof(PacketHeader);
 
+		//SendBufferPtr sendBuffer = GSendBufferManager->Open( packetSize );
+
 	#if UE_BUILD_DEBUG + UE_BUILD_DEVELOPMENT + UE_BUILD_TEST + UE_BUILD_SHIPPING >= 1
 		SendBufferPtr sendBuffer = MakeShared< SendBuffer >( packetSize );
 	#else
-		// SendBufferPtr sendBuffer = make_shared< SendBuffer >( packetSize );
-		SendBufferPtr sendBuffer = GSendBufferManager->Open( packetSize );
+		SendBufferPtr sendBuffer = make_shared< SendBuffer >( packetSize );
 	#endif
 
 		PacketHeader* header = reinterpret_cast<PacketHeader*>(sendBuffer->Buffer());
