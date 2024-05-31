@@ -12,7 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_ChatHandler::Handle( PacketSessionPtr& session, Protocol::C_Chat& pkt )
 {
-	cout << "Client : " <<  pkt.msg() << endl;
+
 
 	return true;
 }
