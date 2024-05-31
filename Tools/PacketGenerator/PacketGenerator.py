@@ -10,7 +10,7 @@ def main():
 	arg_parser.add_argument('--path', type=str, default='../../GameServer/Packet/Protocol.proto', help='proto path')
 	arg_parser.add_argument('--isRecvHandler', type=bool, default=False, help='isRecvHandler')
 	arg_parser.add_argument('--recvHandlerPath', type=str, default='../../../GameServer/Packet/Handler', help='recvHandler path')
-	arg_parser.add_argument('--sendHandlerPath', type=str, default='../../../DummyClient/Packet/Handler', help='sendHandler path')
+	arg_parser.add_argument('--sendHandlerPath', type=str, default='../../../../AtClient/Source/AtClient/Packet/Handler', help='sendHandler path')
 	arg_parser.add_argument('--output', type=str, default='TestPacketHandler', help='output file')
 	arg_parser.add_argument('--recv', type=str, default='C_', help='recv convention')
 	arg_parser.add_argument('--send', type=str, default='S_', help='send convention')

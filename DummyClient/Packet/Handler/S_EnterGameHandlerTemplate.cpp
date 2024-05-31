@@ -1,20 +1,17 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif {{pkt.name}}Handler class
+// @breif Client use handler. !!Auto Make File!!
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#pragma once
-#include "AtClient.h"
-#include "Packet/Protocol.pb.h"
+#include "pch.h"
+#include "ServerPacketHandler.h"
+#include "Game/S_EnterGameHandler.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif {{pkt.name}}Handler class
+// @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-class {{pkt.name}}Handler
+bool Handle_S_EnterGameTemplate( PacketSessionPtr& session, Protocol::S_EnterGame& pkt )
 {
-public:
-	// HandlerRun
-	static bool Handle( PacketSessionPtr& session, Protocol::{{pkt.name}}& pkt );
-};
-
+	return S_EnterGameHandler::Handle( session, pkt );
+}

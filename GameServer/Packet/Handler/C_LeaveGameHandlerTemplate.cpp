@@ -1,20 +1,17 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif {{pkt.name}}Handler class
+// @breif Server use handler. !!Auto Make File!!
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#pragma once
-#include "AtClient.h"
-#include "Packet/Protocol.pb.h"
+#include "pch.h"
+#include "ClientPacketHandler.h"
+#include "Game/C_LeaveGameHandler.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif {{pkt.name}}Handler class
+// @breif HandlerRun
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-class {{pkt.name}}Handler
+bool Handle_C_LeaveGameTemplate( PacketSessionPtr& session, Protocol::C_LeaveGame& pkt )
 {
-public:
-	// HandlerRun
-	static bool Handle( PacketSessionPtr& session, Protocol::{{pkt.name}}& pkt );
-};
-
+	return C_LeaveGameHandler::Handle( session, pkt );
+}

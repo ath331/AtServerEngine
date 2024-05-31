@@ -28,6 +28,12 @@
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h">
       <Filter>Packet\Handler</Filter>
     </ClInclude>
+    <ClInclude Include="Packet\Handler\Game\C_EnterGameHandler.h">
+      <Filter>Packet\Handler\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Packet\Handler\Game\C_LeaveGameHandler.h">
+      <Filter>Packet\Handler\Game</Filter>
+    </ClInclude>
     <ClInclude Include="Packet\Handler\Login\C_LOGINHandler.h">
       <Filter>Packet\Handler\Login</Filter>
     </ClInclude>
@@ -72,8 +78,20 @@
     <ClCompile Include="Packet\Handler\C_CHATHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
     </ClCompile>
+    <ClCompile Include="Packet\Handler\C_EnterGameHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\C_LeaveGameHandlerTemplate.cpp">
+      <Filter>Packet\Handler</Filter>
+    </ClCompile>
     <ClCompile Include="Packet\Handler\C_LOGINHandlerTemplate.cpp">
       <Filter>Packet\Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Game\C_EnterGameHandler.cpp">
+      <Filter>Packet\Handler\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Packet\Handler\Game\C_LeaveGameHandler.cpp">
+      <Filter>Packet\Handler\Game</Filter>
     </ClCompile>
     <ClCompile Include="Packet\Handler\Login\C_LOGINHandler.cpp">
       <Filter>Packet\Handler\Login</Filter>
@@ -133,6 +151,8 @@
     <Filter Include="Packet\Handler">
     </Filter>
     <Filter Include="Packet\Handler\Chat">
+    </Filter>
+    <Filter Include="Packet\Handler\Game">
     </Filter>
     <Filter Include="Packet\Handler\Login">
     </Filter>

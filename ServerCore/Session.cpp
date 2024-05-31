@@ -28,14 +28,14 @@ void Session::Send(SendBufferPtr sendBuffer)
 	{
 		WRITE_LOCK;
 
-		_sendQueue.push(sendBuffer);
+		_sendQueue.push( sendBuffer );
 
-		if (_sendRegistered.exchange(true) == false)
+		if ( _sendRegistered.exchange( true ) == false )
 			registerSend = true;
+
+		if ( registerSend )
+			RegisterSend();
 	}
-	
-	if (registerSend)
-		RegisterSend();
 }
 
 bool Session::Connect()
@@ -165,7 +165,7 @@ void Session::RegisterSend()
 
 	// 보낼 데이터를 sendEvent에 등록
 	{
-		WRITE_LOCK;
+		// WRITE_LOCK;
 
 		int32 writeSize = 0;
 		while (_sendQueue.empty() == false)
@@ -275,6 +275,7 @@ void Session::ProcessSend(int32 numOfBytes)
 	OnSend(numOfBytes);
 
 	WRITE_LOCK;
+
 	if (_sendQueue.empty())
 		_sendRegistered.store(false);
 	else

@@ -15,13 +15,21 @@ enum : uint16
 {
 	PKT_C_Login = 1000,
 	PKT_S_Login = 1001,
-	PKT_C_Chat = 1002,
-	PKT_S_Chat = 1003,
+	PKT_C_EnterGame = 1002,
+	PKT_S_EnterGame = 1003,
+	PKT_C_LeaveGame = 1004,
+	PKT_S_LeaveGame = 1005,
+	PKT_S_Spawn = 1006,
+	PKT_S_DeSpawn = 1007,
+	PKT_C_Chat = 1008,
+	PKT_S_Chat = 1009,
 };
 
 // Custom Handlers
 bool Handle_INVALID(PacketSessionPtr& session, BYTE* buffer, int32 len);
 bool Handle_C_LoginTemplate(PacketSessionPtr& session, Protocol::C_Login& pkt);
+bool Handle_C_EnterGameTemplate(PacketSessionPtr& session, Protocol::C_EnterGame& pkt);
+bool Handle_C_LeaveGameTemplate(PacketSessionPtr& session, Protocol::C_LeaveGame& pkt);
 bool Handle_C_ChatTemplate(PacketSessionPtr& session, Protocol::C_Chat& pkt);
 
 class ClientPacketHandler
@@ -32,6 +40,8 @@ public:
 		for (int32 i = 0; i < UINT16_MAX; i++)
 			GPacketHandler[i] = Handle_INVALID;
 		GPacketHandler[PKT_C_Login] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Login>(Handle_C_LoginTemplate, session, buffer, len); };
+		GPacketHandler[PKT_C_EnterGame] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_EnterGame>(Handle_C_EnterGameTemplate, session, buffer, len); };
+		GPacketHandler[PKT_C_LeaveGame] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_LeaveGame>(Handle_C_LeaveGameTemplate, session, buffer, len); };
 		GPacketHandler[PKT_C_Chat] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::C_Chat>(Handle_C_ChatTemplate, session, buffer, len); };
 	}
 
@@ -41,6 +51,10 @@ public:
 		return GPacketHandler[header->id](session, buffer, len);
 	}
 	static SendBufferPtr MakeSendBuffer(Protocol::S_Login& pkt) { return MakeSendBuffer(pkt, PKT_S_Login); }
+	static SendBufferPtr MakeSendBuffer(Protocol::S_EnterGame& pkt) { return MakeSendBuffer(pkt, PKT_S_EnterGame); }
+	static SendBufferPtr MakeSendBuffer(Protocol::S_LeaveGame& pkt) { return MakeSendBuffer(pkt, PKT_S_LeaveGame); }
+	static SendBufferPtr MakeSendBuffer(Protocol::S_Spawn& pkt) { return MakeSendBuffer(pkt, PKT_S_Spawn); }
+	static SendBufferPtr MakeSendBuffer(Protocol::S_DeSpawn& pkt) { return MakeSendBuffer(pkt, PKT_S_DeSpawn); }
 	static SendBufferPtr MakeSendBuffer(Protocol::S_Chat& pkt) { return MakeSendBuffer(pkt, PKT_S_Chat); }
 
 private:

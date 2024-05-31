@@ -3,10 +3,13 @@ package Protocol;
 
 import "Enum.proto";
 
-message Player
+message PlayerInfo
 {
 	uint64 id = 1;
 	string name = 2;
 	PlayerType playerType = 3;
-	// Ω∫≈» ¡§∫∏...
+	float x = 4;
+	float y = 5;
+	float z = 6;
+	float yaw = 7;
 }

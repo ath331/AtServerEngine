@@ -15,7 +15,43 @@ message C_Login
 message S_Login
 {
 	bool success = 1;
-	repeated Player players = 2;
+	repeated PlayerInfo players = 2;
+}
+
+// path = Game
+message C_EnterGame
+{
+	uint64 playerIndex = 1;
+}
+
+// path = Game
+message S_EnterGame
+{
+	bool success = 1;
+	PlayerInfo player = 2;
+}
+
+// path = Game
+message C_LeaveGame
+{
+}
+
+// path = Game
+message S_LeaveGame
+{
+}
+
+
+// path = Spawn
+message S_Spawn
+{
+	repeated PlayerInfo players = 1;
+}
+
+// path = Spawn
+message S_DeSpawn
+{
+	repeated uint64 ids = 1;
 }
 
 // path = Chat
