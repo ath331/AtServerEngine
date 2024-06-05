@@ -86,15 +86,24 @@ int main()
 	// Main Thread
 	// DoWorkerJob( service );
 
-	 while ( true )
-	 {
-	 	Protocol::S_Chat pktChat;
-	 	pktChat.set_msg( "HelloWorld" );
-	 	auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pktChat );
-	 
-	 	GSessionManager.Broadcast( sendBuffer );
-	 	this_thread::sleep_for( 3s );
-	 }
+	// while ( true )
+	// {
+	// 	Protocol::S_Chat pktChat;
+	// 	pktChat.set_msg( "HelloWorld" );
+	// 	auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pktChat );
+	// 
+	// 	GSessionManager.Broadcast( sendBuffer );
+	// 	this_thread::sleep_for( 3s );
+	// }
+
+	Protocol::S_Login pkt;
+	pkt.set_success( true );
+
+
+	auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pkt );
+
+
+
 
 	GThreadManager->Join();
 }
