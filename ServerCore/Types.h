@@ -1,6 +1,7 @@
 #pragma once
 #include <mutex>
 #include <atomic>
+#include "CoreMacro.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -41,8 +42,6 @@ using UniqueLock = std::unique_lock<std::mutex>;
 using LockGuard = std::lock_guard<std::mutex>;
 
 // shared_ptr
-
-#define USING_SHARED_PTR(name)	using name##Ptr = std::shared_ptr<class name>;
 
 USING_SHARED_PTR(IocpCore);
 USING_SHARED_PTR(IocpObject);

@@ -1,0 +1,36 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief Utils File
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+#pragma once
+#include <random>
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief Utils Class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+class Utils
+{
+public:
+	/// min, max를 포함하여 랜덤값을 반환한다.
+	template< typename T >
+	static T GetRandom( T min, T max )
+	{
+		std::random_device randomDevice;
+		std::mt19937 generator( randomDevice() );
+
+		/// int
+		if constexpr ( std::is_integral_v<T> )
+		{
+			std::uniform_int_distribution<T> distribuition( min, max );
+			return distribuition( generator );
+		}
+		/// float
+		else
+		{
+			std::uniform_real_distribution<T> distribuition( min, max );
+			return distribuition( generator );
+		}
+	}
+};

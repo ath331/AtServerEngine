@@ -1,19 +1,43 @@
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif Room File
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 #pragma once
-#include "JobQueue.h"
-#include "Logic/Actor/Player/PlayerTypes.h"
 
 
-class Room : public JobQueue
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif Room class
+////////////////////////////////////////////////////////////////////////////////////////////////////
+class Room : public enable_shared_from_this<Room>
 {
 public:
-	// 싱글쓰레드 환경인마냥 코딩
-	void Enter( PlayerPtr player );
-	void Leave( PlayerPtr player );
-	void Broadcast( SendBufferPtr sendBuffer );
+	/// 생성자
+	Room();
+
+	/// 소멸자
+	virtual ~Room();
+
+	/// 플레이어를 방에 입장시킨다. ( Thread Safe )
+	AtBool HandleEnterPlayerLocked( PlayerPtr player );
+
+	/// 플레이어를 방에서 내보낸다. ( Thread Safe )
+	AtBool HandleLeavePlayerLocked( PlayerPtr player );
 
 private:
-	map< uint64, PlayerPtr > _players;
+	/// 플레이어를 방에 입장시킨다.
+	AtBool EnterPlayer( PlayerPtr player );
+
+	/// 플레이어를 방에서 내보낸다.
+	AtBool LeavePlayer( uint64 objectId );
+
+	USE_LOCK;
+
+private:
+	AtVoid Broadcast( SendBufferPtr sendBuffer, uint64 exceptId = 0 );
+
+private:
+	unordered_map<uint64, PlayerPtr > _players;
 };
 
-
-extern shared_ptr< Room > GRoom;
+extern RoomPtr GRoom;

@@ -8,4 +8,4 @@
 
 
 // 플레이어 포인터 타입 정의
-DEFINE_PTR( Player );
+USING_SHARED_PTR( Player );

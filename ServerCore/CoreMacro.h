@@ -44,5 +44,5 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 #include <memory> 
 
-#define DEFINE_PTR( name ) \
+#define USING_SHARED_PTR( name ) \
 using name##Ptr = std::shared_ptr< class name >;  \

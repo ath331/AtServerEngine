@@ -142,7 +142,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <Optimization>Custom</Optimization>
     </ClCompile>
     <Link>
@@ -163,7 +163,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <Optimization>Custom</Optimization>
     </ClCompile>
     <Link>
@@ -183,6 +183,8 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Room\Room.h" />
     <ClInclude Include="Logic\Room\RoomManager.h" />
     <ClInclude Include="Logic\Room\RoomTypes.h" />
+    <ClInclude Include="Logic\Utils\ObjectUtils.h" />
+    <ClInclude Include="Logic\Utils\Utils.h" />
     <ClInclude Include="Packet\Enum.pb.h" />
     <ClInclude Include="Packet\Handler\Chat\C_CHATHandler.h" />
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h" />
@@ -201,6 +203,8 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Logic\Actor\Player\Player.cpp" />
     <ClCompile Include="Logic\Room\Room.cpp" />
     <ClCompile Include="Logic\Room\RoomManager.cpp" />
+    <ClCompile Include="Logic\Utils\ObjectUtils.cpp" />
+    <ClCompile Include="Logic\Utils\Utils.cpp" />
     <ClCompile Include="Packet\Handler\Chat\C_CHATHandler.cpp" />
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp" />
     <ClCompile Include="Packet\Handler\C_CHATHandlerTemplate.cpp" />
@@ -224,16 +228,16 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Packet\Enum.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
+        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
+        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Packet\Protocol.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
+        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
+        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Packet\Struct.pb.cc">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
+        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">NotUsing</PrecompiledHeader>
+        <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

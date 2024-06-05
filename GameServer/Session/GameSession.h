@@ -2,9 +2,6 @@
 #include "Session.h"
 
 
-class Room;
-
-
 class GameSession : public PacketSession
 {
 public:
@@ -19,8 +16,5 @@ public:
 	virtual void OnSend( int32 len ) override;
 
 public:
-	Vector< PlayerPtr > _players;
-
-	PlayerPtr _currentPlayer;
-	weak_ptr< Room > _room; 
+	atomic< PlayerPtr > player;
 };

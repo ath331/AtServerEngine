@@ -8,4 +8,4 @@
 
 
 // 룸 포인터 타입 정의
-DEFINE_PTR( Room );
+USING_SHARED_PTR( Room );
