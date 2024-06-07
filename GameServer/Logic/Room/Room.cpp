@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "Room.h"
 #include "Logic/Actor/Player/Player.h"
+#include "Session/GameSession.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 
 

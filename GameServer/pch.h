@@ -34,8 +34,3 @@
 #define SEND_PACKET( session, pkt )  \
 	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( pkt ); \
 	session->Send( sendBuffer );
-
-
-
-/// Ptr 선언들보다 아래 있어야함? GameSessionClass에서 에러남
-#include "Session/GameSession.h"
