@@ -186,11 +186,12 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Utils\ObjectUtils.h" />
     <ClInclude Include="Logic\Utils\Utils.h" />
     <ClInclude Include="Packet\Enum.pb.h" />
-    <ClInclude Include="Packet\Handler\Chat\C_CHATHandler.h" />
+    <ClInclude Include="Packet\Handler\Actor\C_MoveHandler.h" />
+    <ClInclude Include="Packet\Handler\Chat\C_ChatHandler.h" />
     <ClInclude Include="Packet\Handler\ClientPacketHandler.h" />
     <ClInclude Include="Packet\Handler\Game\C_EnterGameHandler.h" />
     <ClInclude Include="Packet\Handler\Game\C_LeaveGameHandler.h" />
-    <ClInclude Include="Packet\Handler\Login\C_LOGINHandler.h" />
+    <ClInclude Include="Packet\Handler\Login\C_LoginHandler.h" />
     <ClInclude Include="Packet\Protocol.pb.h" />
     <ClInclude Include="Packet\Struct.pb.h" />
     <ClInclude Include="pch.h" />
@@ -205,15 +206,17 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Logic\Room\RoomManager.cpp" />
     <ClCompile Include="Logic\Utils\ObjectUtils.cpp" />
     <ClCompile Include="Logic\Utils\Utils.cpp" />
-    <ClCompile Include="Packet\Handler\Chat\C_CHATHandler.cpp" />
+    <ClCompile Include="Packet\Handler\Actor\C_MoveHandler.cpp" />
+    <ClCompile Include="Packet\Handler\Chat\C_ChatHandler.cpp" />
     <ClCompile Include="Packet\Handler\ClientPacketHandler.cpp" />
-    <ClCompile Include="Packet\Handler\C_CHATHandlerTemplate.cpp" />
+    <ClCompile Include="Packet\Handler\C_ChatHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_EnterGameHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\C_LeaveGameHandlerTemplate.cpp" />
-    <ClCompile Include="Packet\Handler\C_LOGINHandlerTemplate.cpp" />
+    <ClCompile Include="Packet\Handler\C_LoginHandlerTemplate.cpp" />
+    <ClCompile Include="Packet\Handler\C_MoveHandlerTemplate.cpp" />
     <ClCompile Include="Packet\Handler\Game\C_EnterGameHandler.cpp" />
     <ClCompile Include="Packet\Handler\Game\C_LeaveGameHandler.cpp" />
-    <ClCompile Include="Packet\Handler\Login\C_LOGINHandler.cpp" />
+    <ClCompile Include="Packet\Handler\Login\C_LoginHandler.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

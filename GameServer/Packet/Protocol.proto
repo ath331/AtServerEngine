@@ -41,6 +41,17 @@ message S_LeaveGame
 {
 }
 
+// path = Actor
+message C_Move
+{
+	PlayerInfo info = 1;
+}
+
+// path = Actor
+message S_Move
+{
+	PlayerInfo info = 1;
+}
 
 // path = Spawn
 message S_Spawn

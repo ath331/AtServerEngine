@@ -19,10 +19,12 @@ enum : uint16
 	PKT_S_EnterGame = 1003,
 	PKT_C_LeaveGame = 1004,
 	PKT_S_LeaveGame = 1005,
-	PKT_S_Spawn = 1006,
-	PKT_S_DeSpawn = 1007,
-	PKT_C_Chat = 1008,
-	PKT_S_Chat = 1009,
+	PKT_C_Move = 1006,
+	PKT_S_Move = 1007,
+	PKT_S_Spawn = 1008,
+	PKT_S_DeSpawn = 1009,
+	PKT_C_Chat = 1010,
+	PKT_S_Chat = 1011,
 };
 
 // Custom Handlers
@@ -30,6 +32,7 @@ bool Handle_INVALID(PacketSessionPtr& session, BYTE* buffer, int32 len);
 bool Handle_S_LoginTemplate(PacketSessionPtr& session, Protocol::S_Login& pkt);
 bool Handle_S_EnterGameTemplate(PacketSessionPtr& session, Protocol::S_EnterGame& pkt);
 bool Handle_S_LeaveGameTemplate(PacketSessionPtr& session, Protocol::S_LeaveGame& pkt);
+bool Handle_S_MoveTemplate(PacketSessionPtr& session, Protocol::S_Move& pkt);
 bool Handle_S_SpawnTemplate(PacketSessionPtr& session, Protocol::S_Spawn& pkt);
 bool Handle_S_DeSpawnTemplate(PacketSessionPtr& session, Protocol::S_DeSpawn& pkt);
 bool Handle_S_ChatTemplate(PacketSessionPtr& session, Protocol::S_Chat& pkt);
@@ -44,6 +47,7 @@ public:
 		GPacketHandler[PKT_S_Login] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_Login>(Handle_S_LoginTemplate, session, buffer, len); };
 		GPacketHandler[PKT_S_EnterGame] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_EnterGame>(Handle_S_EnterGameTemplate, session, buffer, len); };
 		GPacketHandler[PKT_S_LeaveGame] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_LeaveGame>(Handle_S_LeaveGameTemplate, session, buffer, len); };
+		GPacketHandler[PKT_S_Move] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_Move>(Handle_S_MoveTemplate, session, buffer, len); };
 		GPacketHandler[PKT_S_Spawn] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_Spawn>(Handle_S_SpawnTemplate, session, buffer, len); };
 		GPacketHandler[PKT_S_DeSpawn] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_DeSpawn>(Handle_S_DeSpawnTemplate, session, buffer, len); };
 		GPacketHandler[PKT_S_Chat] = [](PacketSessionPtr& session, BYTE* buffer, int32 len) { return HandlePacket<Protocol::S_Chat>(Handle_S_ChatTemplate, session, buffer, len); };
@@ -57,6 +61,7 @@ public:
 	static SendBufferPtr MakeSendBuffer(Protocol::C_Login& pkt) { return MakeSendBuffer(pkt, PKT_C_Login); }
 	static SendBufferPtr MakeSendBuffer(Protocol::C_EnterGame& pkt) { return MakeSendBuffer(pkt, PKT_C_EnterGame); }
 	static SendBufferPtr MakeSendBuffer(Protocol::C_LeaveGame& pkt) { return MakeSendBuffer(pkt, PKT_C_LeaveGame); }
+	static SendBufferPtr MakeSendBuffer(Protocol::C_Move& pkt) { return MakeSendBuffer(pkt, PKT_C_Move); }
 	static SendBufferPtr MakeSendBuffer(Protocol::C_Chat& pkt) { return MakeSendBuffer(pkt, PKT_C_Chat); }
 
 private:
