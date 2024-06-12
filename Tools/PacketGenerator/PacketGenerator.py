@@ -56,7 +56,7 @@ def main():
 			recvPacketHandlerHeader = env.get_template('ClientPacketHandler.h')
 			eachHandler = recvPacketHandlerHeader.render(pkt=recvPacket, output=args.recvHandlerPath)
 
-			if not os.path.exists(args.recvHandlerPath + '/' + recvPacket.name  +'Handler.h'):
+			if not os.path.exists(path + '/' + recvPacket.name  +'Handler.h'):
 				f = open(path + '/' + recvPacket.name  +'Handler.h', 'w+')
 				f.write(eachHandler)
 				f.close()
@@ -68,7 +68,7 @@ def main():
 			recvPacketHandlerCPP = env.get_template('ClientPacketHandler.cpp')
 			eachHandler = recvPacketHandlerCPP.render(pkt=recvPacket, output=args.recvHandlerPath)
 
-			if not os.path.exists(args.recvHandlerPath + '/' + recvPacket.name  +'Handler.cpp'):
+			if not os.path.exists(path + '/' + recvPacket.name  +'Handler.cpp'):
 				f = open(path + '/' + recvPacket.name  +'Handler.cpp', 'w+')
 				f.write(eachHandler)
 				f.close()
@@ -103,7 +103,7 @@ def main():
 			sendPacketHandlerHeader = env.get_template('ServerPacketHandler.h')
 			eachHandler = sendPacketHandlerHeader.render(pkt=sendPacket, output=args.sendHandlerPath)
 
-			if not os.path.exists(args.sendHandlerPath + '/' + sendPacket.name  +'Handler.h'):
+			if not os.path.exists(path + '/' + sendPacket.name  +'Handler.h'):
 				f = open(path + '/' + sendPacket.name  +'Handler.h', 'w+')
 				f.write(eachHandler)
 				f.close()
@@ -115,7 +115,7 @@ def main():
 			sendPacketHandlerHeader = env.get_template('ServerPacketHandler.cpp')
 			eachHandler = sendPacketHandlerHeader.render(pkt=sendPacket, output=args.sendHandlerPath)
 
-			if not os.path.exists(args.sendHandlerPath + '/' + sendPacket.name  +'Handler.cpp'):
+			if not os.path.exists(path + '/' + sendPacket.name  +'Handler.cpp'):
 				f = open(path + '/' + sendPacket.name  +'Handler.cpp', 'w+')
 				f.write(eachHandler)
 				f.close()
