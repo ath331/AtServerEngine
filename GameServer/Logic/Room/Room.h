@@ -24,6 +24,9 @@ public:
 	/// 플레이어를 방에서 내보낸다. ( Thread Safe )
 	AtBool HandleLeavePlayerLocked( PlayerPtr player );
 
+	/// 플레이어의 움직임을 처리한다. ( Thread Safe )
+	AtVoid HandlePlayerMoveLocked( Protocol::C_Move& pkt );
+
 private:
 	/// 플레이어를 방에 입장시킨다.
 	AtBool EnterPlayer( PlayerPtr player );

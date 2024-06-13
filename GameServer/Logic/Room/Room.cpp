@@ -41,7 +41,8 @@ AtBool Room::HandleEnterPlayerLocked( PlayerPtr player )
 	// 랜덤 위치
 	player->playerInfo->set_x  ( Utils::GetRandom( 0.f, 500.f ) );
 	player->playerInfo->set_y  ( Utils::GetRandom( 0.f, 500.f ) );
-	player->playerInfo->set_z  ( Utils::GetRandom( 0.f, 500.f ) );
+	//player->playerInfo->set_z  ( Utils::GetRandom( 0.f, 500.f ) );
+	player->playerInfo->set_z  ( 100.f );
 	player->playerInfo->set_yaw( Utils::GetRandom( 0.f, 100.f ) );
 
 	// 입장 사실을 신입 플레이어에게 알린다
@@ -123,6 +124,29 @@ AtBool Room::HandleLeavePlayerLocked( PlayerPtr player )
 	}
 
 	return success;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 플레이어의 움직임을 처리한다. ( Thread Safe )
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::HandlePlayerMoveLocked( Protocol::C_Move& pkt )
+{
+	WRITE_LOCK;
+
+	const AtInt64 id = pkt.info().id();
+	if ( _players.find( id ) == _players.end() )
+		return;
+
+	// TODO : 위치 체크하기
+	PlayerPtr player = _players[ id ];
+	player->playerInfo->CopyFrom( pkt.info() );
+
+	Protocol::S_Move movePkt;
+	auto* info =  movePkt.mutable_info();
+	info->CopyFrom( pkt.info() );
+
+	SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( movePkt );
+	Broadcast( sendBuffer, id );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
