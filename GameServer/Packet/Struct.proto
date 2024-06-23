@@ -12,4 +12,5 @@ message PlayerInfo
 	float y = 5;
 	float z = 6;
 	float yaw = 7;
+	MoveState moveState = 8;
 }

@@ -26,7 +26,9 @@ constexpr PlayerInfo::PlayerInfo(
   , x_(0)
   , y_(0)
   , z_(0)
-  , yaw_(0){}
+  , yaw_(0)
+  , movestate_(0)
+{}
 struct PlayerInfoDefaultTypeInternal {
   constexpr PlayerInfoDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -54,6 +56,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_Struct_2eproto::offsets[] PROT
   PROTOBUF_FIELD_OFFSET(::Protocol::PlayerInfo, y_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PlayerInfo, z_),
   PROTOBUF_FIELD_OFFSET(::Protocol::PlayerInfo, yaw_),
+  PROTOBUF_FIELD_OFFSET(::Protocol::PlayerInfo, movestate_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::Protocol::PlayerInfo)},
@@ -64,18 +67,19 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014Struct.proto\022\010Protocol\032\nEnum.proto\"~\n\n"
-  "PlayerInfo\022\n\n\002id\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\022(\n\n"
-  "playerType\030\003 \001(\0162\024.Protocol.PlayerType\022\t"
-  "\n\001x\030\004 \001(\002\022\t\n\001y\030\005 \001(\002\022\t\n\001z\030\006 \001(\002\022\013\n\003yaw\030\007"
-  " \001(\002b\006proto3"
+  "\n\014Struct.proto\022\010Protocol\032\nEnum.proto\"\246\001\n"
+  "\nPlayerInfo\022\n\n\002id\030\001 \001(\004\022\014\n\004name\030\002 \001(\t\022(\n"
+  "\nplayerType\030\003 \001(\0162\024.Protocol.PlayerType\022"
+  "\t\n\001x\030\004 \001(\002\022\t\n\001y\030\005 \001(\002\022\t\n\001z\030\006 \001(\002\022\013\n\003yaw\030"
+  "\007 \001(\002\022&\n\tmoveState\030\010 \001(\0162\023.Protocol.Move"
+  "Stateb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Struct_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Struct_2eproto = {
-  false, false, 172, descriptor_table_protodef_Struct_2eproto, "Struct.proto", 
+  false, false, 213, descriptor_table_protodef_Struct_2eproto, "Struct.proto", 
   &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 1,
   schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
   file_level_metadata_Struct_2eproto, file_level_enum_descriptors_Struct_2eproto, file_level_service_descriptors_Struct_2eproto,
@@ -109,8 +113,8 @@ PlayerInfo::PlayerInfo(const PlayerInfo& from)
       GetArenaForAllocation());
   }
   ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&yaw_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(yaw_));
+    static_cast<size_t>(reinterpret_cast<char*>(&movestate_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(movestate_));
   // @@protoc_insertion_point(copy_constructor:Protocol.PlayerInfo)
 }
 
@@ -118,8 +122,8 @@ void PlayerInfo::SharedCtor() {
 name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&id_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&yaw_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(yaw_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&movestate_) -
+    reinterpret_cast<char*>(&id_)) + sizeof(movestate_));
 }
 
 PlayerInfo::~PlayerInfo() {
@@ -151,8 +155,8 @@ void PlayerInfo::Clear() {
 
   name_.ClearToEmpty();
   ::memset(&id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&yaw_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(yaw_));
+      reinterpret_cast<char*>(&movestate_) -
+      reinterpret_cast<char*>(&id_)) + sizeof(movestate_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -212,6 +216,14 @@ const char* PlayerInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 61)) {
           yaw_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
           ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // .Protocol.MoveState moveState = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_movestate(static_cast<::Protocol::MoveState>(val));
         } else goto handle_unusual;
         continue;
       default: {
@@ -290,6 +302,13 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(7, this->_internal_yaw(), target);
   }
 
+  // .Protocol.MoveState moveState = 8;
+  if (this->movestate() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      8, this->_internal_movestate(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -346,6 +365,12 @@ size_t PlayerInfo::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
+  // .Protocol.MoveState moveState = 8;
+  if (this->movestate() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_movestate());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
         _internal_metadata_, total_size, &_cached_size_);
@@ -398,6 +423,9 @@ void PlayerInfo::MergeFrom(const PlayerInfo& from) {
   if (!(from.yaw() <= 0 && from.yaw() >= 0)) {
     _internal_set_yaw(from._internal_yaw());
   }
+  if (from.movestate() != 0) {
+    _internal_set_movestate(from._internal_movestate());
+  }
 }
 
 void PlayerInfo::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -427,8 +455,8 @@ void PlayerInfo::InternalSwap(PlayerInfo* other) {
       &other->name_, other->GetArenaForAllocation()
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(PlayerInfo, yaw_)
-      + sizeof(PlayerInfo::yaw_)
+      PROTOBUF_FIELD_OFFSET(PlayerInfo, movestate_)
+      + sizeof(PlayerInfo::movestate_)
       - PROTOBUF_FIELD_OFFSET(PlayerInfo, id_)>(
           reinterpret_cast<char*>(&id_),
           reinterpret_cast<char*>(&other->id_));

@@ -181,6 +181,7 @@ class PlayerInfo final :
     kYFieldNumber = 5,
     kZFieldNumber = 6,
     kYawFieldNumber = 7,
+    kMoveStateFieldNumber = 8,
   };
   // string name = 2;
   void clear_name();
@@ -250,6 +251,15 @@ class PlayerInfo final :
   void _internal_set_yaw(float value);
   public:
 
+  // .Protocol.MoveState moveState = 8;
+  void clear_movestate();
+  ::Protocol::MoveState movestate() const;
+  void set_movestate(::Protocol::MoveState value);
+  private:
+  ::Protocol::MoveState _internal_movestate() const;
+  void _internal_set_movestate(::Protocol::MoveState value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.PlayerInfo)
  private:
   class _Internal;
@@ -264,6 +274,7 @@ class PlayerInfo final :
   float y_;
   float z_;
   float yaw_;
+  int movestate_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Struct_2eproto;
 };
@@ -441,6 +452,26 @@ inline void PlayerInfo::_internal_set_yaw(float value) {
 inline void PlayerInfo::set_yaw(float value) {
   _internal_set_yaw(value);
   // @@protoc_insertion_point(field_set:Protocol.PlayerInfo.yaw)
+}
+
+// .Protocol.MoveState moveState = 8;
+inline void PlayerInfo::clear_movestate() {
+  movestate_ = 0;
+}
+inline ::Protocol::MoveState PlayerInfo::_internal_movestate() const {
+  return static_cast< ::Protocol::MoveState >(movestate_);
+}
+inline ::Protocol::MoveState PlayerInfo::movestate() const {
+  // @@protoc_insertion_point(field_get:Protocol.PlayerInfo.moveState)
+  return _internal_movestate();
+}
+inline void PlayerInfo::_internal_set_movestate(::Protocol::MoveState value) {
+  
+  movestate_ = value;
+}
+inline void PlayerInfo::set_movestate(::Protocol::MoveState value) {
+  _internal_set_movestate(value);
+  // @@protoc_insertion_point(field_set:Protocol.PlayerInfo.moveState)
 }
 
 #ifdef __GNUC__
