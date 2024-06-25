@@ -30,12 +30,10 @@ Room::~Room()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif 플레이어를 방에 입장시킨다. ( Thread Safe )
+// @breif 플레이어를 방에 입장시킨다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Room::HandleEnterPlayerLocked( PlayerPtr player )
+AtBool Room::HandleEnterPlayer( PlayerPtr player )
 {
-	WRITE_LOCK;
-
 	AtBool success = EnterPlayer( player );
 
 	// 랜덤 위치
@@ -90,14 +88,12 @@ AtBool Room::HandleEnterPlayerLocked( PlayerPtr player )
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif 플레이어를 방에서 내보낸다. ( Thread Safe )
+// @breif 플레이어를 방에서 내보낸다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Room::HandleLeavePlayerLocked( PlayerPtr player )
+AtBool Room::HandleLeavePlayer( PlayerPtr player )
 {
 	if ( player == nullptr )
 		return false;
-	
-	WRITE_LOCK;
 	
 	const uint64 objectId = player->playerInfo->id();
 	bool success = LeavePlayer( objectId );
@@ -127,12 +123,10 @@ AtBool Room::HandleLeavePlayerLocked( PlayerPtr player )
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif 플레이어의 움직임을 처리한다. ( Thread Safe )
+// @breif 플레이어의 움직임을 처리한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtVoid Room::HandlePlayerMoveLocked( Protocol::C_Move& pkt )
+AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 {
-	WRITE_LOCK;
-
 	const AtInt64 id = pkt.info().id();
 	if ( _players.find( id ) == _players.end() )
 		return;
@@ -150,6 +144,14 @@ AtVoid Room::HandlePlayerMoveLocked( Protocol::C_Move& pkt )
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif Room객체를 반환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+RoomPtr Room::GetPtr()
+{
+	return static_pointer_cast<Room>( shared_from_this() );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 플레이어를 방에 입장시킨다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool Room::EnterPlayer( PlayerPtr player )
@@ -159,7 +161,7 @@ AtBool Room::EnterPlayer( PlayerPtr player )
 
 	_players.insert( make_pair( player->playerInfo->id(), player ) );
 
-	player->room.store( shared_from_this() );
+	player->room.store( GetPtr() );
 
 	return true;
 }

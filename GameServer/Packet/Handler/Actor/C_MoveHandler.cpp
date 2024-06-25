@@ -27,7 +27,7 @@ AtBool C_MoveHandler::Handle( PacketSessionPtr& session, Protocol::C_Move& pkt )
 	if ( !room )
 		return false;
 
-	room->HandlePlayerMoveLocked( pkt );
+	room->DoAsync( &Room::HandlePlayerMove, pkt );
 
 	return true;
 }

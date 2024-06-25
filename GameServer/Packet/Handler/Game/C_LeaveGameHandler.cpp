@@ -27,7 +27,7 @@ AtBool C_LeaveGameHandler::Handle( PacketSessionPtr& session, Protocol::C_LeaveG
 	if ( !room )
 		return false;
 
-	room->HandleLeavePlayerLocked( player );
+	room->DoAsync( &Room::HandleLeavePlayer, player );
 
 	return true;
 }

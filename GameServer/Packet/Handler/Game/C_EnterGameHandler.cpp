@@ -17,7 +17,7 @@ AtBool C_EnterGameHandler::Handle( PacketSessionPtr& session, Protocol::C_EnterG
 {
 	PlayerPtr player = ObjectUtils::CreatePlayer( static_pointer_cast< GameSession >( session ) );
 
-	GRoom->HandleEnterPlayerLocked( player );
+	GRoom->DoAsync( &Room::HandleEnterPlayer, player );
 
 	return true;
 }
