@@ -4,11 +4,20 @@
     <ClInclude Include="DB\GenProcedures.h">
       <Filter>DB</Filter>
     </ClInclude>
-    <ClInclude Include="Logic\Actor\Player\Player.h">
-      <Filter>Logic\Actor\Player</Filter>
+    <ClInclude Include="Logic\Object\Actor\Actor.h">
+      <Filter>Logic\Object\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="Logic\Actor\Player\PlayerTypes.h">
-      <Filter>Logic\Actor\Player</Filter>
+    <ClInclude Include="Logic\Object\Actor\Monster\Monster.h">
+      <Filter>Logic\Object\Actor\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Object\Actor\Player\Player.h">
+      <Filter>Logic\Object\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Object\Actor\Player\PlayerTypes.h">
+      <Filter>Logic\Object\Actor\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Object\Object.h">
+      <Filter>Logic\Object</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Room\Room.h">
       <Filter>Logic\Room</Filter>
@@ -69,8 +78,17 @@
     <ClCompile Include="GameServer.cpp">
       <Filter>..\..\..\GameServer</Filter>
     </ClCompile>
-    <ClCompile Include="Logic\Actor\Player\Player.cpp">
-      <Filter>Logic\Actor\Player</Filter>
+    <ClCompile Include="Logic\Object\Actor\Actor.cpp">
+      <Filter>Logic\Object\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Object\Actor\Monster\Monster.cpp">
+      <Filter>Logic\Object\Actor\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Object\Actor\Player\Player.cpp">
+      <Filter>Logic\Object\Actor\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Object\Object.cpp">
+      <Filter>Logic\Object</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Room\Room.cpp">
       <Filter>Logic\Room</Filter>
@@ -161,9 +179,13 @@
     </Filter>
     <Filter Include="Logic">
     </Filter>
-    <Filter Include="Logic\Actor">
+    <Filter Include="Logic\Object">
     </Filter>
-    <Filter Include="Logic\Actor\Player">
+    <Filter Include="Logic\Object\Actor">
+    </Filter>
+    <Filter Include="Logic\Object\Actor\Monster">
+    </Filter>
+    <Filter Include="Logic\Object\Actor\Player">
     </Filter>
     <Filter Include="Logic\Room">
     </Filter>

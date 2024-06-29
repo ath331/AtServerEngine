@@ -5,7 +5,7 @@
 
 #include "pch.h"
 #include "Room.h"
-#include "Logic/Actor/Player/Player.h"
+#include "Logic/Object/Actor/Player/Player.h"
 #include "Session/GameSession.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 
@@ -34,22 +34,22 @@ Room::~Room()
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool Room::HandleEnterPlayer( PlayerPtr player )
 {
-	AtBool success = EnterPlayer( player );
+	AtBool success = AddObject( player );
 
 	// 랜덤 위치
-	player->playerInfo->set_x  ( Utils::GetRandom( 0.f, 500.f ) );
-	player->playerInfo->set_y  ( Utils::GetRandom( 0.f, 500.f ) );
+	player->posInfo->set_x  ( Utils::GetRandom( 0.f, 500.f ) );
+	player->posInfo->set_y  ( Utils::GetRandom( 0.f, 500.f ) );
 	//player->playerInfo->set_z  ( Utils::GetRandom( 0.f, 500.f ) );
-	player->playerInfo->set_z  ( 100.f );
-	player->playerInfo->set_yaw( Utils::GetRandom( 0.f, 100.f ) );
+	player->posInfo->set_z  ( 100.f );
+	player->posInfo->set_yaw( Utils::GetRandom( 0.f, 100.f ) );
 
 	// 입장 사실을 신입 플레이어에게 알린다
 	{
 		Protocol::S_EnterGame enterGamePkt;
 		enterGamePkt.set_success( success );
 
-		Protocol::PlayerInfo* playerInfo = new Protocol::PlayerInfo();
-		playerInfo->CopyFrom( *player->playerInfo );
+		Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
+		playerInfo->CopyFrom( *player->objectInfo );
 		enterGamePkt.set_allocated_player( playerInfo );
 		//enterGamePkt.release_player();
 
@@ -62,21 +62,24 @@ AtBool Room::HandleEnterPlayer( PlayerPtr player )
 	{
 		Protocol::S_Spawn spawnPkt;
 
-		Protocol::PlayerInfo* playerInfo = spawnPkt.add_players();
-		playerInfo->CopyFrom( *player->playerInfo );
+		Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
+		playerInfo->CopyFrom( *player->objectInfo );
 
 		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
-		Broadcast( sendBuffer, player->playerInfo->id() );
+		Broadcast( sendBuffer, player->objectInfo->id() );
 	}
 
 	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
 	{
 		Protocol::S_Spawn spawnPkt;
 
-		for ( auto& item : _players )
+		for ( auto& item : m_objects )
 		{
-			Protocol::PlayerInfo* playerInfo = spawnPkt.add_players();
-			playerInfo->CopyFrom( *item.second->playerInfo );
+			if ( !item.second->IsPlayer() )
+				continue;
+
+			Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
+			playerInfo->CopyFrom( *item.second->objectInfo );
 		}
 
 		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
@@ -95,8 +98,8 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 	if ( player == nullptr )
 		return false;
 	
-	const uint64 objectId = player->playerInfo->id();
-	bool success = LeavePlayer( objectId );
+	const uint64 objectId = player->objectInfo->id();
+	bool success = RemoveObject( objectId );
 	
 	// 퇴장 사실을 퇴장하는 플레이어에게 알린다
 	{
@@ -128,12 +131,15 @@ AtBool Room::HandleLeavePlayer( PlayerPtr player )
 AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 {
 	const AtInt64 id = pkt.info().id();
-	if ( _players.find( id ) == _players.end() )
+	if ( m_objects.find( id ) == m_objects.end() )
 		return;
 
 	// TODO : 위치 체크하기
-	PlayerPtr player = _players[ id ];
-	player->playerInfo->CopyFrom( pkt.info() );
+	PlayerPtr player = dynamic_pointer_cast<Player>( m_objects[ id ] );
+	if ( !player )
+		return;
+
+	player->objectInfo->CopyFrom( pkt.info() );
 
 	Protocol::S_Move movePkt;
 	auto* info =  movePkt.mutable_info();
@@ -146,48 +152,64 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif Room객체를 반환한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+AtVoid Room::UpdateTick()
+{
+	// cout << "Room Tick" << endl;
+	// 
+	// DoTimer( 100, &Room::UpdateTick );
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif Room객체를 반환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
 RoomPtr Room::GetPtr()
 {
 	return static_pointer_cast<Room>( shared_from_this() );
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif 플레이어를 방에 입장시킨다.
+// @breif 오브젝트를 추가한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Room::EnterPlayer( PlayerPtr player )
+AtBool Room::AddObject( ObjectPtr object )
 {
-	if ( _players.find( player->playerInfo->id() ) != _players.end() )
+	if ( m_objects.find( object->objectInfo->id() ) != m_objects.end() )
 		return false;
 
-	_players.insert( make_pair( player->playerInfo->id(), player ) );
+	m_objects.insert( make_pair( object->objectInfo->id(), object ) );
 
-	player->room.store( GetPtr() );
+	object->room.store( GetPtr() );
 
 	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @breif 플레이어를 방에서 내보낸다.
+// @breif 오브젝트를 제거한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-AtBool Room::LeavePlayer( uint64 objectId )
+AtBool Room::RemoveObject( uint64 objectId )
 {
-	if ( _players.find( objectId ) == _players.end() )
+	if ( m_objects.find( objectId ) == m_objects.end() )
 		return false;
 
-	PlayerPtr player = _players[ objectId ];
-	player->room.store( weak_ptr<Room>() );
+	ObjectPtr object = m_objects[ objectId ];
+	if ( !object )
+		return false;
 
-	_players.erase( objectId );
+	object->room.store( weak_ptr<Room>() );
+
+	m_objects.erase( objectId );
 
 	return true;
 }
 
 AtVoid Room::Broadcast( SendBufferPtr sendBuffer, uint64 exceptId )
 {
-	for ( auto& item : _players )
+	for ( auto& item : m_objects )
 	{
-		PlayerPtr player = item.second;
-		if ( player->playerInfo->id() == exceptId )
+		PlayerPtr player = dynamic_pointer_cast<Player>( item.second );
+		if ( !player )
+			continue;
+
+		if ( player->objectInfo->id() == exceptId )
 			continue;
 
 		if ( GameSessionPtr session = player->session.lock() )

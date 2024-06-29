@@ -16,11 +16,8 @@
 #include "DBBind.h"
 #include "XmlParser.h"
 #include "DBSynchronizer.h"
-
-
+#include "Logic/Room/Room.h"
 #include "DB/GenProcedures.h"
-
-
 #include "Packet/Handler/ClientPacketHandler.h"
 #include "Packet/Protocol.pb.h"
 
@@ -83,6 +80,8 @@ int main()
 			} );
 	}
 
+	GRoom->DoAsync( &Room::UpdateTick );
+
 	// Main Thread
 	// DoWorkerJob( service );
 
@@ -96,14 +95,10 @@ int main()
 	// 	this_thread::sleep_for( 3s );
 	// }
 
-	Protocol::S_Login pkt;
-	pkt.set_success( true );
-
-
-	auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pkt );
-
-
-
+	// Protocol::S_Login pkt;
+	// pkt.set_success( true );
+	// 
+	// auto sendBuffer = ClientPacketHandler::MakeSendBuffer( pkt );
 
 	GThreadManager->Join();
 }

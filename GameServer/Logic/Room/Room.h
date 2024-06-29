@@ -31,21 +31,25 @@ public:
 	/// 플레이어의 움직임을 처리한다.
 	AtVoid HandlePlayerMove( Protocol::C_Move pkt );
 
+public:
+	/// 룸을 업데이트한다.
+	AtVoid UpdateTick();
+
 	/// Room객체를 반환한다.
 	RoomPtr GetPtr();
 
 private:
-	/// 플레이어를 방에 입장시킨다.
-	AtBool EnterPlayer( PlayerPtr player );
+	/// 오브젝트를 추가한다.
+	AtBool AddObject( ObjectPtr object );
 
-	/// 플레이어를 방에서 내보낸다.
-	AtBool LeavePlayer( uint64 objectId );
+	/// 오브젝트를 제거한다.
+	AtBool RemoveObject( uint64 objectId );
 
 private:
 	AtVoid Broadcast( SendBufferPtr sendBuffer, uint64 exceptId = 0 );
 
 private:
-	unordered_map<uint64, PlayerPtr > _players;
+	unordered_map<uint64, ObjectPtr > m_objects;
 };
 
 extern RoomPtr GRoom;

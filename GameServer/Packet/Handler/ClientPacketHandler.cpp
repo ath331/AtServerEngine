@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "ClientPacketHandler.h"
-#include "Logic/Actor/Player/Player.h"
+#include "Logic/Object/Actor/Player/Player.h"
 #include "Logic/Room/Room.h"
 #include "Session/GameSession.h"
 

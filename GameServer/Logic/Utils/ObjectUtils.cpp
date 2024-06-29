@@ -5,7 +5,7 @@
 
 #include "pch.h"
 #include "ObjectUtils.h"
-#include "Logic/Actor/Player/Player.h"
+#include "Logic/Object/Actor/Player/Player.h"
 #include "Session/GameSession.h"
 
 
@@ -21,7 +21,7 @@ PlayerPtr ObjectUtils::CreatePlayer( GameSessionPtr session )
 	const int64 newId = s_idGenerator.fetch_add( 1 );
 
 	PlayerPtr player = make_shared<Player>();
-	player->playerInfo->set_id( newId );
+	player->objectInfo->set_id( newId );
 
 	player->session = session;
 	session->player.store( player );

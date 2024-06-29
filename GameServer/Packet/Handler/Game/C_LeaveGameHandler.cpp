@@ -6,7 +6,7 @@
 #include "pch.h"
 #include "C_LeaveGameHandler.h"
 #include "Session/GameSession.h"
-#include "Logic/Actor/Player/Player.h"
+#include "Logic/Object/Actor/Player/Player.h"
 #include "Logic/Room/Room.h"
 
 
