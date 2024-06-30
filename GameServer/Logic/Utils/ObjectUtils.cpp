@@ -22,6 +22,7 @@ PlayerPtr ObjectUtils::CreatePlayer( GameSessionPtr session )
 
 	PlayerPtr player = make_shared<Player>();
 	player->objectInfo->set_id( newId );
+	player->posInfo->set_id( newId );
 
 	player->session = session;
 	session->player.store( player );

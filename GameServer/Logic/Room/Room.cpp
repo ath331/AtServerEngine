@@ -30,6 +30,110 @@ Room::~Room()
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 오브젝트를 입장시킨다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool Room::EnterRoom( ObjectPtr object, AtBool randPos )
+{
+	AtBool success = AddObject( object );
+
+	if ( randPos )
+	{
+		object->posInfo->set_x  ( Utils::GetRandom( 0.f, 500.f ) );
+		object->posInfo->set_y  ( Utils::GetRandom( 0.f, 500.f ) );
+		// object->posInfo->set_z  ( Utils::GetRandom( 0.f, 500.f ) );
+		object->posInfo->set_z  ( 100.f );
+		object->posInfo->set_yaw( Utils::GetRandom( 0.f, 100.f ) );
+	}
+
+	// 입장 사실을 신입 플레이어에게 알린다
+	if ( auto player = dynamic_pointer_cast<Player>( object ) )
+	{
+		Protocol::S_EnterGame enterGamePkt;
+		enterGamePkt.set_success( success );
+
+		Protocol::ObjectInfo* playerInfo = new Protocol::ObjectInfo();
+		playerInfo->CopyFrom( *player->objectInfo );
+		enterGamePkt.set_allocated_player( playerInfo );
+		//enterGamePkt.release_player();
+
+		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( enterGamePkt );
+		if ( auto session = player->session.lock() )
+			session->Send( sendBuffer );
+	}
+
+	// 입장 사실을 다른 플레이어에게 알린다
+	{
+		Protocol::S_Spawn spawnPkt;
+
+		Protocol::ObjectInfo* objectInfo = spawnPkt.add_players();
+		objectInfo->CopyFrom( *object->objectInfo );
+
+		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
+		Broadcast( sendBuffer, object->objectInfo->id() );
+	}
+
+	// 기존 입장한 플레이어 목록을 신입 플레이어한테 전송해준다
+	if ( auto player = dynamic_pointer_cast<Player>( object ) )
+	{
+		Protocol::S_Spawn spawnPkt;
+
+		for ( auto& item : m_objects )
+		{
+			if ( !item.second->IsPlayer() )
+				continue;
+
+			Protocol::ObjectInfo* playerInfo = spawnPkt.add_players();
+			playerInfo->CopyFrom( *item.second->objectInfo );
+		}
+
+		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( spawnPkt );
+		if ( auto session = player->session.lock() )
+			session->Send( sendBuffer );
+	}
+
+	return success;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// @breif 오브젝트를 퇴장시킨다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtBool Room::LeaveRoom( ObjectPtr object )
+{
+	if ( !object )
+		return false;
+
+	const uint64 objectId = object->objectInfo->id();
+	bool success = RemoveObject( objectId );
+
+	// 퇴장 사실을 퇴장하는 플레이어에게 알린다
+	if ( auto player = dynamic_pointer_cast<Player>( object ) )
+	{
+		Protocol::S_LeaveGame leaveGamePkt;
+
+		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( leaveGamePkt );
+		if ( auto session = player->session.lock() )
+			session->Send( sendBuffer );
+	}
+
+	// 퇴장 사실을 알린다
+	{
+		Protocol::S_DeSpawn despawnPkt;
+		despawnPkt.add_ids( objectId );
+
+		SendBufferPtr sendBuffer = ClientPacketHandler::MakeSendBuffer( despawnPkt );
+		Broadcast( sendBuffer, objectId );
+
+		if ( auto player = dynamic_pointer_cast<Player>( object ) )
+		{
+			if ( auto session = player->session.lock() )
+				session->Send( sendBuffer );
+		}
+	}
+
+	return success;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // @breif 플레이어를 방에 입장시킨다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool Room::HandleEnterPlayer( PlayerPtr player )
@@ -139,7 +243,7 @@ AtVoid Room::HandlePlayerMove( Protocol::C_Move pkt )
 	if ( !player )
 		return;
 
-	player->objectInfo->CopyFrom( pkt.info() );
+	player->posInfo->CopyFrom( pkt.info() );
 
 	Protocol::S_Move movePkt;
 	auto* info =  movePkt.mutable_info();
