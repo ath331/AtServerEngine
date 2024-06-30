@@ -12,12 +12,12 @@ message PosInfo
 	float y = 3;
 	float z = 4;
 	float yaw = 5;
-	MoveState move_State = 6;
+	EMoveState move_State = 6;
 }
 
 message ObjectInfo
 {
 	uint64 id = 1;
-	ObjectType object_type = 2;
+	EObjectType object_type = 2;
 	PosInfo pos_info = 3;
 }

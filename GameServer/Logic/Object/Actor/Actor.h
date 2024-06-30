@@ -24,7 +24,7 @@ public:
 
 protected:
 	/// 엑터 타입
-	Protocol::ActorType m_actorType;
+	Protocol::EActorType m_actorType;
 };
 
 // 포인터 타입 정의

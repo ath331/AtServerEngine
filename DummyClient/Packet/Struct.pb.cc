@@ -87,20 +87,20 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\014Struct.proto\022\010Protocol\032\nEnum.proto\"l\n\007"
+  "\n\014Struct.proto\022\010Protocol\032\nEnum.proto\"m\n\007"
   "PosInfo\022\n\n\002id\030\001 \001(\004\022\t\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001("
-  "\002\022\t\n\001z\030\004 \001(\002\022\013\n\003yaw\030\005 \001(\002\022\'\n\nmove_State\030"
-  "\006 \001(\0162\023.Protocol.MoveState\"h\n\nObjectInfo"
-  "\022\n\n\002id\030\001 \001(\004\022)\n\013object_type\030\002 \001(\0162\024.Prot"
-  "ocol.ObjectType\022#\n\010pos_info\030\003 \001(\0132\021.Prot"
-  "ocol.PosInfob\006proto3"
+  "\002\022\t\n\001z\030\004 \001(\002\022\013\n\003yaw\030\005 \001(\002\022(\n\nmove_State\030"
+  "\006 \001(\0162\024.Protocol.EMoveState\"i\n\nObjectInf"
+  "o\022\n\n\002id\030\001 \001(\004\022*\n\013object_type\030\002 \001(\0162\025.Pro"
+  "tocol.EObjectType\022#\n\010pos_info\030\003 \001(\0132\021.Pr"
+  "otocol.PosInfob\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Struct_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Struct_2eproto = {
-  false, false, 260, descriptor_table_protodef_Struct_2eproto, "Struct.proto", 
+  false, false, 262, descriptor_table_protodef_Struct_2eproto, "Struct.proto", 
   &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 2,
   schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
   file_level_metadata_Struct_2eproto, file_level_enum_descriptors_Struct_2eproto, file_level_service_descriptors_Struct_2eproto,
@@ -214,12 +214,12 @@ const char* PosInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
           ptr += sizeof(float);
         } else goto handle_unusual;
         continue;
-      // .Protocol.MoveState move_State = 6;
+      // .Protocol.EMoveState move_State = 6;
       case 6:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          _internal_set_move_state(static_cast<::Protocol::MoveState>(val));
+          _internal_set_move_state(static_cast<::Protocol::EMoveState>(val));
         } else goto handle_unusual;
         continue;
       default: {
@@ -281,7 +281,7 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(5, this->_internal_yaw(), target);
   }
 
-  // .Protocol.MoveState move_State = 6;
+  // .Protocol.EMoveState move_State = 6;
   if (this->move_state() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
@@ -331,7 +331,7 @@ size_t PosInfo::ByteSizeLong() const {
     total_size += 1 + 4;
   }
 
-  // .Protocol.MoveState move_State = 6;
+  // .Protocol.EMoveState move_State = 6;
   if (this->move_state() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_move_state());
@@ -511,12 +511,12 @@ const char* ObjectInfo::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // .Protocol.ObjectType object_type = 2;
+      // .Protocol.EObjectType object_type = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
           ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
-          _internal_set_object_type(static_cast<::Protocol::ObjectType>(val));
+          _internal_set_object_type(static_cast<::Protocol::EObjectType>(val));
         } else goto handle_unusual;
         continue;
       // .Protocol.PosInfo pos_info = 3;
@@ -561,7 +561,7 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt64ToArray(1, this->_internal_id(), target);
   }
 
-  // .Protocol.ObjectType object_type = 2;
+  // .Protocol.EObjectType object_type = 2;
   if (this->object_type() != 0) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
@@ -606,7 +606,7 @@ size_t ObjectInfo::ByteSizeLong() const {
         this->_internal_id());
   }
 
-  // .Protocol.ObjectType object_type = 2;
+  // .Protocol.EObjectType object_type = 2;
   if (this->object_type() != 0) {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->_internal_object_type());

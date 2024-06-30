@@ -177,6 +177,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Data\InfoManagerTemplate.h" />
     <ClInclude Include="DB\GenProcedures.h" />
     <ClInclude Include="Logic\Object\Actor\Actor.h" />
     <ClInclude Include="Logic\Object\Actor\Monster\Monster.h" />
@@ -203,6 +204,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Session\GameSessionTypes.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Data\InfoManagerTemplate.cpp" />
     <ClCompile Include="GameServer.cpp" />
     <ClCompile Include="Logic\Object\Actor\Actor.cpp" />
     <ClCompile Include="Logic\Object\Actor\Monster\Monster.cpp" />

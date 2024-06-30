@@ -230,13 +230,13 @@ class PosInfo final :
   void _internal_set_yaw(float value);
   public:
 
-  // .Protocol.MoveState move_State = 6;
+  // .Protocol.EMoveState move_State = 6;
   void clear_move_state();
-  ::Protocol::MoveState move_state() const;
-  void set_move_state(::Protocol::MoveState value);
+  ::Protocol::EMoveState move_state() const;
+  void set_move_state(::Protocol::EMoveState value);
   private:
-  ::Protocol::MoveState _internal_move_state() const;
-  void _internal_set_move_state(::Protocol::MoveState value);
+  ::Protocol::EMoveState _internal_move_state() const;
+  void _internal_set_move_state(::Protocol::EMoveState value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.PosInfo)
@@ -396,13 +396,13 @@ class ObjectInfo final :
   void _internal_set_id(::PROTOBUF_NAMESPACE_ID::uint64 value);
   public:
 
-  // .Protocol.ObjectType object_type = 2;
+  // .Protocol.EObjectType object_type = 2;
   void clear_object_type();
-  ::Protocol::ObjectType object_type() const;
-  void set_object_type(::Protocol::ObjectType value);
+  ::Protocol::EObjectType object_type() const;
+  void set_object_type(::Protocol::EObjectType value);
   private:
-  ::Protocol::ObjectType _internal_object_type() const;
-  void _internal_set_object_type(::Protocol::ObjectType value);
+  ::Protocol::EObjectType _internal_object_type() const;
+  void _internal_set_object_type(::Protocol::EObjectType value);
   public:
 
   // @@protoc_insertion_point(class_scope:Protocol.ObjectInfo)
@@ -529,22 +529,22 @@ inline void PosInfo::set_yaw(float value) {
   // @@protoc_insertion_point(field_set:Protocol.PosInfo.yaw)
 }
 
-// .Protocol.MoveState move_State = 6;
+// .Protocol.EMoveState move_State = 6;
 inline void PosInfo::clear_move_state() {
   move_state_ = 0;
 }
-inline ::Protocol::MoveState PosInfo::_internal_move_state() const {
-  return static_cast< ::Protocol::MoveState >(move_state_);
+inline ::Protocol::EMoveState PosInfo::_internal_move_state() const {
+  return static_cast< ::Protocol::EMoveState >(move_state_);
 }
-inline ::Protocol::MoveState PosInfo::move_state() const {
+inline ::Protocol::EMoveState PosInfo::move_state() const {
   // @@protoc_insertion_point(field_get:Protocol.PosInfo.move_State)
   return _internal_move_state();
 }
-inline void PosInfo::_internal_set_move_state(::Protocol::MoveState value) {
+inline void PosInfo::_internal_set_move_state(::Protocol::EMoveState value) {
   
   move_state_ = value;
 }
-inline void PosInfo::set_move_state(::Protocol::MoveState value) {
+inline void PosInfo::set_move_state(::Protocol::EMoveState value) {
   _internal_set_move_state(value);
   // @@protoc_insertion_point(field_set:Protocol.PosInfo.move_State)
 }
@@ -573,22 +573,22 @@ inline void ObjectInfo::set_id(::PROTOBUF_NAMESPACE_ID::uint64 value) {
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.id)
 }
 
-// .Protocol.ObjectType object_type = 2;
+// .Protocol.EObjectType object_type = 2;
 inline void ObjectInfo::clear_object_type() {
   object_type_ = 0;
 }
-inline ::Protocol::ObjectType ObjectInfo::_internal_object_type() const {
-  return static_cast< ::Protocol::ObjectType >(object_type_);
+inline ::Protocol::EObjectType ObjectInfo::_internal_object_type() const {
+  return static_cast< ::Protocol::EObjectType >(object_type_);
 }
-inline ::Protocol::ObjectType ObjectInfo::object_type() const {
+inline ::Protocol::EObjectType ObjectInfo::object_type() const {
   // @@protoc_insertion_point(field_get:Protocol.ObjectInfo.object_type)
   return _internal_object_type();
 }
-inline void ObjectInfo::_internal_set_object_type(::Protocol::ObjectType value) {
+inline void ObjectInfo::_internal_set_object_type(::Protocol::EObjectType value) {
   
   object_type_ = value;
 }
-inline void ObjectInfo::set_object_type(::Protocol::ObjectType value) {
+inline void ObjectInfo::set_object_type(::Protocol::EObjectType value) {
   _internal_set_object_type(value);
   // @@protoc_insertion_point(field_set:Protocol.ObjectInfo.object_type)
 }

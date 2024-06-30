@@ -15,7 +15,7 @@ message C_Login
 message S_Login
 {
 	bool success = 1;
-	repeated ObjectInfo players = 2;
+	repeated EObjectInfo players = 2;
 }
 
 // path = Game
@@ -28,7 +28,7 @@ message C_EnterGame
 message S_EnterGame
 {
 	bool success = 1;
-	ObjectInfo player = 2;
+	EObjectInfo player = 2;
 }
 
 // path = Game
@@ -56,7 +56,7 @@ message S_Move
 // path = Spawn
 message S_Spawn
 {
-	repeated ObjectInfo players = 1;
+	repeated EObjectInfo players = 1;
 }
 
 // path = Spawn

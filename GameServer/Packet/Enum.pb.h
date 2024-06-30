@@ -56,114 +56,114 @@ PROTOBUF_NAMESPACE_OPEN
 PROTOBUF_NAMESPACE_CLOSE
 namespace Protocol {
 
-enum ObjectType : int {
+enum EObjectType : int {
   OBJECT_TYPE_NONE = 0,
   OBJECT_TYPE_ACTOR = 1,
   OBJECT_TYPE_PROJECTILE = 2,
   OBJECT_TYPE_ENV = 3,
-  ObjectType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  ObjectType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+  EObjectType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EObjectType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
-bool ObjectType_IsValid(int value);
-constexpr ObjectType ObjectType_MIN = OBJECT_TYPE_NONE;
-constexpr ObjectType ObjectType_MAX = OBJECT_TYPE_ENV;
-constexpr int ObjectType_ARRAYSIZE = ObjectType_MAX + 1;
+bool EObjectType_IsValid(int value);
+constexpr EObjectType EObjectType_MIN = OBJECT_TYPE_NONE;
+constexpr EObjectType EObjectType_MAX = OBJECT_TYPE_ENV;
+constexpr int EObjectType_ARRAYSIZE = EObjectType_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ObjectType_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EObjectType_descriptor();
 template<typename T>
-inline const std::string& ObjectType_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, ObjectType>::value ||
+inline const std::string& EObjectType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EObjectType>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function ObjectType_Name.");
+    "Incorrect type passed to function EObjectType_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    ObjectType_descriptor(), enum_t_value);
+    EObjectType_descriptor(), enum_t_value);
 }
-inline bool ObjectType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ObjectType* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ObjectType>(
-    ObjectType_descriptor(), name, value);
+inline bool EObjectType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EObjectType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EObjectType>(
+    EObjectType_descriptor(), name, value);
 }
-enum ActorType : int {
-  Actor_TYPE_NONE = 0,
-  Actor_TYPE_PLAYER = 1,
-  Actor_TYPE_MONSTER = 2,
-  Actor_TYPE_NPC = 3,
-  ActorType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  ActorType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+enum EActorType : int {
+  None = 0,
+  Player = 1,
+  Monster = 2,
+  Npc = 3,
+  EActorType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EActorType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
-bool ActorType_IsValid(int value);
-constexpr ActorType ActorType_MIN = Actor_TYPE_NONE;
-constexpr ActorType ActorType_MAX = Actor_TYPE_NPC;
-constexpr int ActorType_ARRAYSIZE = ActorType_MAX + 1;
+bool EActorType_IsValid(int value);
+constexpr EActorType EActorType_MIN = None;
+constexpr EActorType EActorType_MAX = Npc;
+constexpr int EActorType_ARRAYSIZE = EActorType_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ActorType_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EActorType_descriptor();
 template<typename T>
-inline const std::string& ActorType_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, ActorType>::value ||
+inline const std::string& EActorType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EActorType>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function ActorType_Name.");
+    "Incorrect type passed to function EActorType_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    ActorType_descriptor(), enum_t_value);
+    EActorType_descriptor(), enum_t_value);
 }
-inline bool ActorType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, ActorType* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<ActorType>(
-    ActorType_descriptor(), name, value);
+inline bool EActorType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EActorType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EActorType>(
+    EActorType_descriptor(), name, value);
 }
-enum PlayerType : int {
+enum EPlayerType : int {
   PLAYER_TYPE_NONE = 0,
   PLAYER_TYPE_KNIGHT = 1,
   PLAYER_TYPE_MAGE = 2,
   PLAYER_TYPE_ARCHER = 3,
-  PlayerType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  PlayerType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+  EPlayerType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EPlayerType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
-bool PlayerType_IsValid(int value);
-constexpr PlayerType PlayerType_MIN = PLAYER_TYPE_NONE;
-constexpr PlayerType PlayerType_MAX = PLAYER_TYPE_ARCHER;
-constexpr int PlayerType_ARRAYSIZE = PlayerType_MAX + 1;
+bool EPlayerType_IsValid(int value);
+constexpr EPlayerType EPlayerType_MIN = PLAYER_TYPE_NONE;
+constexpr EPlayerType EPlayerType_MAX = PLAYER_TYPE_ARCHER;
+constexpr int EPlayerType_ARRAYSIZE = EPlayerType_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* PlayerType_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EPlayerType_descriptor();
 template<typename T>
-inline const std::string& PlayerType_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, PlayerType>::value ||
+inline const std::string& EPlayerType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EPlayerType>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function PlayerType_Name.");
+    "Incorrect type passed to function EPlayerType_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    PlayerType_descriptor(), enum_t_value);
+    EPlayerType_descriptor(), enum_t_value);
 }
-inline bool PlayerType_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, PlayerType* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<PlayerType>(
-    PlayerType_descriptor(), name, value);
+inline bool EPlayerType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EPlayerType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EPlayerType>(
+    EPlayerType_descriptor(), name, value);
 }
-enum MoveState : int {
+enum EMoveState : int {
   MOVE_STATE_NONE = 0,
   MOVE_STATE_IDLE = 1,
   MOVE_STATE_RUN = 2,
   MOVE_STATE_JUMP = 3,
   MOVE_STATE_SKILL = 4,
-  MoveState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
-  MoveState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+  EMoveState_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EMoveState_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
-bool MoveState_IsValid(int value);
-constexpr MoveState MoveState_MIN = MOVE_STATE_NONE;
-constexpr MoveState MoveState_MAX = MOVE_STATE_SKILL;
-constexpr int MoveState_ARRAYSIZE = MoveState_MAX + 1;
+bool EMoveState_IsValid(int value);
+constexpr EMoveState EMoveState_MIN = MOVE_STATE_NONE;
+constexpr EMoveState EMoveState_MAX = MOVE_STATE_SKILL;
+constexpr int EMoveState_ARRAYSIZE = EMoveState_MAX + 1;
 
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MoveState_descriptor();
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EMoveState_descriptor();
 template<typename T>
-inline const std::string& MoveState_Name(T enum_t_value) {
-  static_assert(::std::is_same<T, MoveState>::value ||
+inline const std::string& EMoveState_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EMoveState>::value ||
     ::std::is_integral<T>::value,
-    "Incorrect type passed to function MoveState_Name.");
+    "Incorrect type passed to function EMoveState_Name.");
   return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
-    MoveState_descriptor(), enum_t_value);
+    EMoveState_descriptor(), enum_t_value);
 }
-inline bool MoveState_Parse(
-    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, MoveState* value) {
-  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<MoveState>(
-    MoveState_descriptor(), name, value);
+inline bool EMoveState_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EMoveState* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EMoveState>(
+    EMoveState_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -187,25 +187,25 @@ inline bool MoveState_Parse(
 
 PROTOBUF_NAMESPACE_OPEN
 
-template <> struct is_proto_enum< ::Protocol::ObjectType> : ::std::true_type {};
+template <> struct is_proto_enum< ::Protocol::EObjectType> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ObjectType>() {
-  return ::Protocol::ObjectType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EObjectType>() {
+  return ::Protocol::EObjectType_descriptor();
 }
-template <> struct is_proto_enum< ::Protocol::ActorType> : ::std::true_type {};
+template <> struct is_proto_enum< ::Protocol::EActorType> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::ActorType>() {
-  return ::Protocol::ActorType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EActorType>() {
+  return ::Protocol::EActorType_descriptor();
 }
-template <> struct is_proto_enum< ::Protocol::PlayerType> : ::std::true_type {};
+template <> struct is_proto_enum< ::Protocol::EPlayerType> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::PlayerType>() {
-  return ::Protocol::PlayerType_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EPlayerType>() {
+  return ::Protocol::EPlayerType_descriptor();
 }
-template <> struct is_proto_enum< ::Protocol::MoveState> : ::std::true_type {};
+template <> struct is_proto_enum< ::Protocol::EMoveState> : ::std::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::MoveState>() {
-  return ::Protocol::MoveState_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EMoveState>() {
+  return ::Protocol::EMoveState_descriptor();
 }
 
 PROTOBUF_NAMESPACE_CLOSE
