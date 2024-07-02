@@ -31,8 +31,8 @@
     <Folder Include="Templates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\InfoManagerTemplate.cpp" />
-    <Content Include="Templates\InfoManagerTemplate.h" />
+    <Content Include="Templates\InfoTemplate.cpp" />
+    <Content Include="Templates\InfoTemplate.h" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

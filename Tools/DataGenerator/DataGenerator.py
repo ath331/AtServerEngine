@@ -7,8 +7,15 @@ import glob
 import jinja2
 
 
-def main():
+class Member:
+    def __init__(self, Name, name, valueType, default):
+        self.Name = Name
+        self.name = name
+        self.valueType = valueType
+        self.default = default
 
+
+def main():
     arg_parser = argparse.ArgumentParser(description = 'DataGenerator')
     arg_parser.add_argument('--path', type=str, default='../../Data', help='data dir path')
     args = arg_parser.parse_args()
@@ -18,36 +25,75 @@ def main():
             if file.endswith(".xlsx"):
                 file_path = os.path.join(root, file)
 
+                memberList = []
+
                 # xlsx
-                workbook = load_workbook(file_path, read_only=True)
+                workbook = load_workbook(file_path)
 
                 for sheetname in workbook.sheetnames:
 
                     # sheet
                     sheet = workbook[sheetname]
 
-                    # row
-                    for row in sheet.iter_rows(values_only=True):
-                        if all(value is None for value in row):
+                    # col
+                    for col in sheet.iter_cols(values_only=True):
+                        if all(value is None for value in col):
                             break
-                        for cell in row:
-                            print(cell, end=" ")
-                        print()
-                        
+
+                        memberNAME = "NAME"
+                        memberName = "name"
+                        memberType = "type"
+                        memberDefault = "default"
+
+                        for index, cell in enumerate(col):
+
+                            if index == 0:
+                                memberNAME = cell
+                                memberName = memberNAME[0].lower() + memberNAME[1:]
+                                continue
+
+                            if index == 3:
+                                memberType = cell
+                                if memberType.startswith("E"):
+                                    memberType = "Protocol::" + memberType
+
+                                memberDefault = memberType + "( 0 )"
+                                if memberType == "AtString":
+                                    memberDefault = "\"\""
+                                if memberType.startswith("E"):
+                                    memberDefault = memberType + "::Max"
+
+                                continue
+
+
+                        member = Member(memberNAME, memberName, memberType, memberDefault)
+
+                        memberList.append(member)
+
+
                 workbook.close()
 
+            file_loader = jinja2.FileSystemLoader('Templates')
+            env = jinja2.Environment(loader=file_loader)
 
-    file_loader = jinja2.FileSystemLoader('Templates')
-	env = jinja2.Environment(loader=file_loader)
+            template = env.get_template('InfoTemplate.h')
+            output = template.render(ClassName=sheetname, memberList=memberList)
 
-	template = env.get_template('InfoManagerTemplate.h')
-	output = template.render(parser=parser, output=args.output)
+            f = open(sheetname+'InfoTemplate.h', 'w+')
+            f.write(output)
+            f.close()
 
-	f = open(args.output+'.h', 'w+')
-	f.write(output)
-	f.close()
+            template = env.get_template('InfoTemplate.cpp')
+            output = template.render(ClassName=sheetname, memberList=memberList)
 
-	print(output)
+            f = open(sheetname+'InfoTemplate.cpp', 'w+')
+            f.write(output)
+            f.close()
+
+            print(output)
+
+
+
                 
     return
 
