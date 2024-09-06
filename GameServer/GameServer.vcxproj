@@ -84,13 +84,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(ProjectDir)\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(ProjectDir)\;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)ServerCore\;$(SolutionDir)Libraries\Include\;$(ProjectDir)\;$(ProjectDir)\Logic\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Libraries\Libs\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Binary\$(Configuration)\</OutDir>
   </PropertyGroup>
@@ -177,8 +177,21 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Data\InfoManagerTemplate.h" />
+    <ClInclude Include="Data\Character\CharacterInfo.h" />
+    <ClInclude Include="Data\Character\CharacterInfoManager.h" />
+    <ClInclude Include="Data\Character\CharacterInfoManagerTemplate.h" />
+    <ClInclude Include="Data\Character\CharacterInfoTemplate.h" />
+    <ClInclude Include="Data\InfoManagers.h" />
+    <ClInclude Include="Data\Inventory\InventoryInfo.h" />
+    <ClInclude Include="Data\Inventory\InventoryInfoManager.h" />
+    <ClInclude Include="Data\Inventory\InventoryInfoManagerTemplate.h" />
+    <ClInclude Include="Data\Inventory\InventoryInfoTemplate.h" />
+    <ClInclude Include="Data\TestInfo.h" />
+    <ClInclude Include="Data\TestInfoManager.h" />
+    <ClInclude Include="Data\TestInfoManagerTemplate.h" />
+    <ClInclude Include="Data\TestInfoTemplate.h" />
     <ClInclude Include="DB\GenProcedures.h" />
+    <ClInclude Include="Logic\Core\Singleton.h" />
     <ClInclude Include="Logic\Object\Actor\Actor.h" />
     <ClInclude Include="Logic\Object\Actor\Monster\Monster.h" />
     <ClInclude Include="Logic\Object\Actor\Player\Player.h" />
@@ -204,8 +217,20 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Session\GameSessionTypes.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Data\InfoManagerTemplate.cpp" />
+    <ClCompile Include="Data\Character\CharacterInfo.cpp" />
+    <ClCompile Include="Data\Character\CharacterInfoManager.cpp" />
+    <ClCompile Include="Data\Character\CharacterInfoManagerTemplate.cpp" />
+    <ClCompile Include="Data\Character\CharacterInfoTemplate.cpp" />
+    <ClCompile Include="Data\Inventory\InventoryInfo.cpp" />
+    <ClCompile Include="Data\Inventory\InventoryInfoManager.cpp" />
+    <ClCompile Include="Data\Inventory\InventoryInfoManagerTemplate.cpp" />
+    <ClCompile Include="Data\Inventory\InventoryInfoTemplate.cpp" />
+    <ClCompile Include="Data\TestInfo.cpp" />
+    <ClCompile Include="Data\TestInfoManager.cpp" />
+    <ClCompile Include="Data\TestInfoManagerTemplate.cpp" />
+    <ClCompile Include="Data\TestInfoTemplate.cpp" />
     <ClCompile Include="GameServer.cpp" />
+    <ClCompile Include="Logic\Core\Singleton.cpp" />
     <ClCompile Include="Logic\Object\Actor\Actor.cpp" />
     <ClCompile Include="Logic\Object\Actor\Monster\Monster.cpp" />
     <ClCompile Include="Logic\Object\Actor\Player\Player.cpp" />

@@ -1,43 +1,64 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief {{ClassName}}InfoTemplate class
+// @brief {{ClassName}}InfoManagerTemplate class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #pragma once
 #include "pch.h"
-#include "{{ClassName}}InfoTemplate.h"
+#include "{{ClassName}}InfoManagerTemplate.h"
+#include "{{ClassName}}Info.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief Constructor
+// @brief GetInfo
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-{{ClassName}}InfoTemplate::{{ClassName}}InfoTemplate()
+const {{ClassName}}Info* {{ClassName}}InfoManagerTemplate::GetInfo( AtInt32 id )
 {
-{%- for member in memberList %}
-	m_{{member.name}} = {{member.default}};
-{%- endfor %}
+	auto iter = m_infoMap.find( id );
+	if ( iter == m_infoMap.end() )
+		return nullptr;
+
+	return &(iter->second);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief Constructor
+// @brief AddInfo
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-{{ClassName}}InfoTemplate::{{ClassName}}InfoTemplate(
+AtBool {{ClassName}}InfoManagerTemplate::_AddInfo(
 {%- for member in memberList %}
 	{%- if loop.last %}
-	{{member.valueType}} {{member.name}} )
+	    {{member.valueType}} {{member.name}} )
 	{%- else %}
-	{{member.valueType}} {{member.name}},
+	    {{member.valueType}} {{member.name}},
 	{%- endif -%}
 {%- endfor %}
 {
+	auto iter = m_infoMap.find( {{KeyName}} );
+	if ( iter != m_infoMap.end() )
+		return false;
+
+	{{ClassName}}Info info = {{ClassName}}Info( 
 {%- for member in memberList %}
-	m_{{member.name}} = {{member.name}};
+	{%- if loop.last %}
+	    {{member.name}} );
+	{%- else %}
+	    {{member.name}},
+	{%- endif -%}
 {%- endfor %}
+
+	m_infoMap[ {{KeyName}} ] = info;
+
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief Destructor
+// @brief Initialize
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-{{ClassName}}InfoTemplate::~{{ClassName}}InfoTemplate()
+AtBool {{ClassName}}InfoManagerTemplate::_Initialize()
 {
+{%- for member in rows %}
+	if ( !_AddInfo( {{ member | join(', ') }} ) ) return false;
+{%- endfor %}
+
+	return true;
 }

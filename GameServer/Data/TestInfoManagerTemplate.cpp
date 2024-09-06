@@ -1,43 +1,55 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief {{ClassName}}InfoTemplate class
+// @brief TestInfoManagerTemplate class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #pragma once
 #include "pch.h"
-#include "{{ClassName}}InfoTemplate.h"
+#include "TestInfoManagerTemplate.h"
+#include "TestInfo.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief Constructor
+// @brief GetInfo
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-{{ClassName}}InfoTemplate::{{ClassName}}InfoTemplate()
+const TestInfo* TestInfoManagerTemplate::GetInfo( AtInt32 id )
 {
-{%- for member in memberList %}
-	m_{{member.name}} = {{member.default}};
-{%- endfor %}
+	auto iter = m_infoMap.find( id );
+	if ( iter == m_infoMap.end() )
+		return nullptr;
+
+	return &(iter->second);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief Constructor
+// @brief AddInfo
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-{{ClassName}}InfoTemplate::{{ClassName}}InfoTemplate(
-{%- for member in memberList %}
-	{%- if loop.last %}
-	{{member.valueType}} {{member.name}} )
-	{%- else %}
-	{{member.valueType}} {{member.name}},
-	{%- endif -%}
-{%- endfor %}
+AtBool TestInfoManagerTemplate::_AddInfo(
+	    AtInt32 id,
+	    Protocol::EActorType type,
+	    AtString string )
 {
-{%- for member in memberList %}
-	m_{{member.name}} = {{member.name}};
-{%- endfor %}
+	auto iter = m_infoMap.find( id );
+	if ( iter != m_infoMap.end() )
+		return false;
+
+	TestInfo info = TestInfo(
+	    id,
+	    type,
+	    string );
+
+	m_infoMap[ id ] = info;
+
+	return true;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief Destructor
+// @brief Initialize
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-{{ClassName}}InfoTemplate::~{{ClassName}}InfoTemplate()
+AtBool TestInfoManagerTemplate::_Initialize()
 {
+	if ( !_AddInfo( 0, Protocol::EActorType::None, "가나다" ) ) return false;
+	if ( !_AddInfo( 2, Protocol::EActorType::Npc, "아자차" ) ) return false;
+
+	return true;
 }

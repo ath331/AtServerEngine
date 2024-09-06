@@ -1,23 +1,26 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief {{ClassName}}InfoTemplate class
+// @brief {{ClassName}}Info class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 #pragma once
 #include "Packet/Protocol.pb.h"
+#include "{{ClassName}}InfoTemplate.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief {{ClassName}}InfoTemplate class
+// @brief {{ClassName}}Info class
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-class {{ClassName}}InfoTemplate
+class {{ClassName}}Info
+	:
+	public {{ClassName}}InfoTemplate
 {
 public:
 	/// Constructor
-	{{ClassName}}InfoTemplate();
+	{{ClassName}}Info();
 
 	/// Constructor
-	{{ClassName}}InfoTemplate(
+	{{ClassName}}Info(
 {%- for member in memberList %}
 	{%- if loop.last %}
 	    {{member.valueType}} {{member.name}} );
@@ -27,22 +30,8 @@ public:
 {%- endfor %}
 
 	/// Destructor
-	~{{ClassName}}InfoTemplate();
-
-public:
-{%- for member in memberList +%}
-	/// Get{{member.Name}}.
-	{{member.valueType}} Get{{member.Name}}() { return m_{{member.name}}; }
-{% endfor %}
-
-{%- for member in memberList +%}
-	/// Set{{member.Name}}.
-	AtVoid Set{{member.Name }}( {{member.valueType}} {{member.name}} ) { m_{{member.name}} = {{member.name}}; }
-{% endfor %}
-
-protected:
-{%- for member in memberList +%}
-	/// {{member.name}}
-	{{member.valueType}} m_{{member.name}};
-{% endfor -%}
+	~{{ClassName}}Info();
 };
+
+/// SharedPointer
+using {{ClassName}}InfoPtr = std::shared_ptr< {{ClassName}}Info >;

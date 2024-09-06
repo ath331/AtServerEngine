@@ -20,6 +20,7 @@
 #include "DB/GenProcedures.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 #include "Packet/Protocol.pb.h"
+#include "Data/InfoManagers.h"
 
 
 /// 프로세스 틱 이넘
@@ -54,11 +55,14 @@ void DoWorkerJob( ServerServicePtr& service )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 int main()
 {
-	ASSERT_CRASH( GDBConnectionPool->Connect( 1, L"Driver={ODBC Driver 17 for SQL Server};Server=(localdb)\\ProjectModels;Database=AtServer;Trusted_Connection=Yes;" ) );
+	ASSERT_CRASH( InitializeInfoManager() );
 
+
+	ASSERT_CRASH( GDBConnectionPool->Connect( 1, L"Driver={ODBC Driver 17 for SQL Server};Server=(localdb)\\ProjectModels;Database=AtServer;Trusted_Connection=Yes;" ) );
 	DBConnection* dbConn = GDBConnectionPool->Pop();
 	DBSynchronizer dbSync( *dbConn );
 	dbSync.Synchronize( L"DB/GameDB.xml" );
+
 
 	ClientPacketHandler::Init();
 

@@ -1,11 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="Data\InfoManagerTemplate.h">
+    <ClInclude Include="Data\Character\CharacterInfo.h">
+      <Filter>Data\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Character\CharacterInfoManager.h">
+      <Filter>Data\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Character\CharacterInfoManagerTemplate.h">
+      <Filter>Data\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Character\CharacterInfoTemplate.h">
+      <Filter>Data\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\InfoManagers.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Inventory\InventoryInfo.h">
+      <Filter>Data\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Inventory\InventoryInfoManager.h">
+      <Filter>Data\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Inventory\InventoryInfoManagerTemplate.h">
+      <Filter>Data\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\Inventory\InventoryInfoTemplate.h">
+      <Filter>Data\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\TestInfo.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\TestInfoManager.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\TestInfoManagerTemplate.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Data\TestInfoTemplate.h">
       <Filter>Data</Filter>
     </ClInclude>
     <ClInclude Include="DB\GenProcedures.h">
       <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Core\Singleton.h">
+      <Filter>Logic\Core</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Object\Actor\Actor.h">
       <Filter>Logic\Object\Actor</Filter>
@@ -78,11 +117,47 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Data\InfoManagerTemplate.cpp">
+    <ClCompile Include="Data\Character\CharacterInfo.cpp">
+      <Filter>Data\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Character\CharacterInfoManager.cpp">
+      <Filter>Data\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Character\CharacterInfoManagerTemplate.cpp">
+      <Filter>Data\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Character\CharacterInfoTemplate.cpp">
+      <Filter>Data\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Inventory\InventoryInfo.cpp">
+      <Filter>Data\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Inventory\InventoryInfoManager.cpp">
+      <Filter>Data\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Inventory\InventoryInfoManagerTemplate.cpp">
+      <Filter>Data\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\Inventory\InventoryInfoTemplate.cpp">
+      <Filter>Data\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\TestInfo.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\TestInfoManager.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\TestInfoManagerTemplate.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="Data\TestInfoTemplate.cpp">
       <Filter>Data</Filter>
     </ClCompile>
     <ClCompile Include="GameServer.cpp">
       <Filter>..\..\..\GameServer</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Core\Singleton.cpp">
+      <Filter>Logic\Core</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Object\Actor\Actor.cpp">
       <Filter>Logic\Object\Actor</Filter>
@@ -181,11 +256,17 @@
   <ItemGroup>
     <Filter Include="Data">
     </Filter>
+    <Filter Include="Data\Character">
+    </Filter>
+    <Filter Include="Data\Inventory">
+    </Filter>
     <Filter Include="DB">
     </Filter>
     <Filter Include="Debug">
     </Filter>
     <Filter Include="Logic">
+    </Filter>
+    <Filter Include="Logic\Core">
     </Filter>
     <Filter Include="Logic\Object">
     </Filter>

@@ -31,6 +31,13 @@
     <Folder Include="Templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Templates\Info.cpp" />
+    <Content Include="Templates\Info.h" />
+    <Content Include="Templates\InfoManager.cpp" />
+    <Content Include="Templates\InfoManager.h" />
+    <Content Include="Templates\InfoManagers.h" />
+    <Content Include="Templates\InfoManagerTemplate.cpp" />
+    <Content Include="Templates\InfoManagerTemplate.h" />
     <Content Include="Templates\InfoTemplate.cpp" />
     <Content Include="Templates\InfoTemplate.h" />
   </ItemGroup>

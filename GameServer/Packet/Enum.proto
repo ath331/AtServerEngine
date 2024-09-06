@@ -18,6 +18,15 @@ enum EActorType
 	Npc = 3;
 }
 
+enum EBagType
+{
+	None = 0;
+	Equipment = 1;
+	Etc = 2;
+	Useable = 3;
+	Max = 4;
+}
+
 enum EPlayerType
 {
 	PLAYER_TYPE_NONE = 0;

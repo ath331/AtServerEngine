@@ -32,6 +32,7 @@ using AtUInt8 = uint8;
 using AtUInt16 = uint16;
 using AtUInt32 = uint32;
 using AtUInt64 = uint64;
+using AtString = std::string;
 
 
 template<typename T>
