@@ -1,0 +1,3 @@
+start DataGenerator.exe
+
+pause
