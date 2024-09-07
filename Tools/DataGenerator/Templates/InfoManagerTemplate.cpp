@@ -5,6 +5,7 @@
 
 #pragma once
 #include "pch.h"
+#include <iostream>
 #include "{{ClassName}}InfoManagerTemplate.h"
 
 
@@ -55,6 +56,8 @@ AtBool {{ClassName}}InfoManagerTemplate::_AddInfo(
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool {{ClassName}}InfoManagerTemplate::_Initialize()
 {
+	std::cout << "{{ClassName}}InfoManager Initialize()" << std::endl;
+
 {%- for member in rows %}
 	if ( !_AddInfo( {{ member | join(', ') }} ) ) return false;
 {%- endfor %}

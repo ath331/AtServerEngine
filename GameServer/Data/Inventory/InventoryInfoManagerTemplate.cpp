@@ -5,6 +5,7 @@
 
 #pragma once
 #include "pch.h"
+#include <iostream>
 #include "InventoryInfoManagerTemplate.h"
 
 
@@ -47,6 +48,7 @@ AtBool InventoryInfoManagerTemplate::_AddInfo(
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool InventoryInfoManagerTemplate::_Initialize()
 {
+	std::cout << "InventoryInfoManager Initialize()" << std::endl;
 	if ( !_AddInfo( 0, 0, Protocol::EBagType::Equipment ) ) return false;
 	if ( !_AddInfo( 2, 0, Protocol::EBagType::Useable ) ) return false;
 

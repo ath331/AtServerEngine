@@ -5,18 +5,26 @@
 
 #pragma once
 #include "pch.h"
+#include <iostream>
 {%- for InfoManagerNameAndPath in InfoManagerNameAndPaths %}
 #include "Data/{{InfoManagerNameAndPath}}InfoManager.h"
 {%- endfor %}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief InfoManagers
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool InitializeInfoManager()
 {
+	std::cout << "InitializeInfoManager Start" << std::endl;
+
+
 {%- for InfoManagerName in InfoManagerNames %}
 	if ( !{{InfoManagerName}}InfoManager::GetInstance().Initialize() ) return false;
 {%- endfor %}
+
+
+	std::cout << "InitializeInfoManager End" << std::endl;
 
 	return true;
 }
