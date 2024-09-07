@@ -20,11 +20,11 @@ enum EActorType
 
 enum EBagType
 {
-	None = 0;
+	BagTypeNone = 0;
 	Equipment = 1;
 	Etc = 2;
 	Useable = 3;
-	Max = 4;
+	BagTypeMax = 4;
 }
 
 enum EPlayerType

@@ -110,6 +110,34 @@ inline bool EActorType_Parse(
   return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EActorType>(
     EActorType_descriptor(), name, value);
 }
+enum EBagType : int {
+  BagTypeNone = 0,
+  Equipment = 1,
+  Etc = 2,
+  Useable = 3,
+  BagTypeMax = 4,
+  EBagType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
+  EBagType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
+};
+bool EBagType_IsValid(int value);
+constexpr EBagType EBagType_MIN = BagTypeNone;
+constexpr EBagType EBagType_MAX = BagTypeMax;
+constexpr int EBagType_ARRAYSIZE = EBagType_MAX + 1;
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* EBagType_descriptor();
+template<typename T>
+inline const std::string& EBagType_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EBagType>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EBagType_Name.");
+  return ::PROTOBUF_NAMESPACE_ID::internal::NameOfEnum(
+    EBagType_descriptor(), enum_t_value);
+}
+inline bool EBagType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EBagType* value) {
+  return ::PROTOBUF_NAMESPACE_ID::internal::ParseNamedEnum<EBagType>(
+    EBagType_descriptor(), name, value);
+}
 enum EPlayerType : int {
   PLAYER_TYPE_NONE = 0,
   PLAYER_TYPE_KNIGHT = 1,
@@ -196,6 +224,11 @@ template <> struct is_proto_enum< ::Protocol::EActorType> : ::std::true_type {};
 template <>
 inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EActorType>() {
   return ::Protocol::EActorType_descriptor();
+}
+template <> struct is_proto_enum< ::Protocol::EBagType> : ::std::true_type {};
+template <>
+inline const EnumDescriptor* GetEnumDescriptor< ::Protocol::EBagType>() {
+  return ::Protocol::EBagType_descriptor();
 }
 template <> struct is_proto_enum< ::Protocol::EPlayerType> : ::std::true_type {};
 template <>
