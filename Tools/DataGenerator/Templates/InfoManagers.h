@@ -6,6 +6,7 @@
 #pragma once
 #include "pch.h"
 #include <iostream>
+#include "Logic/Utils/Log/AtLog.h"
 {%- for InfoManagerNameAndPath in InfoManagerNameAndPaths %}
 #include "Data/{{InfoManagerNameAndPath}}InfoManager.h"
 {%- endfor %}
@@ -16,7 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool InitializeInfoManager()
 {
-	std::cout << "InitializeInfoManager Start" << std::endl;
+	INFO_LOG( "InitializeInfoManager Start" );
 
 
 {%- for InfoManagerName in InfoManagerNames %}
@@ -24,7 +25,7 @@ AtBool InitializeInfoManager()
 {%- endfor %}
 
 
-	std::cout << "InitializeInfoManager End" << std::endl;
+	INFO_LOG( "InitializeInfoManager End" );
 
 	return true;
 }

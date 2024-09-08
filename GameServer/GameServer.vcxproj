@@ -200,7 +200,9 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Room\Room.h" />
     <ClInclude Include="Logic\Room\RoomManager.h" />
     <ClInclude Include="Logic\Room\RoomTypes.h" />
+    <ClInclude Include="Logic\Utils\Log\AtLog.h" />
     <ClInclude Include="Logic\Utils\ObjectUtils.h" />
+    <ClInclude Include="Logic\Utils\Time\AtTime.h" />
     <ClInclude Include="Logic\Utils\Utils.h" />
     <ClInclude Include="Packet\Enum.pb.h" />
     <ClInclude Include="Packet\Handler\Actor\C_MoveHandler.h" />
@@ -237,7 +239,9 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Logic\Object\Object.cpp" />
     <ClCompile Include="Logic\Room\Room.cpp" />
     <ClCompile Include="Logic\Room\RoomManager.cpp" />
+    <ClCompile Include="Logic\Utils\Log\AtLog.cpp" />
     <ClCompile Include="Logic\Utils\ObjectUtils.cpp" />
+    <ClCompile Include="Logic\Utils\Time\AtTime.cpp" />
     <ClCompile Include="Logic\Utils\Utils.cpp" />
     <ClCompile Include="Packet\Handler\Actor\C_MoveHandler.cpp" />
     <ClCompile Include="Packet\Handler\Chat\C_ChatHandler.cpp" />

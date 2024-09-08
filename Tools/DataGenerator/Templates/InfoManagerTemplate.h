@@ -5,6 +5,7 @@
 
 #pragma once
 #include "Packet/Protocol.pb.h"
+#include "Logic/Utils/Log/AtLog.h"
 #include "{{ClassName}}Info.h"
 
 

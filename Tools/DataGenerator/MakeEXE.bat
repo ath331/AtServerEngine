@@ -1,5 +1,6 @@
-#cd C:\Users\ath331\Desktop\a\VisualStudio\C++\AtServerEngine\Tools\DataGenerator
-
 pyinstaller --onefile DataGenerator.py
+
+copy dist\DataGenerator.exe .\
+del /Q dist\DataGenerator.exe
 
 #pause

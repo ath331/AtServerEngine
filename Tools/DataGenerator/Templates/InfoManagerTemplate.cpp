@@ -56,7 +56,7 @@ AtBool {{ClassName}}InfoManagerTemplate::_AddInfo(
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool {{ClassName}}InfoManagerTemplate::_Initialize()
 {
-	std::cout << "{{ClassName}}InfoManager Initialize()" << std::endl;
+	INFO_LOG( "{{ClassName}}InfoManager Initialize()" );
 
 {%- for member in rows %}
 	if ( !_AddInfo( {{ member | join(', ') }} ) ) return false;

@@ -70,8 +70,14 @@
     <ClInclude Include="Logic\Room\RoomTypes.h">
       <Filter>Logic\Room</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Utils\Log\AtLog.h">
+      <Filter>Logic\Utils\Log</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Utils\ObjectUtils.h">
       <Filter>Logic\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Utils\Time\AtTime.h">
+      <Filter>Logic\Utils\Time</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Utils\Utils.h">
       <Filter>Logic\Utils</Filter>
@@ -177,8 +183,14 @@
     <ClCompile Include="Logic\Room\RoomManager.cpp">
       <Filter>Logic\Room</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\Utils\Log\AtLog.cpp">
+      <Filter>Logic\Utils\Log</Filter>
+    </ClCompile>
     <ClCompile Include="Logic\Utils\ObjectUtils.cpp">
       <Filter>Logic\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Utils\Time\AtTime.cpp">
+      <Filter>Logic\Utils\Time</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Utils\Utils.cpp">
       <Filter>Logic\Utils</Filter>
@@ -279,6 +291,10 @@
     <Filter Include="Logic\Room">
     </Filter>
     <Filter Include="Logic\Utils">
+    </Filter>
+    <Filter Include="Logic\Utils\Log">
+    </Filter>
+    <Filter Include="Logic\Utils\Time">
     </Filter>
     <Filter Include="Packet">
     </Filter>

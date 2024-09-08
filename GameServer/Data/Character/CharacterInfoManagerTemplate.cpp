@@ -48,7 +48,7 @@ AtBool CharacterInfoManagerTemplate::_AddInfo(
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool CharacterInfoManagerTemplate::_Initialize()
 {
-	std::cout << "CharacterInfoManager Initialize()" << std::endl;
+	INFO_LOG( "CharacterInfoManager Initialize()" );
 	if ( !_AddInfo( 0, 0, Protocol::EBagType::Equipment ) ) return false;
 	if ( !_AddInfo( 2, 0, Protocol::EBagType::Useable ) ) return false;
 
