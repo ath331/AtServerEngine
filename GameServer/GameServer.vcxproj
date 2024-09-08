@@ -191,6 +191,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Data\TestInfoManagerTemplate.h" />
     <ClInclude Include="Data\TestInfoTemplate.h" />
     <ClInclude Include="DB\GenProcedures.h" />
+    <ClInclude Include="Logic\Core\Environment.h" />
     <ClInclude Include="Logic\Core\Singleton.h" />
     <ClInclude Include="Logic\Object\Actor\Actor.h" />
     <ClInclude Include="Logic\Object\Actor\Monster\Monster.h" />
@@ -202,6 +203,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClInclude Include="Logic\Room\RoomTypes.h" />
     <ClInclude Include="Logic\Utils\Log\AtLog.h" />
     <ClInclude Include="Logic\Utils\ObjectUtils.h" />
+    <ClInclude Include="Logic\Utils\String\StringUtils.h" />
     <ClInclude Include="Logic\Utils\Time\AtTime.h" />
     <ClInclude Include="Logic\Utils\Utils.h" />
     <ClInclude Include="Packet\Enum.pb.h" />
@@ -232,6 +234,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Data\TestInfoManagerTemplate.cpp" />
     <ClCompile Include="Data\TestInfoTemplate.cpp" />
     <ClCompile Include="GameServer.cpp" />
+    <ClCompile Include="Logic\Core\Environment.cpp" />
     <ClCompile Include="Logic\Core\Singleton.cpp" />
     <ClCompile Include="Logic\Object\Actor\Actor.cpp" />
     <ClCompile Include="Logic\Object\Actor\Monster\Monster.cpp" />
@@ -241,6 +244,7 @@ CALL $(SolutionDir)Common\Procedures\GenProcs.bat</Command>
     <ClCompile Include="Logic\Room\RoomManager.cpp" />
     <ClCompile Include="Logic\Utils\Log\AtLog.cpp" />
     <ClCompile Include="Logic\Utils\ObjectUtils.cpp" />
+    <ClCompile Include="Logic\Utils\String\StringUtils.cpp" />
     <ClCompile Include="Logic\Utils\Time\AtTime.cpp" />
     <ClCompile Include="Logic\Utils\Utils.cpp" />
     <ClCompile Include="Packet\Handler\Actor\C_MoveHandler.cpp" />

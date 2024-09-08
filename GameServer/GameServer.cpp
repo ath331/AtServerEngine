@@ -23,11 +23,6 @@
 #include "Data/InfoManagers.h"
 
 
-// Test
-#include "Logic/Utils/Time/AtTime.h"
-#include "Logic/Utils/Log/AtLog.h"
-
-
 /// 프로세스 틱 이넘
 enum
 {
@@ -58,8 +53,14 @@ void DoWorkerJob( ServerServicePtr& service )
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief ServerMain 함수
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-int main()
+AtVoid main()
 {
+	if ( !Environment::Load( "GameServer.ini" ) )
+	{
+		WARNNING_LOG( "Failed to load config.ini" );
+		return;
+	}
+
 	ASSERT_CRASH( InitializeInfoManager() );
 
 
@@ -71,8 +72,11 @@ int main()
 
 	ClientPacketHandler::Init();
 
+	AtString ip   = Environment::Get( "ip" );
+	AtString port = Environment::Get( "port" );
+
 	ServerServicePtr service = MakeShared< ServerService >(
-		NetAddress( L"192.168.25.22", 7777 ),
+		NetAddress( StringUtils::GetWString( ip ), StringUtils::GetAtInt64( port ) ),
 		MakeShared< IocpCore >(),
 		MakeShared< GameSession >, // TODO : SessionManager 등
 		100 );

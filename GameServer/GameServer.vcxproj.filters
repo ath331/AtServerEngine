@@ -43,6 +43,9 @@
     <ClInclude Include="DB\GenProcedures.h">
       <Filter>DB</Filter>
     </ClInclude>
+    <ClInclude Include="Logic\Core\Environment.h">
+      <Filter>Logic\Core</Filter>
+    </ClInclude>
     <ClInclude Include="Logic\Core\Singleton.h">
       <Filter>Logic\Core</Filter>
     </ClInclude>
@@ -75,6 +78,9 @@
     </ClInclude>
     <ClInclude Include="Logic\Utils\ObjectUtils.h">
       <Filter>Logic\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Logic\Utils\String\StringUtils.h">
+      <Filter>Logic\Utils\String</Filter>
     </ClInclude>
     <ClInclude Include="Logic\Utils\Time\AtTime.h">
       <Filter>Logic\Utils\Time</Filter>
@@ -162,6 +168,9 @@
     <ClCompile Include="GameServer.cpp">
       <Filter>..\..\..\GameServer</Filter>
     </ClCompile>
+    <ClCompile Include="Logic\Core\Environment.cpp">
+      <Filter>Logic\Core</Filter>
+    </ClCompile>
     <ClCompile Include="Logic\Core\Singleton.cpp">
       <Filter>Logic\Core</Filter>
     </ClCompile>
@@ -188,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="Logic\Utils\ObjectUtils.cpp">
       <Filter>Logic\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Logic\Utils\String\StringUtils.cpp">
+      <Filter>Logic\Utils\String</Filter>
     </ClCompile>
     <ClCompile Include="Logic\Utils\Time\AtTime.cpp">
       <Filter>Logic\Utils\Time</Filter>
@@ -293,6 +305,8 @@
     <Filter Include="Logic\Utils">
     </Filter>
     <Filter Include="Logic\Utils\Log">
+    </Filter>
+    <Filter Include="Logic\Utils\String">
     </Filter>
     <Filter Include="Logic\Utils\Time">
     </Filter>

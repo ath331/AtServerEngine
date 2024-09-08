@@ -15,6 +15,10 @@
 #include "CorePch.h"
 #include "Packet/Handler/ClientPacketHandler.h"
 #include "Logic/Utils/Utils.h"
+#include "Logic/Utils/String/StringUtils.h"
+#include "Logic/Utils/Log/AtLog.h"
+#include "Logic/Core/Environment.h"
+
 
 
 //#include "Packet/Enum.pb.h"
