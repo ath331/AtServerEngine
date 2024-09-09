@@ -67,13 +67,13 @@ AtVoid main()
 	ASSERT_CRASH( GDBConnectionPool->Connect( 1, L"Driver={ODBC Driver 17 for SQL Server};Server=(localdb)\\ProjectModels;Database=AtServer;Trusted_Connection=Yes;" ) );
 	DBConnection* dbConn = GDBConnectionPool->Pop();
 	DBSynchronizer dbSync( *dbConn );
-	dbSync.Synchronize( L"DB/GameDB.xml" );
+	dbSync.Synchronize( StringUtils::GetWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
 
 
 	ClientPacketHandler::Init();
 
-	AtString ip   = Environment::Get( "ip" );
-	AtString port = Environment::Get( "port" );
+	AtString ip   = Environment::Get( "IP"   );
+	AtString port = Environment::Get( "PORT" );
 
 	ServerServicePtr service = MakeShared< ServerService >(
 		NetAddress( StringUtils::GetWString( ip ), StringUtils::GetAtInt64( port ) ),
@@ -82,6 +82,8 @@ AtVoid main()
 		100 );
 
 	ASSERT_CRASH( service->Start() );
+
+	INFO_LOG_GREEN( "Server Start." );
 
 	int32 threadCount = 6;
 	for ( int32 i = 0; i < threadCount - 1; i++ )
