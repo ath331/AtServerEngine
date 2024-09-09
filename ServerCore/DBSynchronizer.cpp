@@ -11,19 +11,41 @@
 
 namespace SP
 {
+	// SqlServer
+	// const WCHAR* QTablesAndColumns =
+	// 	L"	SELECT c.object_id, t.name AS tableName, c.name AS columnName, c.column_id, c.user_type_id, c.max_length,"
+	// 	"		c.is_nullable, c.is_identity, CAST(ic.seed_value AS BIGINT) AS seedValue, CAST(ic.increment_value AS BIGINT) AS incValue,"
+	// 	"		c.default_object_id, dc.definition as defaultDefinition, dc.name as defaultConstraintName"
+	// 	"	FROM sys.columns AS c"
+	// 	"	JOIN sys.tables AS t"
+	// 	"		ON c.object_id = t.object_id"
+	// 	"	LEFT JOIN sys.default_constraints AS dc"
+	// 	"		ON c.default_object_id = dc.object_id"
+	// 	"	LEFT JOIN sys.identity_columns AS ic"
+	// 	"		ON c.object_id = ic.object_id AND c.column_id = ic.column_id"
+	// 	"	WHERE t.type = 'U'"
+	// 	"	ORDER BY object_id ASC, column_id ASC;";
+
+	// MySql
 	const WCHAR* QTablesAndColumns =
-		L"	SELECT c.object_id, t.name AS tableName, c.name AS columnName, c.column_id, c.user_type_id, c.max_length,"
-		"		c.is_nullable, c.is_identity, CAST(ic.seed_value AS BIGINT) AS seedValue, CAST(ic.increment_value AS BIGINT) AS incValue,"
-		"		c.default_object_id, dc.definition as defaultDefinition, dc.name as defaultConstraintName"
-		"	FROM sys.columns AS c"
-		"	JOIN sys.tables AS t"
-		"		ON c.object_id = t.object_id"
-		"	LEFT JOIN sys.default_constraints AS dc"
-		"		ON c.default_object_id = dc.object_id"
-		"	LEFT JOIN sys.identity_columns AS ic"
-		"		ON c.object_id = ic.object_id AND c.column_id = ic.column_id"
-		"	WHERE t.type = 'U'"
-		"	ORDER BY object_id ASC, column_id ASC;";
+		L"SELECT \
+			c.TABLE_NAME AS tableName,\
+			c.COLUMN_NAME AS columnName,\
+			c.ORDINAL_POSITION AS columnPosition,\
+			c.COLUMN_TYPE AS columnType,\
+			c.IS_NULLABLE AS isNullable,\
+			c.COLUMN_DEFAULT AS defaultValue,\
+		IF( c.EXTRA LIKE \'%auto_increment%\', 1, 0 ) AS isIdentity\
+		FROM\
+			INFORMATION_SCHEMA.COLUMNS AS c\
+			JOIN INFORMATION_SCHEMA.TABLES AS t\
+			ON c.TABLE_SCHEMA = t.TABLE_SCHEMA\
+			AND c.TABLE_NAME = t.TABLE_NAME\
+		WHERE\
+			t.TABLE_TYPE = 'BASE TABLE'\
+				ORDER BY\
+				c.TABLE_NAME ASC,\
+				c.ORDINAL_POSITION ASC;";
 
 	class GetDBTables : public DBBind<0, 13>
 	{
