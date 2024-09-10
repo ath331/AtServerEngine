@@ -9,12 +9,21 @@ using namespace DBModel;
 
 String Column::CreateText()
 {
+	// SQL Server
+	// return DBModel::Helpers::Format(
+	// 	L"[%s] %s %s %s",
+	// 	_name.c_str(),
+	// 	_typeText.c_str(),
+	// 	_nullable ? L"NULL" : L"NOT NULL",
+	// 	_identity ? DBModel::Helpers::Format(L"IDENTITY(%d, %d)", _seedValue, _incrementValue).c_str() : L"");
+
+	// MySql
 	return DBModel::Helpers::Format(
-		L"[%s] %s %s %s",
+		L"%s %s %s",
 		_name.c_str(),
 		_typeText.c_str(),
-		_nullable ? L"NULL" : L"NOT NULL",
-		_identity ? DBModel::Helpers::Format(L"IDENTITY(%d, %d)", _seedValue, _incrementValue).c_str() : L"");
+		_nullable ? L"NULL" : L"NOT NULL" );
+		// _identity ? L"AUTO_INCREMENT" : L"" );
 }
 
 /*-----------
@@ -78,7 +87,11 @@ String Index::CreateColumnsText()
 		if (i > 0)
 			ret += L", ";
 
-		ret += DBModel::Helpers::Format(L"[%s]", _columns[i]->_name.c_str());
+		// SQL Server
+		// ret += DBModel::Helpers::Format(L"[%s]", _columns[i]->_name.c_str());
+
+		// MySql
+		ret += DBModel::Helpers::Format( L"%s", _columns[ i ]->_name.c_str() );
 	}
 
 	return ret;
@@ -113,10 +126,23 @@ ColumnPtr Table::FindColumn(const String& columnName)
 
 String Procedure::GenerateCreateQuery()
 {
-	const WCHAR* query = L"CREATE PROCEDURE [dbo].[%s] %s AS BEGIN %s END";
+	// SQL Server
+	// const WCHAR* query = L"CREATE PROCEDURE [dbo].[%s] %s AS BEGIN %s END";
+	// 
+	// String paramString = GenerateParamString();
+	// return DBModel::Helpers::Format(query, _name.c_str(), paramString.c_str(), _body.c_str());
 
-	String paramString = GenerateParamString();
-	return DBModel::Helpers::Format(query, _name.c_str(), paramString.c_str(), _body.c_str());
+	// MySql
+	const WCHAR* query = L"\
+		DELIMITER $$ \
+			CREATE PROCEDURE %s ( IN %s )\
+			BEGIN \
+				%s\
+			END$$\
+		DELIMITER;";
+
+	 String paramString = GenerateParamString();
+	 return DBModel::Helpers::Format(query, _name.c_str(), paramString.c_str(), _body.c_str());
 }
 
 String Procedure::GenerateAlterQuery()
@@ -176,7 +202,13 @@ String Helpers::DataType2String(DataType type)
 	case DataType::VarBinary:	return L"VarBinary";
 	case DataType::Varchar:		return L"Varchar";
 	case DataType::Binary:		return L"Binary";
-	case DataType::NVarChar:	return L"NVarChar";
+
+	// SQL Server
+	// case DataType::NVarChar:	return L"NVarChar";
+	
+	// MySql
+	case DataType::NVarChar:	return L"VARCHAR";
+
 	default:					return L"None";
 	}
 }
@@ -217,7 +249,11 @@ DataType Helpers::String2DataType(const WCHAR* str, OUT int32& maxLen)
 	if (::_wcsicmp(ret[1].str().c_str(), L"VarBinary") == 0) return DataType::VarBinary;
 	if (::_wcsicmp(ret[1].str().c_str(), L"Varchar") == 0) return DataType::Varchar;
 	if (::_wcsicmp(ret[1].str().c_str(), L"Binary") == 0) return DataType::Binary;
-	if (::_wcsicmp(ret[1].str().c_str(), L"NVarChar") == 0) return DataType::NVarChar;
+	// SQL Server
+	//if (::_wcsicmp(ret[1].str().c_str(), L"NVarChar") == 0) return DataType::NVarChar;
+
+	// MySql
+	if ( ::_wcsicmp( ret[ 1 ].str().c_str(), L"NVarChar" ) == 0 ) return DataType::NVarChar;
 
 	return DataType::None;
 }

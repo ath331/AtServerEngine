@@ -54,6 +54,28 @@ bool DBConnection::Execute(const WCHAR* query)
 	if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)
 		return true;
 
+	SQLWCHAR sqlState[ 6 ];
+	SQLINTEGER nativeError;
+	SQLWCHAR messageText[ 1024 ];
+	SQLSMALLINT textLength;
+
+	SQLGetDiagRecW( SQL_HANDLE_STMT, _statement, 1, sqlState, &nativeError, messageText, sizeof( messageText ), &textLength );
+
+	wprintf( L"SQL State: %s\n", sqlState );
+	wprintf( L"Native Error: %d\n", nativeError );
+	wprintf( L"Message: %s\n", messageText );
+
+	if ( ret == SQL_ERROR )
+		return false;
+	if ( ret == SQL_INVALID_HANDLE )
+		return false;
+	if ( ret == SQL_NO_DATA )
+		return false;
+	if ( ret == SQL_NEED_DATA )
+		return false;
+	if ( ret == SQL_STILL_EXECUTING )
+		return false;
+
 	HandleError(ret);
 	return false;
 }

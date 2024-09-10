@@ -11,7 +11,7 @@
 
 namespace SP
 {
-	// SqlServer
+	// SQL Server
 	// const WCHAR* QTablesAndColumns =
 	// 	L"	SELECT c.object_id, t.name AS tableName, c.name AS columnName, c.column_id, c.user_type_id, c.max_length,"
 	// 	"		c.is_nullable, c.is_identity, CAST(ic.seed_value AS BIGINT) AS seedValue, CAST(ic.increment_value AS BIGINT) AS incValue,"
@@ -67,14 +67,39 @@ namespace SP
 		template<int32 N> void Out_DefaultConstraintName(OUT WCHAR(&value)[N]) { BindCol(12, value); }
 	};
 
-	const WCHAR* QIndexes =
-		L"	SELECT i.object_id, i.name as indexName, i.index_id, i.type, i.is_primary_key,"
-		"		i.is_unique_constraint, ic.column_id, COL_NAME(ic.object_id, ic.column_id) as columnName"
-		"	FROM sys.indexes AS i"
-		"	JOIN sys.index_columns AS ic"
-		"		ON i.object_id = ic.object_id AND i.index_id = ic.index_id"
-		"	WHERE i.type > 0 AND i.object_id IN(SELECT object_id FROM sys.tables WHERE type = 'U')"
-		"	ORDER BY i.object_id ASC, i.index_id ASC;";
+	// SQL Server
+	// const WCHAR* QIndexes =
+	// 	L"	SELECT i.object_id, i.name as indexName, i.index_id, i.type, i.is_primary_key,"
+	// 	"		i.is_unique_constraint, ic.column_id, COL_NAME(ic.object_id, ic.column_id) as columnName"
+	// 	"	FROM sys.indexes AS i"
+	// 	"	JOIN sys.index_columns AS ic"
+	// 	"		ON i.object_id = ic.object_id AND i.index_id = ic.index_id"
+	// 	"	WHERE i.type > 0 AND i.object_id IN(SELECT object_id FROM sys.tables WHERE type = 'U')"
+	// 	"	ORDER BY i.object_id ASC, i.index_id ASC;";
+
+	// MySql
+	const WCHAR* QIndexes = 
+		L"SELECT\
+			s.TABLE_NAME AS tableName,\
+			s.INDEX_NAME AS indexName,\
+			s.INDEX_SCHEMA AS indexSchema,\
+			s.SEQ_IN_INDEX AS indexSeq,\
+			s.COLUMN_NAME AS columnName,\
+			s.NON_UNIQUE AS isUnique,\
+			t.CONSTRAINT_TYPE AS isPrimaryKey\
+		FROM\
+			INFORMATION_SCHEMA.STATISTICS AS s\
+				LEFT JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS t\
+				ON s.TABLE_NAME = t.TABLE_NAME\
+				AND s.INDEX_NAME = t.CONSTRAINT_NAME\
+				AND s.TABLE_SCHEMA = t.TABLE_SCHEMA\
+		WHERE\
+			s.TABLE_SCHEMA = DATABASE()\
+			AND s.INDEX_NAME != 'PRIMARY'\
+		ORDER BY\
+			s.TABLE_NAME ASC,\
+			s.INDEX_NAME ASC,\
+			s.SEQ_IN_INDEX ASC;";
 
 	class GetDBIndexes : public DBBind<0, 8>
 	{
@@ -91,8 +116,20 @@ namespace SP
 		template<int32 N> void Out_ColumnName(OUT WCHAR(&value)[N]) { BindCol(7, value); }
 	};
 
+	// SQL Server
+	// const WCHAR* QStoredProcedures =
+	// 	L"	SELECT name, OBJECT_DEFINITION(object_id) AS body FROM sys.procedures;";
+
+	// MySql
 	const WCHAR* QStoredProcedures =
-		L"	SELECT name, OBJECT_DEFINITION(object_id) AS body FROM sys.procedures;";
+		L"SELECT \
+			ROUTINE_NAME AS name,\
+			ROUTINE_DEFINITION AS body\
+		FROM\
+			INFORMATION_SCHEMA.ROUTINES\
+		WHERE\
+			ROUTINE_TYPE = 'PROCEDURE'\
+			AND ROUTINE_SCHEMA = DATABASE();";
 
 	class GetDBStoredProcedures : public DBBind<0, 2>
 	{
@@ -423,8 +460,13 @@ void DBSynchronizer::CompareDBModel()
 			columnsStr += xmlTable->_columns[i]->CreateText();
 		}
 
-		GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Table : [dbo].[%s]\n", xmlTable->_name.c_str());
-		_updateQueries[UpdateStep::CreateTable].push_back(DBModel::Helpers::Format(L"CREATE TABLE [dbo].[%s] (%s)", xmlTable->_name.c_str(), columnsStr.c_str()));
+		// SQL Server
+		// GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Table : [dbo].[%s]\n", xmlTable->_name.c_str());
+		// _updateQueries[UpdateStep::CreateTable].push_back(DBModel::Helpers::Format(L"CREATE TABLE [dbo].[%s] (%s)", xmlTable->_name.c_str(), columnsStr.c_str()));
+
+		// MySql
+		GConsoleLogger->WriteStdOut( Color::YELLOW, L"Creating Table : %s\n", xmlTable->_name.c_str() );
+		_updateQueries[UpdateStep::CreateTable].push_back(DBModel::Helpers::Format(L"CREATE TABLE %s (%s);", xmlTable->_name.c_str(), columnsStr.c_str()));
 
 		for (DBModel::ColumnPtr& xmlColumn : xmlTable->_columns)
 		{
@@ -443,13 +485,21 @@ void DBSynchronizer::CompareDBModel()
 			GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Index : [%s] %s %s [%s]\n", xmlTable->_name.c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetTypeText().c_str(), xmlIndex->GetUniqueName().c_str());
 			if (xmlIndex->_primaryKey || xmlIndex->_uniqueConstraint)
 			{
-				_updateQueries[UpdateStep::CreateIndex].push_back(DBModel::Helpers::Format(
-					L"ALTER TABLE [dbo].[%s] ADD CONSTRAINT [%s] %s %s (%s)",
+				// SQL Server
+				// _updateQueries[UpdateStep::CreateIndex].push_back(DBModel::Helpers::Format(
+				// 	L"ALTER TABLE [dbo].[%s] ADD CONSTRAINT [%s] %s %s (%s)",
+				// 	xmlTable->_name.c_str(),
+				// 	xmlIndex->CreateName(xmlTable->_name).c_str(),
+				// 	xmlIndex->GetKeyText().c_str(),
+				// 	xmlIndex->GetTypeText().c_str(),
+				// 	xmlIndex->CreateColumnsText().c_str()));
+
+				_updateQueries[ UpdateStep::CreateIndex ].push_back( DBModel::Helpers::Format(
+					L"ALTER TABLE %s ADD CONSTRAINT %s %s (%s);",
 					xmlTable->_name.c_str(),
-					xmlIndex->CreateName(xmlTable->_name).c_str(),
+					xmlIndex->CreateName( xmlTable->_name ).c_str(),
 					xmlIndex->GetKeyText().c_str(),
-					xmlIndex->GetTypeText().c_str(),
-					xmlIndex->CreateColumnsText().c_str()));
+					xmlIndex->CreateColumnsText().c_str() ) );
 			}
 			else
 			{

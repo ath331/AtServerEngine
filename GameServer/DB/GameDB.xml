@@ -3,7 +3,7 @@
 	<Table name="Gold" desc="골드 테이블">
 		<Column name="id" type="int" notnull="true" identity="1,1" />
 		<Column name="gold" type="int" notnull="false" />
-		<Column name="name" type="nvarchar(50)" notnull="false" />
+		<Column name="name" type="varchar(50)" notnull="false" />
 		<Column name="createDate" type="datetime" notnull="false" />
 		<Column name="test" type="int" notnull="false" />
 		<Index type="clustered">
@@ -13,21 +13,21 @@
 	</Table>
 
 	<Procedure name="spInsertGold">
-		<Param name="@gold" type="int"/>
-		<Param name="@name" type="nvarchar(50)"/>
-		<Param name="@createDate" type="datetime"/>
+		<Param name="_gold" type="int"/>
+		<Param name="_name" type="varchar(50)"/>
+		<Param name="_createDate" type="datetime"/>
 		<Body>
 			<![CDATA[
-			INSERT INTO [dbo].[Gold]([gold], [name], [createDate]) VALUES(@gold, @name, @createDate);
+			INSERT INTO Gold(gold, name, createDate) VALUES(_gold, _name, _createDate);
 			]]>
 		</Body>		
 	</Procedure>
 	
 	<Procedure name="spGetGold">
-		<Param name="@gold" type="int"/>
+		<Param name="_gold" type="int"/>
 		<Body>
 			<![CDATA[
-			SELECT id, gold, name, createDate FROM [dbo].[Gold] WHERE gold = (@gold)
+			SELECT id, gold, name, createDate FROM Gold WHERE gold = _gold;
 			]]>
 		</Body>
 	</Procedure>
