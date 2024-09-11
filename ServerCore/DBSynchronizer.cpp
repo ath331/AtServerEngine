@@ -258,17 +258,17 @@ void DBSynchronizer::ParseXmlDB(const WCHAR* path)
 
 bool DBSynchronizer::GatherDBTables()
 {
-	int32 objectId;
+	int32 objectId = 0;
 	WCHAR tableName[101] = { 0 };
 	WCHAR columnName[101] = { 0 };
-	int32 columnId;
-	int32 userTypeId;
-	int32 maxLength;
-	bool isNullable;
-	bool isIdentity;
-	int64 seedValue;
-	int64 incValue;
-	int32 defaultObjectId;
+	int32 columnId = 0;
+	int32 userTypeId = 0;
+	int32 maxLength = 0;
+	bool isNullable = false;
+	bool isIdentity = false;
+	int64 seedValue = 0;
+	int64 incValue = 0;
+	int32 defaultObjectId = 0;
 	WCHAR defaultDefinition[101] = { 0 };
 	WCHAR defaultConstraintName[101] = { 0 };
 

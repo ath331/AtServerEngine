@@ -13,21 +13,21 @@
 	</Table>
 
 	<Procedure name="spInsertGold">
-		<Param name="_gold" type="int"/>
-		<Param name="_name" type="varchar(50)"/>
-		<Param name="_createDate" type="datetime"/>
+		<Param name="p_gold" type="int"/>
+		<Param name="p_name" type="varchar(50)"/>
+		<Param name="p_createDate" type="datetime"/>
 		<Body>
 			<![CDATA[
-			INSERT INTO Gold(gold, name, createDate) VALUES(_gold, _name, _createDate);
+			INSERT INTO Gold(gold, name, createDate) VALUES(p_gold, p_name, p_createDate);
 			]]>
 		</Body>		
 	</Procedure>
 	
 	<Procedure name="spGetGold">
-		<Param name="_gold" type="int"/>
+		<Param name="p_gold" type="int"/>
 		<Body>
 			<![CDATA[
-			SELECT id, gold, name, createDate FROM Gold WHERE gold = _gold;
+			SELECT id, gold, name, createDate FROM Gold WHERE gold = p_gold;
 			]]>
 		</Body>
 	</Procedure>

@@ -128,18 +128,13 @@ String Procedure::GenerateCreateQuery()
 {
 	// SQL Server
 	// const WCHAR* query = L"CREATE PROCEDURE [dbo].[%s] %s AS BEGIN %s END";
-	// 
-	// String paramString = GenerateParamString();
-	// return DBModel::Helpers::Format(query, _name.c_str(), paramString.c_str(), _body.c_str());
 
 	// MySql
 	const WCHAR* query = L"\
-		DELIMITER $$ \
-			CREATE PROCEDURE %s ( IN %s )\
-			BEGIN \
-				%s\
-			END$$\
-		DELIMITER;";
+CREATE PROCEDURE %s ( IN %s )\
+BEGIN \
+	%s\
+END;";
 
 	 String paramString = GenerateParamString();
 	 return DBModel::Helpers::Format(query, _name.c_str(), paramString.c_str(), _body.c_str());
@@ -147,10 +142,20 @@ String Procedure::GenerateCreateQuery()
 
 String Procedure::GenerateAlterQuery()
 {
-	const WCHAR* query = L"ALTER PROCEDURE [dbo].[%s] %s AS	BEGIN %s END";
+	// SQL Server
+	// const WCHAR* query = L"ALTER PROCEDURE [dbo].[%s] %s AS	BEGIN %s END";
+
+	// MySql
+	const WCHAR* query = L"\
+DROP PROCEDURE IF EXISTS %s;\
+\
+CREATE PROCEDURE %s( IN %s )\
+BEGIN\
+	%s\
+END;";
 
 	String paramString = GenerateParamString();
-	return DBModel::Helpers::Format(query, _name.c_str(), paramString.c_str(), _body.c_str());
+	return DBModel::Helpers::Format(query, _name.c_str(), _name.c_str(), paramString.c_str(), _body.c_str());
 }
 
 String Procedure::GenerateParamString()
