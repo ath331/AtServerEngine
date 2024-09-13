@@ -42,7 +42,8 @@ public:
 public:
 	String				_name;
 	int32				_columnId = 0; // DB
-	DataType			_type = DataType::None;
+	// DataType			_type = DataType::None; // SQL Server
+	String			    _type;
 	String				_typeText;
 	int32				_maxLength = 0;
 	bool				_nullable = false;

@@ -42,29 +42,42 @@ namespace SP
 			ON c.TABLE_SCHEMA = t.TABLE_SCHEMA\
 			AND c.TABLE_NAME = t.TABLE_NAME\
 		WHERE\
-			t.TABLE_TYPE = 'BASE TABLE'\
+			t.TABLE_TYPE = 'BASE TABLE' AND c.TABLE_SCHEMA = 'atserver_game'\
 				ORDER BY\
 				c.TABLE_NAME ASC,\
 				c.ORDINAL_POSITION ASC;";
 
-	class GetDBTables : public DBBind<0, 13>
+	class GetDBTables 
+		: 
+		// public DBBind<0, 13> SQL Server
+		public DBBind<0, 6> // MySql
 	{
 	public:
 		GetDBTables(DBConnection& conn) : DBBind(conn, QTablesAndColumns) {}
 
-		void Out_ObjectId(OUT int32& value) { BindCol(0, value); }
-		template<int32 N> void Out_TableName(OUT WCHAR(&value)[N]) { BindCol(1, value); }
-		template<int32 N> void Out_ColumnName(OUT WCHAR(&value)[N]) { BindCol(2, value); }
-		void Out_ColumnId(OUT int32& value) { BindCol(3, value); }
-		void Out_UserType(OUT int32& value) { BindCol(4, value); }
-		void Out_MaxLength(OUT int32& value) { BindCol(5, value); }
-		void Out_IsNullable(OUT bool& value) { BindCol(6, value); }
-		void Out_IsIdentity(OUT bool& value) { BindCol(7, value); }
-		void Out_SeedValue(OUT int64& value) { BindCol(8, value); }
-		void Out_IncrementValue(OUT int64& value) { BindCol(9, value); }
-		void Out_DefaultObjectId(OUT int32& value) { BindCol(10, value); }
-		template<int32 N> void Out_DefaultDefinition(OUT WCHAR(&value)[N]) { BindCol(11, value); }
-		template<int32 N> void Out_DefaultConstraintName(OUT WCHAR(&value)[N]) { BindCol(12, value); }
+		// SQL Server
+		// void Out_ObjectId(OUT int32& value) { BindCol(0, value); }
+		// template<int32 N> void Out_TableName(OUT WCHAR(&value)[N]) { BindCol(1, value); }
+		// template<int32 N> void Out_ColumnName(OUT WCHAR(&value)[N]) { BindCol(2, value); }
+		// void Out_ColumnId(OUT int32& value) { BindCol(3, value); }
+		// void Out_UserType(OUT int32& value) { BindCol(4, value); }
+		// void Out_MaxLength(OUT int32& value) { BindCol(5, value); }
+		// void Out_IsNullable(OUT bool& value) { BindCol(6, value); }
+		// void Out_IsIdentity(OUT bool& value) { BindCol(7, value); }
+		// void Out_SeedValue(OUT int64& value) { BindCol(8, value); }
+		// void Out_IncrementValue(OUT int64& value) { BindCol(9, value); }
+		// void Out_DefaultObjectId(OUT int32& value) { BindCol(10, value); }
+		// template<int32 N> void Out_DefaultDefinition(OUT WCHAR(&value)[N]) { BindCol(11, value); }
+		// template<int32 N> void Out_DefaultConstraintName(OUT WCHAR(&value)[N]) { BindCol(12, value); }
+
+		// MySql
+		template<int32 N> void Out_TableName(OUT WCHAR(&value)[N]) { BindCol(0, value); }
+		template<int32 N> void Out_ColumnName(OUT WCHAR(&value)[N]) { BindCol(1, value); }
+		void Out_ColumnPosition(OUT int32& value) { BindCol(2, value); }
+		template<int32 N> void Out_ColumnType(OUT WCHAR(&value)[N]) { BindCol(3, value); }
+		template<int32 N> void Out_IsNullable( OUT WCHAR( &value )[ N ] ) { BindCol(4, value); }
+		void Out_DefaultValue(OUT int64& value) { BindCol(5, value); }
+		// void Out_IsIdentity(OUT bool& value) { BindCol(6, value); }
 	};
 
 	// SQL Server
@@ -181,8 +194,10 @@ void DBSynchronizer::ParseXmlDB(const WCHAR* path)
 			DBModel::ColumnPtr c = MakeShared<DBModel::Column>();
 			c->_name = column.GetStringAttr(L"name");
 			c->_typeText = column.GetStringAttr(L"type");
-			c->_type = DBModel::Helpers::String2DataType(c->_typeText.c_str(), OUT c->_maxLength);
-			ASSERT_CRASH(c->_type != DBModel::DataType::None);
+			// c->_type = DBModel::Helpers::String2DataType(c->_typeText.c_str(), OUT c->_maxLength); // SQLSErver
+			c->_type = c->_typeText; // MySql
+			// ASSERT_CRASH(c->_type != DBModel::DataType::None); // SQL Server
+			ASSERT_CRASH( !c->_type.empty() ); // MySql
 			c->_nullable = !column.GetBoolAttr(L"notnull", false);
 
 			const WCHAR* identityStr = column.GetStringAttr(L"identity");
@@ -258,47 +273,110 @@ void DBSynchronizer::ParseXmlDB(const WCHAR* path)
 
 bool DBSynchronizer::GatherDBTables()
 {
-	int32 objectId = 0;
-	WCHAR tableName[101] = { 0 };
-	WCHAR columnName[101] = { 0 };
-	int32 columnId = 0;
-	int32 userTypeId = 0;
-	int32 maxLength = 0;
-	bool isNullable = false;
-	bool isIdentity = false;
-	int64 seedValue = 0;
-	int64 incValue = 0;
-	int32 defaultObjectId = 0;
-	WCHAR defaultDefinition[101] = { 0 };
-	WCHAR defaultConstraintName[101] = { 0 };
+	// SQL Server
+	// int32 objectId = 0;
+	// WCHAR tableName[ 101 ] = { 0, };
+	// WCHAR columnName[ 101 ] = { 0 };
+	// int32 columnId = 0;
+	// int32 userTypeId = 0;
+	// int32 maxLength = 0;
+	// bool isNullable = false;
+	// bool isIdentity = false;
+	// int64 seedValue = 0;
+	// int64 incValue = 0;
+	// int32 defaultObjectId = 0;
+	// WCHAR defaultDefinition[101] = { 0 };
+	// WCHAR defaultConstraintName[101] = { 0 };
+	// 
+	// SP::GetDBTables getDBTables(_dbConn);
+	// getDBTables.Out_ObjectId(OUT objectId);
+	// getDBTables.Out_TableName(OUT tableName);
+	// getDBTables.Out_ColumnName(OUT columnName);
+	// getDBTables.Out_ColumnId(OUT columnId);
+	// getDBTables.Out_UserType(OUT userTypeId);
+	// getDBTables.Out_MaxLength(OUT maxLength);
+	// getDBTables.Out_IsNullable(OUT isNullable);
+	// getDBTables.Out_IsIdentity(OUT isIdentity);
+	// getDBTables.Out_SeedValue(OUT seedValue);
+	// getDBTables.Out_IncrementValue(OUT incValue);
+	// getDBTables.Out_DefaultObjectId(OUT defaultObjectId);
+	// getDBTables.Out_DefaultDefinition(OUT defaultDefinition);
+	// getDBTables.Out_DefaultConstraintName(OUT defaultConstraintName);
 
+	// MySql
+	WCHAR tableName[ 101 ] = { 0, };
+	WCHAR columnName[ 101 ] = { 0, };
+	int32 columnPosition = 0;
+	WCHAR columnType[ 101 ] = { 0, };
+	WCHAR isNullable[ 101 ] = { 0, };
+	bool isIdentity = false;
+	int64 defaultValue = 0;
+	
 	SP::GetDBTables getDBTables(_dbConn);
-	getDBTables.Out_ObjectId(OUT objectId);
 	getDBTables.Out_TableName(OUT tableName);
-	getDBTables.Out_ColumnName(OUT columnName);
-	getDBTables.Out_ColumnId(OUT columnId);
-	getDBTables.Out_UserType(OUT userTypeId);
-	getDBTables.Out_MaxLength(OUT maxLength);
-	getDBTables.Out_IsNullable(OUT isNullable);
-	getDBTables.Out_IsIdentity(OUT isIdentity);
-	getDBTables.Out_SeedValue(OUT seedValue);
-	getDBTables.Out_IncrementValue(OUT incValue);
-	getDBTables.Out_DefaultObjectId(OUT defaultObjectId);
-	getDBTables.Out_DefaultDefinition(OUT defaultDefinition);
-	getDBTables.Out_DefaultConstraintName(OUT defaultConstraintName);
+	getDBTables.Out_ColumnName( OUT columnName );
+	getDBTables.Out_ColumnPosition( OUT columnPosition );
+	getDBTables.Out_ColumnType( OUT columnType );
+	getDBTables.Out_IsNullable( OUT isNullable );
+	getDBTables.Out_DefaultValue( OUT defaultValue );
+	// getDBTables.Out_IsIdentity(OUT isIdentity);
 
 	if (getDBTables.Execute() == false)
 		return false;
 
+	// SQL Server
+	// while (getDBTables.Fetch())
+	// {
+	// 	DBModel::TablePtr table;
+	// 
+	// 	auto findTable = std::find_if(_dbTables.begin(), _dbTables.end(), [=](const DBModel::TablePtr& table) { return table->_objectId == objectId; });
+	// 	if (findTable == _dbTables.end())
+	// 	{
+	// 		table = MakeShared<DBModel::Table>();
+	// 		table->_objectId = objectId;
+	// 		table->_name = tableName;
+	// 		_dbTables.push_back(table);
+	// 	}
+	// 	else
+	// 	{
+	// 		table = *findTable;
+	// 	}
+	// 
+	// 	DBModel::ColumnPtr column = MakeShared<DBModel::Column>();
+	// 	{
+	// 		column->_name = columnName;
+	// 		column->_columnId = columnId;
+	// 		column->_type = static_cast<DBModel::DataType>(userTypeId);
+	// 		column->_typeText = DBModel::Helpers::DataType2String(column->_type);
+	// 		column->_maxLength = (column->_type == DBModel::DataType::NVarChar ? maxLength / 2 : maxLength);
+	// 		column->_nullable = isNullable;
+	// 		column->_identity = isIdentity;
+	// 		column->_seedValue = (isIdentity ? seedValue : 0);
+	// 		column->_incrementValue = (isIdentity ? incValue : 0);
+	// 
+	// 		if (defaultObjectId > 0)
+	// 		{
+	// 			column->_default = defaultDefinition;
+	// 			uint64 p = column->_default.find_first_not_of('(');
+	// 			column->_default = column->_default.substr(p, column->_default.size() - p * 2);
+	// 			column->_defaultConstraintName = defaultConstraintName;
+	// 		}
+	// 	}
+	// 
+	// 	table->_columns.push_back(column);
+	// }
+	// 
+	// return true;
+
+	// MySql
 	while (getDBTables.Fetch())
 	{
 		DBModel::TablePtr table;
-
-		auto findTable = std::find_if(_dbTables.begin(), _dbTables.end(), [=](const DBModel::TablePtr& table) { return table->_objectId == objectId; });
+	
+		auto findTable = std::find_if(_dbTables.begin(), _dbTables.end(), [=](const DBModel::TablePtr& table) { return table->_name == tableName; });
 		if (findTable == _dbTables.end())
 		{
 			table = MakeShared<DBModel::Table>();
-			table->_objectId = objectId;
 			table->_name = tableName;
 			_dbTables.push_back(table);
 		}
@@ -306,31 +384,22 @@ bool DBSynchronizer::GatherDBTables()
 		{
 			table = *findTable;
 		}
-
+	
 		DBModel::ColumnPtr column = MakeShared<DBModel::Column>();
 		{
 			column->_name = columnName;
-			column->_columnId = columnId;
-			column->_type = static_cast<DBModel::DataType>(userTypeId);
-			column->_typeText = DBModel::Helpers::DataType2String(column->_type);
-			column->_maxLength = (column->_type == DBModel::DataType::NVarChar ? maxLength / 2 : maxLength);
-			column->_nullable = isNullable;
-			column->_identity = isIdentity;
-			column->_seedValue = (isIdentity ? seedValue : 0);
-			column->_incrementValue = (isIdentity ? incValue : 0);
-
-			if (defaultObjectId > 0)
-			{
-				column->_default = defaultDefinition;
-				uint64 p = column->_default.find_first_not_of('(');
-				column->_default = column->_default.substr(p, column->_default.size() - p * 2);
-				column->_defaultConstraintName = defaultConstraintName;
-			}
+			column->_type = columnType;
+			column->_columnId = columnPosition;
+	
+			if ( wcscmp( isNullable, L"NO" ) == 0 )
+				column->_nullable = 0;
+			else
+				column->_nullable = 1;
 		}
-
+	
 		table->_columns.push_back(column);
 	}
-
+	
 	return true;
 }
 
