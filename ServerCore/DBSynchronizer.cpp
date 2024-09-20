@@ -885,7 +885,7 @@ void DBSynchronizer::CompareStoredProcedures()
 			String xmlBody = xmlProcedure->GenerateCreateQuery();
 			if ( DBModel::Helpers::RemoveWhiteSpace( dbProcedure->_fullBody ) != DBModel::Helpers::RemoveWhiteSpace( xmlBody ) )
 			{
-				GConsoleLogger->WriteStdOut( Color::YELLOW, L"Updating Procedure : %s\n", dbProcedure->_name.c_str() );
+				GConsoleLogger->WriteStdOut( Color::YELLOW, L"Delete Procedure : %s\n", dbProcedure->_name.c_str() );
 				_updateQueries[ UpdateStep::StoredProcecure ].push_back( xmlProcedure->GenerateDeleteQuery() );
 			}
 		}
