@@ -63,7 +63,11 @@ String Index::CreateName(const String& tableName)
 
 String Index::GetTypeText()
 {
-	return (_type == IndexType::Clustered ? L"CLUSTERED" : L"NONCLUSTERED");
+	// SQL Server
+	// return (_type == IndexType::Clustered ? L"CLUSTERED" : L"NONCLUSTERED");
+
+	// MySQL
+	return ( _type == IndexType::Clustered ? L"" : L"" );
 }
 
 String Index::GetKeyText()
@@ -146,16 +150,24 @@ String Procedure::GenerateAlterQuery()
 	// const WCHAR* query = L"ALTER PROCEDURE [dbo].[%s] %s AS	BEGIN %s END";
 
 	// MySql
-	const WCHAR* query = L"\
-DROP PROCEDURE IF EXISTS %s;\
-\
-CREATE PROCEDURE %s( IN %s )\
-BEGIN\
-	%s\
+	const WCHAR* query = 
+L"DROP PROCEDURE IF EXISTS %s;\n\
+CREATE PROCEDURE %s( IN %s )\n\
+BEGIN\n\
+	%s\n\
 END;";
 
 	String paramString = GenerateParamString();
 	return DBModel::Helpers::Format(query, _name.c_str(), _name.c_str(), paramString.c_str(), _body.c_str());
+}
+
+String Procedure::GenerateDeleteQuery()
+{
+	// MySql
+	const WCHAR* query = L"DROP PROCEDURE IF EXISTS %s";
+
+	String paramString = GenerateParamString();
+	return DBModel::Helpers::Format( query, _name.c_str() );
 }
 
 String Procedure::GenerateParamString()

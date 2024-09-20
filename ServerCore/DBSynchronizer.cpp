@@ -108,25 +108,39 @@ namespace SP
 				AND s.TABLE_SCHEMA = t.TABLE_SCHEMA\
 		WHERE\
 			s.TABLE_SCHEMA = DATABASE()\
-			AND s.INDEX_NAME != 'PRIMARY'\
+			AND s.INDEX_NAME = 'PRIMARY'\
 		ORDER BY\
 			s.TABLE_NAME ASC,\
 			s.INDEX_NAME ASC,\
 			s.SEQ_IN_INDEX ASC;";
 
-	class GetDBIndexes : public DBBind<0, 8>
+	// SQL Server
+	//class GetDBIndexes : public DBBind<0, 8>
+
+	// MySQL
+	class GetDBIndexes : public DBBind<0, 7>
 	{
 	public:
 		GetDBIndexes(DBConnection& conn) : DBBind(conn, QIndexes) {}
 
-		void Out_ObjectId(OUT int32& value) { BindCol(0, value); }
-		template<int32 N> void Out_IndexName(OUT WCHAR(&value)[N]) { BindCol(1, value); }
-		void Out_IndexId(OUT int32& value) { BindCol(2, value); }
-		void Out_IndexType(OUT int32& value) { BindCol(3, value); }
-		void Out_IsPrimaryKey(OUT bool& value) { BindCol(4, value); }
-		void Out_IsUniqueConstraint(OUT bool& value) { BindCol(5, value); }
-		void Out_ColumnId(OUT int32& value) { BindCol(6, value); }
-		template<int32 N> void Out_ColumnName(OUT WCHAR(&value)[N]) { BindCol(7, value); }
+		// SQL Server
+		// void Out_ObjectId(OUT int32& value) { BindCol(0, value); }
+		// template<int32 N> void Out_IndexName(OUT WCHAR(&value)[N]) { BindCol(1, value); }
+		// void Out_IndexId(OUT int32& value) { BindCol(2, value); }
+		// void Out_IndexType(OUT int32& value) { BindCol(3, value); }
+		// void Out_IsPrimaryKey(OUT bool& value) { BindCol(4, value); }
+		// void Out_IsUniqueConstraint(OUT bool& value) { BindCol(5, value); }
+		// void Out_ColumnId(OUT int32& value) { BindCol(6, value); }
+		// template<int32 N> void Out_ColumnName(OUT WCHAR(&value)[N]) { BindCol(7, value); }
+
+		// MySQL
+		template<int32 N> void Out_TableName( OUT WCHAR( &value )[ N ] ) { BindCol( 0, value ); }
+		template<int32 N> void Out_IndexName( OUT WCHAR( &value )[ N ] ) { BindCol( 1, value ); }
+		template<int32 N> void Out_IndexSchema( OUT WCHAR( &value )[ N ] ) { BindCol( 2, value ); }
+		void Out_IndexSeq( OUT int32& value ) { BindCol( 3, value ); }
+		template<int32 N> void Out_ColumnName( OUT WCHAR( &value )[ N ] ) { BindCol( 4, value ); }
+		void Out_IsUnique( OUT int32& value ) { BindCol( 5, value ); }
+		template<int32 N> void Out_IsPrimaryKey( OUT WCHAR( &value )[ N ] ) { BindCol( 6, value ); }
 	};
 
 	// SQL Server
@@ -194,7 +208,7 @@ void DBSynchronizer::ParseXmlDB(const WCHAR* path)
 			DBModel::ColumnPtr c = MakeShared<DBModel::Column>();
 			c->_name = column.GetStringAttr(L"name");
 			c->_typeText = column.GetStringAttr(L"type");
-			// c->_type = DBModel::Helpers::String2DataType(c->_typeText.c_str(), OUT c->_maxLength); // SQLSErver
+			// c->_type = DBModel::Helpers::String2DataType(c->_typeText.c_str(), OUT c->_maxLength); // SQL Server
 			c->_type = c->_typeText; // MySql
 			// ASSERT_CRASH(c->_type != DBModel::DataType::None); // SQL Server
 			ASSERT_CRASH( !c->_type.empty() ); // MySql
@@ -313,15 +327,15 @@ bool DBSynchronizer::GatherDBTables()
 	int64 defaultValue = 0;
 	
 	SP::GetDBTables getDBTables(_dbConn);
-	getDBTables.Out_TableName(OUT tableName);
-	getDBTables.Out_ColumnName( OUT columnName );
+	getDBTables.Out_TableName     ( OUT tableName      );
+	getDBTables.Out_ColumnName    ( OUT columnName     );
 	getDBTables.Out_ColumnPosition( OUT columnPosition );
-	getDBTables.Out_ColumnType( OUT columnType );
-	getDBTables.Out_IsNullable( OUT isNullable );
-	getDBTables.Out_DefaultValue( OUT defaultValue );
+	getDBTables.Out_ColumnType    ( OUT columnType     );
+	getDBTables.Out_IsNullable    ( OUT isNullable     );
+	getDBTables.Out_DefaultValue  ( OUT defaultValue   );
 	// getDBTables.Out_IsIdentity(OUT isIdentity);
 
-	if (getDBTables.Execute() == false)
+	if ( !getDBTables.Execute() )
 		return false;
 
 	// SQL Server
@@ -369,35 +383,35 @@ bool DBSynchronizer::GatherDBTables()
 	// return true;
 
 	// MySql
-	while (getDBTables.Fetch())
+	while ( getDBTables.Fetch() )
 	{
 		DBModel::TablePtr table;
-	
-		auto findTable = std::find_if(_dbTables.begin(), _dbTables.end(), [=](const DBModel::TablePtr& table) { return table->_name == tableName; });
-		if (findTable == _dbTables.end())
+
+		auto findTable = std::find_if( _dbTables.begin(), _dbTables.end(), [ = ]( const DBModel::TablePtr& table ) { return table->_name == tableName; } );
+		if ( findTable == _dbTables.end() )
 		{
 			table = MakeShared<DBModel::Table>();
 			table->_name = tableName;
-			_dbTables.push_back(table);
+			_dbTables.push_back( table );
 		}
 		else
 		{
 			table = *findTable;
 		}
-	
+
 		DBModel::ColumnPtr column = MakeShared<DBModel::Column>();
 		{
 			column->_name = columnName;
 			column->_type = columnType;
 			column->_columnId = columnPosition;
-	
+
 			if ( wcscmp( isNullable, L"NO" ) == 0 )
 				column->_nullable = 0;
 			else
 				column->_nullable = 1;
 		}
-	
-		table->_columns.push_back(column);
+
+		table->_columns.push_back( column );
 	}
 	
 	return true;
@@ -405,53 +419,75 @@ bool DBSynchronizer::GatherDBTables()
 
 bool DBSynchronizer::GatherDBIndexes()
 {
-	int32 objectId;
-	WCHAR indexName[101] = { 0 };
-	int32 indexId;
-	int32 indexType;
-	bool isPrimaryKey;
-	bool isUniqueConstraint;
-	int32 columnId;
-	WCHAR columnName[101] = { 0 };
+	// SQL Server
+	// int32 objectId;
+	// WCHAR indexName[ 101 ] = { 0 };
+	// int32 indexId;
+	// int32 indexType;
+	// bool isPrimaryKey;
+	// bool isUniqueConstraint;
+	// int32 columnId;
+	// WCHAR columnName[ 101 ] = { 0 };
+	// 
+	// SP::GetDBIndexes getDBIndexes( _dbConn );
+	// getDBIndexes.Out_ObjectId          ( OUT objectId           );
+	// getDBIndexes.Out_IndexName         ( OUT indexName          );
+	// getDBIndexes.Out_IndexId           ( OUT indexId            );
+	// getDBIndexes.Out_IndexType         ( OUT indexType          );
+	// getDBIndexes.Out_IsPrimaryKey      ( OUT isPrimaryKey       );
+	// getDBIndexes.Out_IsUniqueConstraint( OUT isUniqueConstraint );
+	// getDBIndexes.Out_ColumnId          ( OUT columnId           );
+	// getDBIndexes.Out_ColumnName        ( OUT columnName         );
 
-	SP::GetDBIndexes getDBIndexes(_dbConn);
-	getDBIndexes.Out_ObjectId(OUT objectId);
-	getDBIndexes.Out_IndexName(OUT indexName);
-	getDBIndexes.Out_IndexId(OUT indexId);
-	getDBIndexes.Out_IndexType(OUT indexType);
-	getDBIndexes.Out_IsPrimaryKey(OUT isPrimaryKey);
-	getDBIndexes.Out_IsUniqueConstraint(OUT isUniqueConstraint);
-	getDBIndexes.Out_ColumnId(OUT columnId);
-	getDBIndexes.Out_ColumnName(OUT columnName);
+	// MySql
+	WCHAR tableName[ 101 ] = { 0 };
+	WCHAR indexName[ 101 ] = { 0 };
+	WCHAR indexSchema[ 101 ] = { 0 };
+	int32 indexSeq = 0;
+	WCHAR columnName[ 101 ] = { 0 };
+	int32 isUnique = 0;
+	WCHAR isPrimaryKey[ 101 ] = { 0 };
+	
+	SP::GetDBIndexes getDBIndexes( _dbConn );
+	getDBIndexes.Out_TableName   ( OUT tableName    );
+	getDBIndexes.Out_IndexName   ( OUT indexName    );
+	getDBIndexes.Out_IndexSchema ( OUT indexSchema  );
+	getDBIndexes.Out_IndexSeq    ( OUT indexSeq     );
+	getDBIndexes.Out_ColumnName  ( OUT columnName   );
+	getDBIndexes.Out_IsUnique    ( OUT isUnique     );
+	getDBIndexes.Out_IsPrimaryKey( OUT isPrimaryKey );
 
-	if (getDBIndexes.Execute() == false)
+	if ( !getDBIndexes.Execute() )
 		return false;
 
-	while (getDBIndexes.Fetch())
+	while ( getDBIndexes.Fetch() )
 	{
-		auto findTable = std::find_if(_dbTables.begin(), _dbTables.end(), [=](const DBModel::TablePtr& table) { return table->_objectId == objectId; });
-		ASSERT_CRASH(findTable != _dbTables.end());
-		Vector<DBModel::IndexPtr>& indexes = (*findTable)->_indexes;
-		auto findIndex = std::find_if(indexes.begin(), indexes.end(), [indexId](DBModel::IndexPtr& index) { return index->_indexId == indexId; });
-		if (findIndex == indexes.end())
+		auto findTable = std::find_if( _dbTables.begin(), _dbTables.end(), [ = ]( const DBModel::TablePtr& table ) { return table->_name == tableName; } );
+		ASSERT_CRASH( findTable != _dbTables.end() );
+		Vector<DBModel::IndexPtr>& indexes = ( *findTable )->_indexes;
+		auto findIndex = std::find_if( indexes.begin(), indexes.end(), [ indexSeq ]( DBModel::IndexPtr& index ) { return index->_indexId == indexSeq; } );
+		if ( findIndex == indexes.end() )
 		{
 			DBModel::IndexPtr index = MakeShared<DBModel::Index>();
 			{
 				index->_name = indexName;
-				index->_indexId = indexId;
-				index->_type = static_cast<DBModel::IndexType>(indexType);
+				index->_indexId = indexSeq;
+				// SQL Server
+				// index->_type = static_cast<DBModel::IndexType>( indexType );
+				// MySQL
+				// index->_type = static_cast<DBModel::IndexType>( indexType );
 				index->_primaryKey = isPrimaryKey;
-				index->_uniqueConstraint = isUniqueConstraint;
+				index->_uniqueConstraint = isUnique;
 			}
-			indexes.push_back(index);
+			indexes.push_back( index );
 			findIndex = indexes.end() - 1;
 		}
 
 		// 인덱스가 걸린 column 찾아서 매핑해준다.
-		Vector<DBModel::ColumnPtr>& columns = (*findTable)->_columns;
-		auto findColumn = std::find_if(columns.begin(), columns.end(), [columnId](DBModel::ColumnPtr& column) { return column->_columnId == columnId; });
-		ASSERT_CRASH(findColumn != columns.end());
-		(*findIndex)->_columns.push_back(*findColumn);
+		Vector<DBModel::ColumnPtr>& columns = ( *findTable )->_columns;
+		auto findColumn = std::find_if( columns.begin(), columns.end(), [ columnName ]( DBModel::ColumnPtr& column ) { return column->_name == columnName; } );
+		ASSERT_CRASH( findColumn != columns.end() );
+		( *findIndex )->_columns.push_back( *findColumn );
 	}
 
 	return true;
@@ -491,7 +527,7 @@ void DBSynchronizer::CompareDBModel()
 
 	// XML에 있는 목록을 우선 갖고 온다.
 	Map<String, DBModel::TablePtr> xmlTableMap;
-	for (DBModel::TablePtr& xmlTable : _xmlTables)
+	for ( DBModel::TablePtr& xmlTable : _xmlTables )
 		xmlTableMap[xmlTable->_name] = xmlTable;
 
 	// DB에 실존하는 테이블들을 돌면서 XML에 정의된 테이블들과 비교한다.
@@ -542,7 +578,11 @@ void DBSynchronizer::CompareDBModel()
 			if (xmlColumn->_default.empty())
 				continue;
 
-			_updateQueries[UpdateStep::DefaultConstraint].push_back(DBModel::Helpers::Format(L"ALTER TABLE [dbo].[%s] ADD CONSTRAINT [%s] DEFAULT (%s) FOR [%s]",
+			// SQL Server
+			// _updateQueries[UpdateStep::DefaultConstraint].push_back(DBModel::Helpers::Format(L"ALTER TABLE [dbo].[%s] ADD CONSTRAINT [%s] DEFAULT (%s) FOR [%s]",
+
+			// MySql
+			_updateQueries[UpdateStep::DefaultConstraint].push_back(DBModel::Helpers::Format(L"ALTER TABLE %s ADD CONSTRAINT %s DEFAULT (%s) FOR %s",
 				xmlTable->_name.c_str(),
 				DBModel::Helpers::Format(L"DF_%s_%s", xmlTable->_name.c_str(), xmlColumn->_name.c_str()).c_str(),
 				xmlColumn->_default.c_str(),
@@ -587,12 +627,12 @@ void DBSynchronizer::CompareDBModel()
 
 void DBSynchronizer::ExecuteUpdateQueries()
 {
-	for (int32 step = 0; step < UpdateStep::Max; step++)
+	for ( int32 step = 0; step < UpdateStep::Max; step++ )
 	{
-		for (String& query : _updateQueries[step])
+		for ( String& query : _updateQueries[ step ] )
 		{
 			_dbConn.Unbind();
-			ASSERT_CRASH(_dbConn.Execute(query.c_str()));
+			ASSERT_CRASH( _dbConn.Execute( query.c_str() ) );
 		}
 	}
 }
@@ -618,9 +658,12 @@ void DBSynchronizer::CompareTables(DBModel::TablePtr dbTable, DBModel::TablePtr 
 		{
 			GConsoleLogger->WriteStdOut(Color::YELLOW, L"Dropping Column : [%s].[%s]\n", dbTable->_name.c_str(), dbColumn->_name.c_str());
 			if (dbColumn->_defaultConstraintName.empty() == false)
-				_updateQueries[UpdateStep::DropColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE [dbo].[%s] DROP CONSTRAINT [%s]", dbTable->_name.c_str(), dbColumn->_defaultConstraintName.c_str()));
+				// SQL Server
+			//	_updateQueries[ UpdateStep::DropColumn ].push_back( DBModel::Helpers::Format( L"ALTER TABLE %s DROP CONSTRAINT %s", dbTable->_name.c_str(), dbColumn->_defaultConstraintName.c_str() ) );
+				// MySQL
+				_updateQueries[ UpdateStep::DropColumn ].push_back( DBModel::Helpers::Format( L"ALTER TABLE %s DROP %s KEY", dbTable->_name.c_str(), dbColumn->_defaultConstraintName.c_str() ) );
 
-			_updateQueries[UpdateStep::DropColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE [dbo].[%s] DROP COLUMN [%s]", dbTable->_name.c_str(), dbColumn->_name.c_str()));
+			_updateQueries[UpdateStep::DropColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE %s DROP COLUMN %s", dbTable->_name.c_str(), dbColumn->_name.c_str()));
 		}
 	}
 
@@ -632,66 +675,74 @@ void DBSynchronizer::CompareTables(DBModel::TablePtr dbTable, DBModel::TablePtr 
 		newColumn._nullable = true;
 
 		GConsoleLogger->WriteStdOut(Color::YELLOW, L"Adding Column : [%s].[%s]\n", dbTable->_name.c_str(), xmlColumn->_name.c_str());
-		_updateQueries[UpdateStep::AddColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE [dbo].[%s] ADD %s %s",
+		_updateQueries[UpdateStep::AddColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE %s ADD %s %s",
 			dbTable->_name.c_str(), xmlColumn->_name.c_str(), xmlColumn->_typeText.c_str()));
 
 		if (xmlColumn->_nullable == false && xmlColumn->_default.empty() == false)
 		{
-			_updateQueries[UpdateStep::AddColumn].push_back(DBModel::Helpers::Format(L"SET NOCOUNT ON; UPDATE [dbo].[%s] SET [%s] = %s WHERE [%s] IS NULL",
+			_updateQueries[UpdateStep::AddColumn].push_back(DBModel::Helpers::Format(L"SET NOCOUNT ON; UPDATE %s SET %s = %s WHERE %s IS NULL",
 				dbTable->_name.c_str(), xmlColumn->_name.c_str(), xmlColumn->_default.c_str(), xmlColumn->_name.c_str()));
 		}
 
 		if (xmlColumn->_nullable == false)
 		{
-			_updateQueries[UpdateStep::AddColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE [dbo].[%s] ALTER COLUMN %s",
+			// SQL Server
+			// _updateQueries[UpdateStep::AddColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE %s ALTER COLUMN %s",
+			// 	dbTable->_name.c_str(), xmlColumn->CreateText().c_str()));
+
+			// MySQL
+			_updateQueries[UpdateStep::AddColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE %s MODIFY COLUMN %s",
 				dbTable->_name.c_str(), xmlColumn->CreateText().c_str()));
 		}
 
 		if (xmlColumn->_default.empty() == false)
 		{
-			_updateQueries[UpdateStep::AddColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE [dbo].[%s] ADD CONSTRAINT [DF_%s_%s] DEFAULT (%s) FOR [%s]",
+			_updateQueries[UpdateStep::AddColumn].push_back(DBModel::Helpers::Format(L"ALTER TABLE %s ADD CONSTRAINT [DF_%s_%s] DEFAULT (%s) FOR [%s]",
 				dbTable->_name.c_str(), dbTable->_name.c_str(), xmlColumn->_name.c_str(), xmlColumn->_default.c_str(), xmlColumn->_name.c_str()));
 		}
 	}
 
 	// XML에 있는 인덱스 목록을 갖고 온다.
 	Map<String, DBModel::IndexPtr> xmlIndexMap;
-	for (DBModel::IndexPtr& xmlIndex : xmlTable->_indexes)
-		xmlIndexMap[xmlIndex->GetUniqueName()] = xmlIndex;
+	for ( DBModel::IndexPtr& xmlIndex : xmlTable->_indexes )
+		xmlIndexMap[ xmlIndex->GetUniqueName() ] = xmlIndex;
 
 	// DB에 실존하는 테이블 인덱스들을 돌면서 XML에 정의된 인덱스들과 비교한다.
-	for (DBModel::IndexPtr& dbIndex : dbTable->_indexes)
+	for ( DBModel::IndexPtr& dbIndex : dbTable->_indexes )
 	{
-		auto findIndex = xmlIndexMap.find(dbIndex->GetUniqueName());
-		if (findIndex != xmlIndexMap.end() && _dependentIndexes.find(dbIndex->GetUniqueName()) == _dependentIndexes.end())
+		auto findIndex = xmlIndexMap.find( dbIndex->GetUniqueName() );
+		if ( findIndex != xmlIndexMap.end() && _dependentIndexes.find( dbIndex->GetUniqueName() ) == _dependentIndexes.end() )
 		{
 			DBModel::IndexPtr xmlIndex = findIndex->second;
-			xmlIndexMap.erase(findIndex);
+			xmlIndexMap.erase( findIndex );
 		}
 		else
 		{
-			GConsoleLogger->WriteStdOut(Color::YELLOW, L"Dropping Index : [%s] [%s] %s %s\n", dbTable->_name.c_str(), dbIndex->_name.c_str(), dbIndex->GetKeyText().c_str(), dbIndex->GetTypeText().c_str());
-			if (dbIndex->_primaryKey || dbIndex->_uniqueConstraint)
-				_updateQueries[UpdateStep::DropIndex].push_back(DBModel::Helpers::Format(L"ALTER TABLE [dbo].[%s] DROP CONSTRAINT [%s]", dbTable->_name.c_str(), dbIndex->_name.c_str()));
+			GConsoleLogger->WriteStdOut( Color::YELLOW, L"Dropping Index : [%s] [%s] %s %s\n", dbTable->_name.c_str(), dbIndex->_name.c_str(), dbIndex->GetKeyText().c_str(), dbIndex->GetTypeText().c_str() );
+			if ( dbIndex->_primaryKey || dbIndex->_uniqueConstraint )
+				// SQL Server
+				// _updateQueries[ UpdateStep::DropIndex ].push_back( DBModel::Helpers::Format( L"ALTER TABLE %s DROP CONSTRAINT %s", dbTable->_name.c_str(), dbIndex->_name.c_str() ) );
+				// MySQL
+				_updateQueries[ UpdateStep::DropIndex ].push_back( DBModel::Helpers::Format( L"ALTER TABLE %s DROP %s KEY", dbTable->_name.c_str(), dbIndex->_name.c_str() ) );
 			else
-				_updateQueries[UpdateStep::DropIndex].push_back(DBModel::Helpers::Format(L"DROP INDEX [%s] ON [dbo].[%s]", dbIndex->_name.c_str(), dbTable->_name.c_str()));
+				_updateQueries[ UpdateStep::DropIndex ].push_back( DBModel::Helpers::Format( L"DROP INDEX %s ON %s", dbIndex->_name.c_str(), dbTable->_name.c_str() ) );
 		}
 	}
 
 	// 맵에서 제거되지 않은 XML 인덱스 정의는 새로 추가.
-	for (auto& mapIt : xmlIndexMap)
+	for ( auto& mapIt : xmlIndexMap )
 	{
 		DBModel::IndexPtr xmlIndex = mapIt.second;
-		GConsoleLogger->WriteStdOut(Color::YELLOW, L"Creating Index : [%s] %s %s [%s]\n", dbTable->_name.c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetTypeText().c_str(), xmlIndex->GetUniqueName().c_str());
-		if (xmlIndex->_primaryKey || xmlIndex->_uniqueConstraint)
+		GConsoleLogger->WriteStdOut( Color::YELLOW, L"Creating Index : [%s] %s %s [%s]\n", dbTable->_name.c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetTypeText().c_str(), xmlIndex->GetUniqueName().c_str() );
+		if ( xmlIndex->_primaryKey || xmlIndex->_uniqueConstraint )
 		{
-			_updateQueries[UpdateStep::CreateIndex].push_back(DBModel::Helpers::Format(L"ALTER TABLE [dbo].[%s] ADD CONSTRAINT [%s] %s %s (%s)",
-				dbTable->_name.c_str(), xmlIndex->CreateName(dbTable->_name).c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetTypeText().c_str(), xmlIndex->CreateColumnsText().c_str()));
+			_updateQueries[ UpdateStep::CreateIndex ].push_back( DBModel::Helpers::Format( L"ALTER TABLE %s ADD CONSTRAINT %s %s %s (%s)",
+			 dbTable->_name.c_str(), xmlIndex->CreateName( dbTable->_name ).c_str(), xmlIndex->GetKeyText().c_str(), xmlIndex->GetTypeText().c_str(), xmlIndex->CreateColumnsText().c_str() ) );
 		}
 		else
 		{
-			_updateQueries[UpdateStep::CreateIndex].push_back(DBModel::Helpers::Format(L"CREATE %s INDEX [%s] ON [dbo].[%s] (%s)",
-				xmlIndex->GetTypeText(), xmlIndex->CreateName(dbTable->_name).c_str(), dbTable->_name.c_str(), xmlIndex->CreateColumnsText().c_str()));
+			_updateQueries[ UpdateStep::CreateIndex ].push_back( DBModel::Helpers::Format( L"CREATE %s INDEX %s ON %s (%s)",
+			 xmlIndex->GetTypeText(), xmlIndex->CreateName( dbTable->_name ).c_str(), dbTable->_name.c_str(), xmlIndex->CreateColumnsText().c_str() ) );
 		}
 	}
 }
@@ -713,7 +764,7 @@ void DBSynchronizer::CompareColumns(DBModel::TablePtr dbTable, DBModel::ColumnPt
 
 	if (flag)
 	{
-		GConsoleLogger->WriteStdOut(Color::YELLOW, L"Updating Column [%s] : (%s) -> (%s)\n", dbTable->_name.c_str(), dbColumn->CreateText().c_str(), xmlColumn->CreateText().c_str());
+		GConsoleLogger->WriteStdOut(Color::YELLOW, L"Updating Column %s : (%s) -> (%s)\n", dbTable->_name.c_str(), dbColumn->CreateText().c_str(), xmlColumn->CreateText().c_str());
 	}
 
 	// 연관된 인덱스가 있으면 나중에 삭제하기 위해 기록한다.
@@ -730,8 +781,15 @@ void DBSynchronizer::CompareColumns(DBModel::TablePtr dbTable, DBModel::ColumnPt
 	{
 		if (dbColumn->_defaultConstraintName.empty() == false)
 		{
+			// SQL Server
+			// _updateQueries[UpdateStep::AlterColumn].push_back(DBModel::Helpers::Format(
+			// 	L"ALTER TABLE %s DROP CONSTRAINT %s",
+			// 	dbTable->_name.c_str(),
+			// 	dbColumn->_defaultConstraintName.c_str()));
+
+			// MySQL
 			_updateQueries[UpdateStep::AlterColumn].push_back(DBModel::Helpers::Format(
-				L"ALTER TABLE [dbo].[%s] DROP CONSTRAINT [%s]",
+				L"ALTER TABLE %s DROP %s KEY",
 				dbTable->_name.c_str(),
 				dbColumn->_defaultConstraintName.c_str()));
 		}
@@ -747,8 +805,15 @@ void DBSynchronizer::CompareColumns(DBModel::TablePtr dbTable, DBModel::ColumnPt
 
 	if (flag & (ColumnFlag::Type | ColumnFlag::Length | ColumnFlag::Identity))
 	{
+		// SQLServer
+		// _updateQueries[UpdateStep::AlterColumn].push_back(DBModel::Helpers::Format(
+		// 	L"ALTER TABLE %s ALTER COLUMN %s",
+		// 	dbTable->_name.c_str(),
+		// 	newColumn.CreateText().c_str()));
+
+		// MySql
 		_updateQueries[UpdateStep::AlterColumn].push_back(DBModel::Helpers::Format(
-			L"ALTER TABLE [dbo].[%s] ALTER COLUMN %s",
+			L"ALTER TABLE %s MODIFY COLUMN %s",
 			dbTable->_name.c_str(),
 			newColumn.CreateText().c_str()));
 	}
@@ -759,17 +824,24 @@ void DBSynchronizer::CompareColumns(DBModel::TablePtr dbTable, DBModel::ColumnPt
 		if (xmlColumn->_default.empty() == false)
 		{
 			_updateQueries[UpdateStep::AlterColumn].push_back(DBModel::Helpers::Format(
-				L"SET NOCOUNT ON; UPDATE [dbo].[%s] SET [%s] = %s WHERE [%s] IS NULL",
+				L"SET NOCOUNT ON; UPDATE %s SET %s = %s WHERE %s IS NULL",
 				dbTable->_name.c_str(),
 				xmlColumn->_name.c_str(),
 				xmlColumn->_name.c_str(),
 				xmlColumn->_name.c_str()));
 		}
 
-		_updateQueries[UpdateStep::AlterColumn].push_back(DBModel::Helpers::Format(
-			L"ALTER TABLE [dbo].[%s] ALTER COLUMN %s",
+		// SQL Server
+		// _updateQueries[UpdateStep::AlterColumn].push_back(DBModel::Helpers::Format(
+		// 	L"ALTER TABLE %s ALTER COLUMN %s",
+		// 	dbTable->_name.c_str(),
+		// 	newColumn.CreateText().c_str()));
+
+		// MySql
+		_updateQueries[ UpdateStep::AlterColumn ].push_back( DBModel::Helpers::Format(
+			L"ALTER TABLE %s MODIFY COLUMN %s",
 			dbTable->_name.c_str(),
-			newColumn.CreateText().c_str()));
+			newColumn.CreateText().c_str() ) );
 	}
 
 	if (flag & ColumnFlag::Default)
@@ -777,7 +849,7 @@ void DBSynchronizer::CompareColumns(DBModel::TablePtr dbTable, DBModel::ColumnPt
 		if (dbColumn->_defaultConstraintName.empty() == false)
 		{
 			_updateQueries[UpdateStep::AlterColumn].push_back(DBModel::Helpers::Format(
-				L"ALTER TABLE [dbo].[%s] ADD CONSTRAINT [%s] DEFAULT (%s) FOR [%s]",
+				L"ALTER TABLE %s ADD CONSTRAINT %s DEFAULT (%s) FOR %s",
 				dbTable->_name.c_str(),
 				DBModel::Helpers::Format(L"DF_%s_%s", dbTable->_name.c_str(), dbColumn->_name.c_str()).c_str(),
 				dbColumn->_default.c_str(), dbColumn->_name.c_str()));
@@ -789,30 +861,40 @@ void DBSynchronizer::CompareStoredProcedures()
 {
 	// XML에 있는 프로시저 목록을 갖고 온다.
 	Map<String, DBModel::ProcedurePtr> xmlProceduresMap;
-	for (DBModel::ProcedurePtr& xmlProcedure : _xmlProcedures)
-		xmlProceduresMap[xmlProcedure->_name] = xmlProcedure;
+	for ( DBModel::ProcedurePtr& xmlProcedure : _xmlProcedures )
+		xmlProceduresMap[ xmlProcedure->_name ] = xmlProcedure;
 
 	// DB에 실존하는 테이블 프로시저들을 돌면서 XML에 정의된 프로시저들과 비교한다.
-	for (DBModel::ProcedurePtr& dbProcedure : _dbProcedures)
+	for ( DBModel::ProcedurePtr& dbProcedure : _dbProcedures )
 	{
-		auto findProcedure = xmlProceduresMap.find(dbProcedure->_name);
-		if (findProcedure != xmlProceduresMap.end())
+		auto findProcedure = xmlProceduresMap.find( dbProcedure->_name );
+		if ( findProcedure != xmlProceduresMap.end() )
 		{
+			// SQL Server
+			// DBModel::ProcedurePtr xmlProcedure = findProcedure->second;
+			// String xmlBody = xmlProcedure->GenerateCreateQuery();
+			// if ( DBModel::Helpers::RemoveWhiteSpace( dbProcedure->_fullBody ) != DBModel::Helpers::RemoveWhiteSpace( xmlBody ) )
+			// {
+			// 	GConsoleLogger->WriteStdOut( Color::YELLOW, L"Updating Procedure : %s\n", dbProcedure->_name.c_str() );
+			// 	_updateQueries[ UpdateStep::StoredProcecure ].push_back( xmlProcedure->GenerateAlterQuery() );
+			// }
+			// xmlProceduresMap.erase( findProcedure );
+
+			// MySQL
 			DBModel::ProcedurePtr xmlProcedure = findProcedure->second;
 			String xmlBody = xmlProcedure->GenerateCreateQuery();
-			if (DBModel::Helpers::RemoveWhiteSpace(dbProcedure->_fullBody) != DBModel::Helpers::RemoveWhiteSpace(xmlBody))
+			if ( DBModel::Helpers::RemoveWhiteSpace( dbProcedure->_fullBody ) != DBModel::Helpers::RemoveWhiteSpace( xmlBody ) )
 			{
-				GConsoleLogger->WriteStdOut(Color::YELLOW, L"Updating Procedure : %s\n", dbProcedure->_name.c_str());
-				_updateQueries[UpdateStep::StoredProcecure].push_back(xmlProcedure->GenerateAlterQuery());
+				GConsoleLogger->WriteStdOut( Color::YELLOW, L"Updating Procedure : %s\n", dbProcedure->_name.c_str() );
+				_updateQueries[ UpdateStep::StoredProcecure ].push_back( xmlProcedure->GenerateDeleteQuery() );
 			}
-			xmlProceduresMap.erase(findProcedure);
 		}
 	}
 
 	// 맵에서 제거되지 않은 XML 프로시저 정의는 새로 추가.
-	for (auto& mapIt : xmlProceduresMap)
+	for ( auto& mapIt : xmlProceduresMap )
 	{
-		GConsoleLogger->WriteStdOut(Color::YELLOW, L"Updating Procedure : %s\n", mapIt.first.c_str());
-		_updateQueries[UpdateStep::StoredProcecure].push_back(mapIt.second->GenerateCreateQuery());
+		GConsoleLogger->WriteStdOut( Color::YELLOW, L"Updating Procedure : %s\n", mapIt.first.c_str() );
+		_updateQueries[ UpdateStep::StoredProcecure ].push_back( mapIt.second->GenerateCreateQuery() );
 	}
 }

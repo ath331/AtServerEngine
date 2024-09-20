@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameDB>
-	<Table name="Gold" desc="골드 테이블">
+	<Table name="gold" desc="골드 테이블">
 		<Column name="id" type="int" notnull="true" identity="1,1" />
 		<Column name="gold" type="int" notnull="false" />
 		<Column name="name" type="varchar(50)" notnull="false" />
@@ -18,7 +18,7 @@
 		<Param name="p_createDate" type="datetime"/>
 		<Body>
 			<![CDATA[
-			INSERT INTO Gold(gold, name, createDate) VALUES(p_gold, p_name, p_createDate);
+			INSERT INTO gold(gold, name, createDate) VALUES(p_gold, p_name, p_createDate);
 			]]>
 		</Body>		
 	</Procedure>

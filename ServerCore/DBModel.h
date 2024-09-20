@@ -114,6 +114,7 @@ class Procedure
 public:
 	String				GenerateCreateQuery();
 	String				GenerateAlterQuery();
+	String				GenerateDeleteQuery();
 	String				GenerateParamString();
 
 public:
