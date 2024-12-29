@@ -16,8 +16,11 @@
 class StringUtils
 {
 public:
-	// 문자열을 wstring으로 반환한다.
-	static std::wstring GetWString( AtString str );
+	// string 문자열을 wstring으로 변환한다.
+	static std::wstring ConvertToWString( const AtString& str );
+
+	// wstring 문자열을 string으로 변환한다.
+	static AtString ConvertToString( const std::wstring& wstr );
 
 	// 문자열을 int64형으로 반환한다.
 	static AtInt64 GetAtInt64( AtString str );

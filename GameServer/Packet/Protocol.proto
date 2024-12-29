@@ -9,13 +9,15 @@ import "Struct.proto";
 // path = Login
 message C_Login
 {
+	string id = 1;
+	int32 pw = 2;
 }
 
 // path = Login
 message S_Login
 {
 	bool success = 1;
-	repeated EObjectInfo players = 2;
+	repeated ObjectInfo players = 2;
 }
 
 // path = Game
@@ -28,7 +30,7 @@ message C_EnterGame
 message S_EnterGame
 {
 	bool success = 1;
-	EObjectInfo player = 2;
+	ObjectInfo player = 2;
 }
 
 // path = Game
@@ -56,7 +58,7 @@ message S_Move
 // path = Spawn
 message S_Spawn
 {
-	repeated EObjectInfo players = 1;
+	repeated ObjectInfo players = 1;
 }
 
 // path = Spawn

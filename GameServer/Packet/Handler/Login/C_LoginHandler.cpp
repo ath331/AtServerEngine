@@ -12,6 +12,11 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtBool C_LoginHandler::Handle( PacketSessionPtr& session, Protocol::C_Login& pkt )
 {
+	// Test
+	{
+		INFO_LOG( "ID : " + pkt.id() + ", PW : " + std::to_string(  pkt.pw() ) );
+	}
+
 	// TODO : DB에서 정보 읽을 타이밍?
 	Protocol::S_Login result;
 

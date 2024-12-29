@@ -5,12 +5,13 @@
 
 #include "pch.h"
 #include "StringUtils.h"
+#include "Utils/Log/AtLog.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// @brief 문자열을 wstring으로 반환한다.
+// @brief string 문자열을 wstring으로 변환한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-std::wstring StringUtils::GetWString( AtString str )
+std::wstring StringUtils::ConvertToWString( const AtString& str )
 {
 	std::wstring wstr( str.size(), L' ' );
 	mbstowcs( &wstr[ 0 ], str.c_str(), str.size() );
@@ -18,9 +19,33 @@ std::wstring StringUtils::GetWString( AtString str )
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+// @brief wstring 문자열을 string으로 변환한다.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+AtString StringUtils::ConvertToString( const std::wstring& wstr )
+{
+    size_t len = wcstombs( nullptr, wstr.c_str(), 0 );
+    if ( len == static_cast<size_t>( -1 ) )
+    {
+        throw std::runtime_error( "Conversion error" );
+    }
+
+    std::string str( len, '\0' );
+    wcstombs( &str[ 0 ], wstr.c_str(), len );
+    return str;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 // @brief 문자열을 int64형으로 반환한다.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 AtInt64 StringUtils::GetAtInt64( AtString str )
 {
-	return std::atoi( str.c_str() );
+	try
+	{
+		return std::atoi( str.c_str() );
+	}
+	catch ( const std::exception& e )
+	{
+		WARNNING_LOG( "Invalid stoi. value : " + str );
+		return 0;
+	}
 }

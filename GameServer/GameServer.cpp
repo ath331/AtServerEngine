@@ -67,18 +67,18 @@ AtVoid main()
 	//ASSERT_CRASH( GDBConnectionPool->Connect( 1, L"Driver={ODBC Driver 17 for SQL Server};Server=(localdb)\\ProjectModels;Database=AtServer;Trusted_Connection=Yes;" ) );
 
 	// MySql
-	AtString connect = std::format( "Driver={{MySQL ODBC 8.2 UNICODE Driver}};Server={};Port={};Database={};User={};Password={};",
-									Environment::Get( "DB_IP"   ),
-									Environment::Get( "DB_PORT" ),
-									Environment::Get( "DB_NAME" ),
-									Environment::Get( "DB_USER" ),
-									Environment::Get( "DB_PW"   ) );
-
-	ASSERT_CRASH( GDBConnectionPool->Connect( 1, StringUtils::GetWString( connect ).c_str() ) );
-
-	DBConnection* dbConn = GDBConnectionPool->Pop();
-	DBSynchronizer dbSync( *dbConn );
-	dbSync.Synchronize( StringUtils::GetWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
+	//AtString connect = std::format( "Driver={{MySQL ODBC 8.2 UNICODE Driver}};Server={};Port={};Database={};User={};Password={};",
+	//								Environment::Get( "DB_IP"   ),
+	//								Environment::Get( "DB_PORT" ),
+	//								Environment::Get( "DB_NAME" ),
+	//								Environment::Get( "DB_USER" ),
+	//								Environment::Get( "DB_PW"   ) );
+	//
+	//ASSERT_CRASH( GDBConnectionPool->Connect( 1, StringUtils::GetWString( connect ).c_str() ) );
+	//
+	//DBConnection* dbConn = GDBConnectionPool->Pop();
+	//DBSynchronizer dbSync( *dbConn );
+	//dbSync.Synchronize( StringUtils::GetWString( Environment::Get( "DB_ASSET_PATH" ) ).c_str() );
 
 
 	ClientPacketHandler::Init();
@@ -87,12 +87,17 @@ AtVoid main()
 	AtString port = Environment::Get( "PORT" );
 
 	ServerServicePtr service = MakeShared< ServerService >(
-		NetAddress( StringUtils::GetWString( ip ), StringUtils::GetAtInt64( port ) ),
+		NetAddress( StringUtils::ConvertToWString( ip ), StringUtils::GetAtInt64( port ) ),
 		MakeShared< IocpCore >(),
 		MakeShared< GameSession >, // TODO : SessionManager 등
 		100 );
 
-	ASSERT_CRASH( service->Start() );
+
+	if ( !service->Start() )
+	{
+		WARNNING_LOG( AtString( "ERROR :" + std::to_string( WSAGetLastError() ) ) );
+		return;
+	}
 
 	INFO_LOG_GREEN( "Server Start." );
 

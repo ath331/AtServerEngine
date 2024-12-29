@@ -218,6 +218,33 @@ class C_Login final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kIdFieldNumber = 1,
+    kPwFieldNumber = 2,
+  };
+  // string id = 1;
+  void clear_id();
+  const std::string& id() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_id(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_id();
+  PROTOBUF_FUTURE_MUST_USE_RESULT std::string* release_id();
+  void set_allocated_id(std::string* id);
+  private:
+  const std::string& _internal_id() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_id(const std::string& value);
+  std::string* _internal_mutable_id();
+  public:
+
+  // int32 pw = 2;
+  void clear_pw();
+  ::PROTOBUF_NAMESPACE_ID::int32 pw() const;
+  void set_pw(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_pw() const;
+  void _internal_set_pw(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:Protocol.C_Login)
  private:
   class _Internal;
@@ -225,6 +252,8 @@ class C_Login final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
+  ::PROTOBUF_NAMESPACE_ID::int32 pw_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_Protocol_2eproto;
 };
@@ -1766,6 +1795,71 @@ class S_Chat final :
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
 // C_Login
+
+// string id = 1;
+inline void C_Login::clear_id() {
+  id_.ClearToEmpty();
+}
+inline const std::string& C_Login::id() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_Login.id)
+  return _internal_id();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void C_Login::set_id(ArgT0&& arg0, ArgT... args) {
+ 
+ id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:Protocol.C_Login.id)
+}
+inline std::string* C_Login::mutable_id() {
+  // @@protoc_insertion_point(field_mutable:Protocol.C_Login.id)
+  return _internal_mutable_id();
+}
+inline const std::string& C_Login::_internal_id() const {
+  return id_.Get();
+}
+inline void C_Login::_internal_set_id(const std::string& value) {
+  
+  id_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* C_Login::_internal_mutable_id() {
+  
+  return id_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* C_Login::release_id() {
+  // @@protoc_insertion_point(field_release:Protocol.C_Login.id)
+  return id_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void C_Login::set_allocated_id(std::string* id) {
+  if (id != nullptr) {
+    
+  } else {
+    
+  }
+  id_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), id,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:Protocol.C_Login.id)
+}
+
+// int32 pw = 2;
+inline void C_Login::clear_pw() {
+  pw_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 C_Login::_internal_pw() const {
+  return pw_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 C_Login::pw() const {
+  // @@protoc_insertion_point(field_get:Protocol.C_Login.pw)
+  return _internal_pw();
+}
+inline void C_Login::_internal_set_pw(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  pw_ = value;
+}
+inline void C_Login::set_pw(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_pw(value);
+  // @@protoc_insertion_point(field_set:Protocol.C_Login.pw)
+}
 
 // -------------------------------------------------------------------
 
