@@ -11,7 +11,7 @@ using Google.Protobuf;
 
 namespace Assets.Scripts.Network.Packet.{{pkt.path}}
 {
-	public class Packet_{{pkt.name}} : Network
+	public class Packet_{{pkt.name}} : MonoBehaviour
 	{
 		// base.Start() block
 		public void Start() {}
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Network.Packet.{{pkt.path}}
 		{
 			{{pkt.name}} pkt = new {{pkt.name}}();
 
-			_Send( pkt );
+			Network.Instance.Send( pkt );
 		}
 	}
 }
