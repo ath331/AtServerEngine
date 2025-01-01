@@ -93,14 +93,14 @@ const char descriptor_table_protodef_Struct_2eproto[] PROTOBUF_SECTION_VARIABLE(
   "\006 \001(\0162\024.Protocol.EMoveState\"i\n\nObjectInf"
   "o\022\n\n\002id\030\001 \001(\004\022*\n\013object_type\030\002 \001(\0162\025.Pro"
   "tocol.EObjectType\022#\n\010pos_info\030\003 \001(\0132\021.Pr"
-  "otocol.PosInfob\006proto3"
+  "otocol.PosInfoB\013\252\002\010Protocolb\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_Struct_2eproto_deps[1] = {
   &::descriptor_table_Enum_2eproto,
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Struct_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Struct_2eproto = {
-  false, false, 262, descriptor_table_protodef_Struct_2eproto, "Struct.proto", 
+  false, false, 275, descriptor_table_protodef_Struct_2eproto, "Struct.proto", 
   &descriptor_table_Struct_2eproto_once, descriptor_table_Struct_2eproto_deps, 1, 2,
   schemas, file_default_instances, TableStruct_Struct_2eproto::offsets,
   file_level_metadata_Struct_2eproto, file_level_enum_descriptors_Struct_2eproto, file_level_service_descriptors_Struct_2eproto,

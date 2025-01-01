@@ -34,9 +34,13 @@
     <Content Include="Templates\ClientPacketHandler.cpp" />
     <Content Include="Templates\ClientPacketHandler.h" />
     <Content Include="Templates\ClientPacketHandlerTemplate.h" />
+    <Content Include="Templates\EachPackeInCS.h" />
+    <Content Include="Templates\EachPacketHandlerInCS.h" />
     <Content Include="Templates\PacketHandler.h">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Templates\PacketHandlerInCS.h" />
+    <Content Include="Templates\PacketIdInCS.h" />
     <Content Include="Templates\ServerPacketHandler.cpp" />
     <Content Include="Templates\ServerPacketHandler.h" />
     <Content Include="Templates\ServerPacketHandlerTemplate.h" />

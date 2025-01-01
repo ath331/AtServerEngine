@@ -2,6 +2,9 @@ syntax = "proto3";
 package Protocol;
 
 
+option csharp_namespace = "Protocol";
+
+
 import "Enum.proto";
 import "Struct.proto";
 
@@ -17,7 +20,7 @@ message C_Login
 message S_Login
 {
 	bool success = 1;
-	repeated ObjectInfo players = 2;
+	//repeated ObjectInfo players = 2;
 }
 
 // path = Game

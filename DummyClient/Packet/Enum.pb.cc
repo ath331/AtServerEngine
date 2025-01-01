@@ -37,11 +37,11 @@ const char descriptor_table_protodef_Enum_2eproto[] PROTOBUF_SECTION_VARIABLE(pr
   "AYER_TYPE_ARCHER\020\003*u\n\nEMoveState\022\023\n\017MOVE"
   "_STATE_NONE\020\000\022\023\n\017MOVE_STATE_IDLE\020\001\022\022\n\016MO"
   "VE_STATE_RUN\020\002\022\023\n\017MOVE_STATE_JUMP\020\003\022\024\n\020M"
-  "OVE_STATE_SKILL\020\004b\006proto3"
+  "OVE_STATE_SKILL\020\004B\013\252\002\010Protocolb\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_Enum_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_Enum_2eproto = {
-  false, false, 505, descriptor_table_protodef_Enum_2eproto, "Enum.proto", 
+  false, false, 518, descriptor_table_protodef_Enum_2eproto, "Enum.proto", 
   &descriptor_table_Enum_2eproto_once, nullptr, 0, 0,
   schemas, file_default_instances, TableStruct_Enum_2eproto::offsets,
   nullptr, file_level_enum_descriptors_Enum_2eproto, file_level_service_descriptors_Enum_2eproto,
